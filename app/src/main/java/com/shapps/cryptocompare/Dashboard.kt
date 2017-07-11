@@ -1,24 +1,39 @@
 package com.shapps.cryptocompare
 
+import android.net.Uri
+import android.support.v4.app.Fragment;
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
+import com.shapps.cryptocompare.dummy.DummyContent
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
-class Dashboard : AppCompatActivity() {
+class Dashboard : AppCompatActivity(), DashboardFragment.OnListFragmentInteractionListener,
+        SettingsFragment.OnFragmentInteractionListener, ChartsFragment.OnFragmentInteractionListener {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        var selectedFragment: Fragment? = null
         when (item.itemId) {
-            R.id.navigation_home -> {
-                message.setText(R.string.title_chart)
+            R.id.navigation_charts -> {
+                selectedFragment = ChartsFragment.newInstance("Apple", "Book")
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.main_content_fragment, selectedFragment)
+                transaction.commit()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                message.setText(R.string.title_dashboard)
+                selectedFragment = DashboardFragment.newInstance(5)
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.main_content_fragment, selectedFragment)
+                transaction.commit()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                message.setText(R.string.title_settings)
+                selectedFragment = SettingsFragment.newInstance("Cat", "Dog")
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.main_content_fragment, selectedFragment)
+                transaction.commit()
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -31,4 +46,13 @@ class Dashboard : AppCompatActivity() {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
+
+    override fun onListFragmentInteraction(item: DummyContent.DummyItem) {
+        Log.e("Item", "val : " + item)
+    }
+
+    override fun onFragmentInteraction(uri: Uri) {
+        Log.e("Item", "URI" + uri)
+    }
+
 }
