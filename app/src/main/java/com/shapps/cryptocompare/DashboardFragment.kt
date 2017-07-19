@@ -28,7 +28,7 @@ import com.shapps.cryptocompare.dummy.DummyContent.DummyItem
  */
 class DashboardFragment : Fragment() {
     // TODO: Customize parameters
-    private var mColumnCount = 3
+    private var mColumnCount = 1
     private var mListener: OnListFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

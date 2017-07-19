@@ -9,11 +9,11 @@ import android.util.Log
 import com.shapps.cryptocompare.dummy.DummyContent
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
-class Dashboard : AppCompatActivity(), DashboardFragment.OnListFragmentInteractionListener,
+class MainActivity : AppCompatActivity(), DashboardFragment.OnListFragmentInteractionListener,
         SettingsFragment.OnFragmentInteractionListener, ChartsFragment.OnFragmentInteractionListener {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        var selectedFragment: Fragment? = null
+        var selectedFragment: Fragment
         when (item.itemId) {
             R.id.navigation_charts -> {
                 selectedFragment = ChartsFragment.newInstance("Apple", "Book")
@@ -23,7 +23,7 @@ class Dashboard : AppCompatActivity(), DashboardFragment.OnListFragmentInteracti
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                selectedFragment = DashboardFragment.newInstance(5)
+                selectedFragment = DashboardFragment.newInstance(1)
                 val transaction = supportFragmentManager.beginTransaction()
                 transaction.replace(R.id.main_content_fragment, selectedFragment)
                 transaction.commit()
@@ -42,9 +42,13 @@ class Dashboard : AppCompatActivity(), DashboardFragment.OnListFragmentInteracti
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dashboard)
+        setContentView(R.layout.activity_main)
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.main_content_fragment, ChartsFragment.newInstance("Apple", "Book"))
+        transaction.commit()
     }
 
     override fun onListFragmentInteraction(item: DummyContent.DummyItem) {
