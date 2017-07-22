@@ -7,7 +7,7 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.shapps.cryptocompare.dummy.DummyContent
-import kotlinx.android.synthetic.main.activity_dashboard.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), DashboardFragment.OnListFragmentInteractionListener,
         SettingsFragment.OnFragmentInteractionListener, ChartsFragment.OnFragmentInteractionListener {

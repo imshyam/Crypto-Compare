@@ -41,9 +41,8 @@ class ExchangesRecyclerViewAdapter(private val mValues: List<DummyItem>, private
         var mItem: DummyItem? = null
 
         fun bindValues(mValues: DummyItem) {
-            mView.id_number.text = mValues.id
-            mView.content.text = mValues.content
-            mView.details.text = mValues.details
+            mView.buy_value.text = mValues.id
+            mView.sell_value.text = mValues.content
         }
 
     }
