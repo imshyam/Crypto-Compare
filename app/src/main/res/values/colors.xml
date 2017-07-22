@@ -3,4 +3,8 @@
     <color name="colorPrimary">#2CDE80</color>
     <color name="colorPrimaryDark">#00042A</color>
     <color name="colorAccent">#2CDE80</color>
+
+    <color name="buyLabel">#00D58A</color>
+    <color name="sellLabel">#FE7F7F</color>
+
 </resources>

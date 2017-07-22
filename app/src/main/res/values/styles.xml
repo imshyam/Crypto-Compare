@@ -10,13 +10,16 @@
 
     <style name="textLabel">
         <item name="android:layout_margin">@dimen/album_title_padding</item>
-        <item name="android:layout_height">@dimen/album_title</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">@dimen/album_title</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="textValue">
         <item name="android:layout_margin">@dimen/album_title_padding</item>
-        <item name="android:layout_height">@dimen/album_title</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/album_title</item>
         <item name="android:layout_width">match_parent</item>
     </style>
 

@@ -12,49 +12,58 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <LinearLayout
             android:id="@+id/buy_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/line_margin"
             android:orientation="horizontal"
             android:weightSum="4">
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:layout_width="0px"
+                android:layout_height="wrap_content">
                 <TextView
                     style="@style/textLabel"
+                    android:textColor="@color/buyLabel"
                     android:text="Buy"/>
             </LinearLayout>
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="3">
+                android:layout_weight="3"
+                android:layout_width="0px"
+                android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/buy_value"
-                    style="@style/textValue"/>
+                    style="@style/textLabel"
+                    android:textColor="@color/buyLabel"/>
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/sell_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/line_margin"
             android:orientation="horizontal"
             android:weightSum="4">
             <LinearLayout
-                android:layout_width="0px"
                 android:layout_weight="1"
+                android:layout_width="0px"
                 android:layout_height="wrap_content">
                 <TextView
                     style="@style/textLabel"
+                    android:textColor="@color/sellLabel"
                     android:text="Sell"/>
             </LinearLayout>
             <LinearLayout
-                android:layout_width="0px"
                 android:layout_weight="3"
+                android:layout_width="0px"
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/sell_value"
-                    style="@style/textLabel"/>
+                    style="@style/textLabel"
+                    android:textColor="@color/sellLabel"/>
             </LinearLayout>
         </LinearLayout>
 
