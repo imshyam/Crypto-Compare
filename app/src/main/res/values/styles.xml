@@ -9,18 +9,30 @@
     </style>
 
     <style name="textLabel">
-        <item name="android:layout_margin">@dimen/album_title_padding</item>
+        <item name="android:layout_margin">@dimen/list_item_margin</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:textSize">@dimen/album_title</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="textValue">
-        <item name="android:layout_margin">@dimen/album_title_padding</item>
+        <item name="android:layout_margin">@dimen/list_item_margin</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/album_title</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
         <item name="android:layout_width">match_parent</item>
     </style>
 
+    <style name="currencyTag">
+        <item name="android:layout_margin">@dimen/list_item_margin</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:background">@drawable/tag_currency_rounded</item>
+        <item name="android:textColor">@color/cardview_light_background</item>
+        <item name="android:elevation">@dimen/tag_elevation</item>
+    </style>
 </resources>

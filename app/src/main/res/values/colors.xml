@@ -6,5 +6,6 @@
 
     <color name="buyLabel">#00D58A</color>
     <color name="sellLabel">#FE7F7F</color>
+    <color name="currencyTagColor">#00A2E7</color>
 
 </resources>

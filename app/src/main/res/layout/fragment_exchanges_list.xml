@@ -8,4 +8,4 @@
     android:layout_height="match_parent"
     app:layoutManager="LinearLayoutManager"
     tools:context="com.shapps.cryptocompare.DashboardFragment"
-    tools:listitem="@layout/fragment_exchanges" />
+    tools:listitem="@layout/card_exchanges" />

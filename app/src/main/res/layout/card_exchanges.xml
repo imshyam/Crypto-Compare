@@ -71,10 +71,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="4">
+            android:weightSum="10">
             <LinearLayout
                 android:layout_width="0px"
-                android:layout_weight="1"
+                android:layout_weight="7"
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/exchange_name"
@@ -84,10 +84,12 @@
             <LinearLayout
                 android:layout_width="0px"
                 android:layout_weight="3"
+                android:layout_gravity="right"
+                android:gravity="right"
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/currency"
-                    style="@style/textLabel"
+                    style="@style/currencyTag"
                     android:text="SGD"/>
             </LinearLayout>
         </LinearLayout>

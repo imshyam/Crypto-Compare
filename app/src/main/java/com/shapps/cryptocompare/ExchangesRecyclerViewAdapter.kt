@@ -7,7 +7,7 @@ import android.view.ViewGroup
 
 import com.shapps.cryptocompare.DashboardFragment.OnListFragmentInteractionListener
 import com.shapps.cryptocompare.dummy.DummyContent.DummyItem
-import kotlinx.android.synthetic.main.fragment_exchanges.view.*
+import kotlinx.android.synthetic.main.card_exchanges.view.*
 
 /**
  * [RecyclerView.Adapter] that can display a [DummyItem] and makes a call to the
@@ -18,7 +18,7 @@ class ExchangesRecyclerViewAdapter(private val mValues: List<DummyItem>, private
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.fragment_exchanges, parent, false)
+                .inflate(R.layout.card_exchanges, parent, false)
         return ViewHolder(view)
     }
 
