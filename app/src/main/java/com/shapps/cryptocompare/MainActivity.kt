@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import com.shapps.cryptocompare.dummy.DummyContent
+import com.shapps.cryptocompare.Model.LiveDataContent
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), DashboardFragment.OnListFragmentInteractionListener,
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), DashboardFragment.OnListFragmentIntera
         transaction.commit()
     }
 
-    override fun onListFragmentInteraction(item: DummyContent.DummyItem) {
+    override fun onListFragmentInteraction(item: LiveDataContent.LiveData) {
         Log.e("Item", "val : " + item)
     }
 

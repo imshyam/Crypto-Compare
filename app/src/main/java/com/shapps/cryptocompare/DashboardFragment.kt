@@ -10,10 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import com.shapps.cryptocompare.dummy.DummyContent
-import com.shapps.cryptocompare.dummy.DummyContent.DummyItem
-
-
+import com.shapps.cryptocompare.Model.LiveDataContent
+import com.shapps.cryptocompare.Model.LiveDataContent.LiveData
 
 /**
  * A fragment representing a list of Items.
@@ -52,7 +50,7 @@ class DashboardFragment : Fragment() {
             } else {
                 recyclerView.layoutManager = GridLayoutManager(context, mColumnCount)
             }
-            recyclerView.adapter = ExchangesRecyclerViewAdapter(DummyContent.ITEMS, mListener)
+            recyclerView.adapter = ExchangesRecyclerViewAdapter(LiveDataContent.ITEMS, mListener)
         }
         return view
     }
@@ -83,7 +81,7 @@ class DashboardFragment : Fragment() {
      */
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: DummyItem)
+        fun onListFragmentInteraction(item: LiveData)
     }
 
     companion object {

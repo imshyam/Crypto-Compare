@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.shapps.cryptocompare.DashboardFragment.OnListFragmentInteractionListener
-import com.shapps.cryptocompare.dummy.DummyContent.DummyItem
+import com.shapps.cryptocompare.Model.LiveDataContent.LiveData
 import kotlinx.android.synthetic.main.card_exchanges.view.*
 
 /**
@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.card_exchanges.view.*
  * specified [OnListFragmentInteractionListener].
  * TODO: Replace the implementation with code for your data type.
  */
-class ExchangesRecyclerViewAdapter(private val mValues: List<DummyItem>, private val mListener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<ExchangesRecyclerViewAdapter.ViewHolder>() {
+class ExchangesRecyclerViewAdapter(private val mValues: List<LiveData>, private val mListener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<ExchangesRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -28,7 +28,7 @@ class ExchangesRecyclerViewAdapter(private val mValues: List<DummyItem>, private
         holder.bindValues(mValues[position])
 
         holder.mView.setOnClickListener {
-            mListener?.onListFragmentInteraction(holder.mItem as DummyItem)
+            mListener?.onListFragmentInteraction(holder.mItem as LiveData)
         }
     }
 
@@ -38,11 +38,13 @@ class ExchangesRecyclerViewAdapter(private val mValues: List<DummyItem>, private
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
 
-        var mItem: DummyItem? = null
+        var mItem: LiveData? = null
 
-        fun bindValues(mValues: DummyItem) {
-            mView.buy_value.text = mValues.id
-            mView.sell_value.text = mValues.content
+        fun bindValues(mValues: LiveData) {
+            mView.exchange_name.text = mValues.exchangeName
+            mView.currency_name.text = mValues.currencyCode
+            mView.buy_value.text = mValues.priceBuy
+            mView.sell_value.text = mValues.priceSell
         }
 
     }

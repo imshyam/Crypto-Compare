@@ -88,7 +88,7 @@
                 android:gravity="right"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:id="@+id/currency"
+                    android:id="@+id/currency_name"
                     style="@style/currencyTag"
                     android:text="SGD"/>
             </LinearLayout>
