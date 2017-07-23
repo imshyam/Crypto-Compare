@@ -35,15 +35,9 @@ object LiveDataContent {
 
     private fun createLiveData(position: Int): LiveData {
         return LiveData(position.toString(), "Fyb-SG " + position, "SGD",
-                "1239.32", "2321.22", "5 mins ago")
+                "1239.32", "2321.22")
     }
 
     class LiveData(val id: String, val exchangeName: String, val currencyCode: String,
-                   val priceBuy: String, val priceSell: String, val lastUpdated: String) {
-
-        override fun toString(): String {
-            return exchangeName
-        }
-
-    }
+                   val priceBuy: String, val priceSell: String)
 }
