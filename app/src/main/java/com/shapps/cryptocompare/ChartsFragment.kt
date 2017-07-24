@@ -1,12 +1,17 @@
 package com.shapps.cryptocompare
 
 import android.content.Context
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 
 import com.google.android.gms.plus.PlusOneButton
 
@@ -19,21 +24,13 @@ import com.google.android.gms.plus.PlusOneButton
  * create an instance of this fragment.
  */
 class ChartsFragment : Fragment() {
-    // The URL to +1.  Must be a valid URL.
-    private val PLUS_ONE_URL = "http://developer.android.com"
-    // TODO: Rename and change types of parameters
-    private var mParam1: String? = null
-    private var mParam2: String? = null
-    private var mPlusOneButton: PlusOneButton? = null
 
     private var mListener: OnFragmentInteractionListener? = null
 
+    private var lineChart: LineChart? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (arguments != null) {
-            mParam1 = arguments.getString(ARG_PARAM1)
-            mParam2 = arguments.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -41,24 +38,26 @@ class ChartsFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_charts, container, false)
 
-        //Find the +1 button
-        mPlusOneButton = view.findViewById<View>(R.id.plus_one_button) as PlusOneButton
+        var entries = ArrayList<Entry>()
+        for (i in 1..25) {
+            entries.add(Entry(i.toFloat(), i.toFloat()))
+        }
+        var lds = LineDataSet(entries, "India")
+        lds.color = Color.parseColor("#003838")
+        lds.valueTextColor = Color.parseColor("#bbb")
+
+        var lineData = LineData(lds)
+
+
+        // Implement this
+        lineChart = view.findViewById<View>(R.id.price_chart) as LineChart
+        lineChart.data
 
         return view
     }
 
     override fun onResume() {
         super.onResume()
-
-        // Refresh the state of the +1 button each time the activity receives focus.
-        mPlusOneButton!!.initialize(PLUS_ONE_URL, PLUS_ONE_REQUEST_CODE)
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        if (mListener != null) {
-            mListener!!.onFragmentInteraction(uri)
-        }
     }
 
     override fun onAttach(context: Context?) {
@@ -88,34 +87,4 @@ class ChartsFragment : Fragment() {
         // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
     }
-
-    companion object {
-        // TODO: Rename parameter arguments, choose names that match
-        // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-        private val ARG_PARAM1 = "param1"
-        private val ARG_PARAM2 = "param2"
-        // The request code must be 0 or greater.
-        private val PLUS_ONE_REQUEST_CODE = 0
-
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-
-         * @param param1 Parameter 1.
-         * *
-         * @param param2 Parameter 2.
-         * *
-         * @return A new instance of fragment ChartsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        fun newInstance(param1: String, param2: String): ChartsFragment {
-            val fragment = ChartsFragment()
-            val args = Bundle()
-            args.putString(ARG_PARAM1, param1)
-            args.putString(ARG_PARAM2, param2)
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
-}// Required empty public constructor
+}
