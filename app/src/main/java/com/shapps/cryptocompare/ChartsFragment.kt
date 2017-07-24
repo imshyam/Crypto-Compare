@@ -13,8 +13,6 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 
-import com.google.android.gms.plus.PlusOneButton
-
 /**
  * A fragment with a Google +1 button.
  * Activities that contain this fragment must implement the
@@ -26,8 +24,6 @@ import com.google.android.gms.plus.PlusOneButton
 class ChartsFragment : Fragment() {
 
     private var mListener: OnFragmentInteractionListener? = null
-
-    private var lineChart: LineChart? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,14 +40,15 @@ class ChartsFragment : Fragment() {
         }
         var lds = LineDataSet(entries, "India")
         lds.color = Color.parseColor("#003838")
-        lds.valueTextColor = Color.parseColor("#bbb")
+        lds.valueTextColor = Color.parseColor("#bbbbbb")
 
         var lineData = LineData(lds)
 
 
         // Implement this
-        lineChart = view.findViewById<View>(R.id.price_chart) as LineChart
-        lineChart.data
+        val lineChart = view.findViewById<View>(R.id.price_chart) as LineChart
+        lineChart.data = lineData
+        lineChart.invalidate()
 
         return view
     }
@@ -87,4 +84,32 @@ class ChartsFragment : Fragment() {
         // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
     }
+
+    companion object {
+        // TODO: Rename parameter arguments, choose names that match
+        // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+        private val ARG_PARAM1 = "param1"
+        private val ARG_PARAM2 = "param2"
+
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         * @param param1 Parameter 1.
+         * *
+         * @param param2 Parameter 2.
+         * *
+         * @return A new instance of fragment ChartsFragment.
+         */
+        // TODO: Rename and change types and number of parameters
+        fun newInstance(param1: String, param2: String): ChartsFragment {
+            val fragment = ChartsFragment()
+            val args = Bundle()
+            args.putString(ARG_PARAM1, param1)
+            args.putString(ARG_PARAM2, param2)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
 }
+
