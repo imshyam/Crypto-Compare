@@ -4,9 +4,17 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.NotificationCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
+import com.shapps.cryptocompare.R.id.notify
+import android.content.Context.NOTIFICATION_SERVICE
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Intent
 
 
 /**
@@ -19,31 +27,43 @@ import android.view.ViewGroup
  */
 class SettingsFragment : Fragment() {
 
-    // TODO: Rename and change types of parameters
-    private var mParam1: String? = null
-    private var mParam2: String? = null
-
     private var mListener: OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (arguments != null) {
-            mParam1 = arguments.getString(ARG_PARAM1)
-            mParam2 = arguments.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater!!.inflate(R.layout.fragment_settings, container, false)
-    }
+        var view =  inflater!!.inflate(R.layout.fragment_settings, container, false) as View
 
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        if (mListener != null) {
-            mListener!!.onFragmentInteraction(uri)
+        val notify = view.findViewById<View>(R.id.notify) as Button
+
+        notify.setOnClickListener {
+            // Handler code here.
+            Toast.makeText(context, "Button Clicked",
+                    Toast.LENGTH_LONG).show()
+
+            val mBuilder = NotificationCompat.Builder(context)
+                    .setSmallIcon(R.drawable.ic_show_chart_black_24dp)
+                    .setContentTitle("My notification")
+                    .setContentText("Hello World!")
+
+            val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java), 0)
+
+            mBuilder.setContentIntent(pendingIntent)
+
+            val mNotificationId = 1
+            // Gets an instance of the NotificationManager service
+            val mNotifyMgr = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            // Builds the notification and issues it.
+            mNotifyMgr.notify(mNotificationId, mBuilder.build())
+
         }
+
+
+        return view
     }
 
     override fun onAttach(context: Context?) {
