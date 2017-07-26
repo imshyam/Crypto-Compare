@@ -11,6 +11,7 @@
         android:id="@+id/main_content_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize"
         android:animateLayoutChanges="true"/>
 
     <android.support.design.widget.BottomNavigationView
