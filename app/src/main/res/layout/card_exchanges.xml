@@ -32,11 +32,24 @@
             <LinearLayout
                 android:layout_weight="3"
                 android:layout_width="0px"
+                android:orientation="horizontal"
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/buy_value"
                     style="@style/textLabel"
-                    android:textColor="@color/buyLabel"/>
+                    android:textColor="@color/buyLabel"
+                    android:text="2533.35"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_arrow_upward_black_24dp"/>
+                <TextView
+                    android:gravity="bottom"
+                    android:textColor="@color/buyLabel"
+                    android:textSize="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="(10.56)"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -59,11 +72,24 @@
             <LinearLayout
                 android:layout_weight="3"
                 android:layout_width="0px"
+                android:orientation="horizontal"
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/sell_value"
                     style="@style/textLabel"
+                    android:text="2691.56"
                     android:textColor="@color/sellLabel"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_arrow_downward_black_24dp"/>
+                <TextView
+                    android:gravity="bottom"
+                    android:textColor="@color/sellLabel"
+                    android:textSize="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="(10.56)"/>
             </LinearLayout>
         </LinearLayout>
 
