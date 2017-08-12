@@ -36,4 +36,38 @@
         <item name="android:textColor">@color/cardview_light_background</item>
         <item name="android:elevation">@dimen/tag_elevation</item>
     </style>
+
+    <style name="textSettings">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">30sp</item>
+        <item name="android:layout_marginTop">5sp</item>
+        <item name="android:layout_marginBottom">8sp</item>
+        <item name="android:gravity">start|center</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="textInLinearLayoutSettings">
+        <item name="android:layout_width">0sp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">start|center</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="headingSettings">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">8sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/settingsLabel</item>
+    </style>
+
+    <style name="settingsLL">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">30sp</item>
+        <item name="android:layout_marginTop">5sp</item>
+        <item name="android:layout_marginBottom">8sp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:weightSum">5</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
 </resources>

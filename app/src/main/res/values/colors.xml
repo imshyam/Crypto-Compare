@@ -9,4 +9,6 @@
     <color name="sellLabel">#FE7F7F</color>
     <color name="currencyTagColor">#00A2E7</color>
 
+    <color name="settingsLabel">#4285f4</color>
+
 </resources>
