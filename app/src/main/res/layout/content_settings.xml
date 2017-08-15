@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:orientation="vertical"
-    tools:context="com.shapps.cryptocompare.SettingsFragment"
+    tools:context="com.shapps.cryptocompare.NotificationsFragment"
     tools:showIn="@layout/fragment_settings">
 
     <TextView
