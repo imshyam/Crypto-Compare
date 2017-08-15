@@ -18,4 +18,6 @@
     <string name="learn_more">Learn More</string>
     <string name="report_bug_feature">Report Bug or Request Feature</string>
     <string name="about">About</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="share_app">Share App</string>
 </resources>
