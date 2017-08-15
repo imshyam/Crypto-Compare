@@ -10,8 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
-import com.shapps.cryptocompare.R.id.notify
-import android.content.Context.NOTIFICATION_SERVICE
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
@@ -20,12 +18,12 @@ import android.content.Intent
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [SettingsFragment.OnFragmentInteractionListener] interface
+ * [NotificationsFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [SettingsFragment.newInstance] factory method to
+ * Use the [NotificationsFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class SettingsFragment : Fragment() {
+class NotificationsFragment : Fragment() {
 
     private var mListener: OnFragmentInteractionListener? = null
 
@@ -108,11 +106,11 @@ class SettingsFragment : Fragment() {
          * *
          * @param param2 Parameter 2.
          * *
-         * @return A new instance of fragment SettingsFragment.
+         * @return A new instance of fragment NotificationsFragment.
          */
         // TODO: Rename and change types and number of parameters
-        fun newInstance(param1: String, param2: String): SettingsFragment {
-            val fragment = SettingsFragment()
+        fun newInstance(param1: String, param2: String): NotificationsFragment {
+            val fragment = NotificationsFragment()
             val args = Bundle()
             args.putString(ARG_PARAM1, param1)
             args.putString(ARG_PARAM2, param2)
