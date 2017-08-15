@@ -1,5 +1,6 @@
 package com.shapps.cryptocompare
 
+import android.content.Intent
 import android.net.Uri
 import android.support.v4.app.Fragment;
 import android.os.Bundle
@@ -11,12 +12,11 @@ import android.view.Menu
 import android.view.View
 import com.shapps.cryptocompare.Model.LiveDataContent
 import kotlinx.android.synthetic.main.activity_main.*
-import android.view.MenuInflater
-
+import android.view.MenuItem
 
 
 class MainActivity : AppCompatActivity(), DashboardFragment.OnListFragmentInteractionListener,
-        SettingsFragment.OnFragmentInteractionListener, ChartsFragment.OnFragmentInteractionListener {
+        NotificationsFragment.OnFragmentInteractionListener, ChartsFragment.OnFragmentInteractionListener {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         var selectedFragment: Fragment
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), DashboardFragment.OnListFragmentIntera
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                selectedFragment = SettingsFragment.newInstance("Cat", "Dog")
+                selectedFragment = NotificationsFragment.newInstance("Cat", "Dog")
                 val transaction = supportFragmentManager.beginTransaction()
                 transaction.replace(R.id.main_content_fragment, selectedFragment)
                 transaction.commit()
@@ -64,6 +64,17 @@ class MainActivity : AppCompatActivity(), DashboardFragment.OnListFragmentIntera
         return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        when (item.itemId) {
+            R.id.action_settings-> {
+                val settingsAct = Intent(applicationContext, SettingsActivity::class.java)
+                startActivity(settingsAct)
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
     override fun onListFragmentInteraction(item: LiveDataContent.LiveData) {
         Log.e("Item", "val : " + item)
     }
