@@ -81,6 +81,13 @@
     <TextView
         style="@style/headingSettings"
         android:text="@string/learn_more"/>
+
+
+    <TextView
+        android:id="@+id/share"
+        style="@style/textSettings"
+        android:text="@string/share_app"/>
+
     <TextView
         android:id="@+id/about"
         style="@style/textSettings"
