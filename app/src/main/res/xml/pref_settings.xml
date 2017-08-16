@@ -4,9 +4,10 @@
         android:title="@string/general_settings"
         android:key="pref_key_storage_general_setting">
 
-        <PreferenceScreen
+        <Preference
             android:title="@string/manage_exchanges"
-            android:key="pref_key_storage_manage_exchanges"/>
+            android:key="pref_key_storage_manage_exchanges"
+            android:persistent="false"/>
 
         <ListPreference
             android:title="@string/graph_type"

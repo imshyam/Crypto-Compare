@@ -1,6 +1,8 @@
 package com.shapps.cryptocompare
 
+import android.app.Application
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.media.RingtoneManager
 import android.net.Uri
@@ -12,6 +14,13 @@ import android.preference.PreferenceFragment
 import android.preference.PreferenceManager
 import android.preference.RingtonePreference
 import android.text.TextUtils
+import android.preference.Preference.OnPreferenceClickListener
+import android.support.v4.app.NavUtils
+import android.util.Log
+import android.view.MenuItem
+import android.widget.Toast
+import java.time.Duration
+
 
 /**
  * A [PreferenceActivity] that presents a set of application settings. On
@@ -43,6 +52,17 @@ class SettingsActivity : AppCompatPreferenceActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    override fun onMenuItemSelected(featureId: Int, item: MenuItem): Boolean {
+        val id = item.itemId
+        if (id == android.R.id.home) {
+            if (!super.onMenuItemSelected(featureId, item)) {
+                NavUtils.navigateUpFromSameTask(this)
+            }
+            return true
+        }
+        return super.onMenuItemSelected(featureId, item)
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -56,9 +76,34 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             super.onCreate(savedInstanceState)
             addPreferencesFromResource(R.xml.pref_settings)
 
+            findPreference("pref_key_storage_manage_exchanges").onPreferenceClickListener = OnPreferenceClickListener {
+                fragmentManager.beginTransaction().replace(android.R.id.content, ManageExchangesFragment()).addToBackStack(ManageExchangesFragment::class.java!!.simpleName).commit()
+                true
+            }
+
             bindPreferenceSummaryToValue(findPreference("pref_key_storage_graph_type"))
             bindPreferenceSummaryToValue(findPreference("pref_key_storage_alarm_tone"))
 
+        }
+
+    }
+
+    class ManageExchangesFragment : PreferenceFragment() {
+
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            addPreferencesFromResource(R.xml.pref_exchanges)
+
+        }
+
+        override fun onOptionsItemSelected(item: MenuItem): Boolean {
+            val id = item.itemId
+            if (id == android.R.id.home) {
+                Log.e("HERE", "Hi")
+                fragmentManager.beginTransaction().replace(android.R.id.content, SettingsFragment()).commit()
+                true
+            }
+            return super.onOptionsItemSelected(item)
         }
 
     }
