@@ -34,6 +34,7 @@ import java.time.Duration
  */
 class SettingsActivity : AppCompatPreferenceActivity() {
 
+    private var flag = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -54,7 +55,7 @@ class SettingsActivity : AppCompatPreferenceActivity() {
 
     override fun onMenuItemSelected(featureId: Int, item: MenuItem): Boolean {
         val id = item.itemId
-        if (id == android.R.id.home) {
+        if (id == android.R.id.home && flag) {
             if (!super.onMenuItemSelected(featureId, item)) {
                 NavUtils.navigateUpFromSameTask(this)
             }
@@ -81,6 +82,11 @@ class SettingsActivity : AppCompatPreferenceActivity() {
                 true
             }
 
+
+            val settingsAct = activity as SettingsActivity
+            settingsAct.title = "Settings"
+            settingsAct.flag = true
+
             bindPreferenceSummaryToValue(findPreference("pref_key_storage_graph_type"))
             bindPreferenceSummaryToValue(findPreference("pref_key_storage_alarm_tone"))
 
@@ -94,12 +100,17 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             super.onCreate(savedInstanceState)
             addPreferencesFromResource(R.xml.pref_exchanges)
 
+            val settingsAct = activity as SettingsActivity
+            settingsAct.title = "Manage Exchanges"
+            settingsAct.flag = false
+
+            setHasOptionsMenu(true)
+
         }
 
         override fun onOptionsItemSelected(item: MenuItem): Boolean {
             val id = item.itemId
             if (id == android.R.id.home) {
-                Log.e("HERE", "Hi")
                 fragmentManager.beginTransaction().replace(android.R.id.content, SettingsFragment()).commit()
                 true
             }
