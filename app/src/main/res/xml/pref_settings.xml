@@ -1,51 +1,52 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-<PreferenceCategory
-    android:title="@string/general_settings"
-    android:key="pref_key_storage_general_setting">
+    <PreferenceCategory
+        android:title="@string/general_settings"
+        android:key="pref_key_storage_general_setting">
 
-    <PreferenceScreen
-        android:title="@string/manage_exchanges"
-        android:key="pref_key_storage_manage_exchanges"/>
+        <PreferenceScreen
+            android:title="@string/manage_exchanges"
+            android:key="pref_key_storage_manage_exchanges"/>
 
-    <ListPreference
-        android:title="@string/graph_type"
-        android:key="pref_key_storage_graph_type"
-        android:entries="@array/list_graph_types"
-        android:entryValues="@string/currency_graph"
-        android:defaultValue="@string/currency_graph"/>
+        <ListPreference
+            android:title="@string/graph_type"
+            android:key="pref_key_storage_graph_type"
+            android:entries="@array/list_graph_types"
+            android:entryValues="@array/list_graph_types_values"
+            android:defaultValue="1"/>
 
-</PreferenceCategory>
-
-
-<PreferenceCategory
-    android:title="@string/notification_settings"
-    android:key="pref_key_storage_notification_settings">
-
-    <SwitchPreference
-        android:title="@string/notification"
-        android:key="pref_key_storage_notification"/>
-
-    <SwitchPreference
-        android:title="@string/alarm"
-        android:key="pref_key_storage_alarm"/>
-
-    <RingtonePreference
-        android:defaultValue="content://settings/system/notification_sound"
-        android:ringtoneType="notification"
-        android:title="@string/alarm_tone"
-        android:key="pref_key_storage_alarm_tone"/>
-
-</PreferenceCategory>
+    </PreferenceCategory>
 
 
-<PreferenceCategory
-    android:title="@string/learn_more"
-    android:key="pref_key_storage_learn_more">
-    <Preference android:title="@string/report_bug_feature" >
-        <intent android:action="android.intent.action.VIEW"
-            android:data="https://github.com/CryptoCompare/Crypto-Compare" />
-    </Preference>
-</PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/notification_settings"
+        android:key="pref_key_storage_notification_settings">
+
+        <SwitchPreference
+            android:title="@string/notification"
+            android:key="pref_key_storage_notification"
+            android:defaultValue="true"/>
+
+        <SwitchPreference
+            android:title="@string/alarm"
+            android:key="pref_key_storage_alarm"/>
+
+        <RingtonePreference
+            android:defaultValue="content://settings/system/notification_sound"
+            android:ringtoneType="notification"
+            android:title="@string/alarm_tone"
+            android:key="pref_key_storage_alarm_tone"/>
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:title="@string/learn_more"
+        android:key="pref_key_storage_learn_more">
+        <Preference android:title="@string/report_bug_feature" >
+            <intent android:action="android.intent.action.VIEW"
+                android:data="https://github.com/CryptoCompare/Crypto-Compare" />
+        </Preference>
+    </PreferenceCategory>
 
 </PreferenceScreen>
