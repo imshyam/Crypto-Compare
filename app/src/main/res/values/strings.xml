@@ -72,6 +72,10 @@
         <item>@string/rate_graph</item>
         <item>@string/currency_graph</item>
     </string-array>
+    <string-array name="list_graph_types_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 
     <string-array name="list_preference_entry_values">
         <item>1</item>
@@ -92,4 +96,11 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="title_activity_settings2">Settings2</string>
+
+    <string-array name="list_preference_entries">
+        <item>Entry 1</item>
+        <item>Entry 2</item>
+        <item>Entry 3</item>
+    </string-array>
 </resources>
