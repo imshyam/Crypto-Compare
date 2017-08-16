@@ -17,7 +17,7 @@ object LiveDataContent {
     /**
      * A map of sample items, by ID.
      */
-    val ITEM_MAP: MutableMap<String, LiveData> = HashMap()
+    private val ITEM_MAP: MutableMap<String, LiveData> = HashMap()
 
     private val COUNT = 25
 
