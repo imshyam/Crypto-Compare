@@ -11,15 +11,15 @@ import android.util.Log
 import android.view.Menu
 import android.view.View
 import com.shapps.cryptocompare.Model.LiveDataContent
-import kotlinx.android.synthetic.main.activity_main.*
 import android.view.MenuItem
+import com.shapps.cryptocompare.Model.NotificationContent
 
 
 class MainActivity : AppCompatActivity(), DashboardFragment.OnListFragmentInteractionListener,
-        NotificationsFragment.OnFragmentInteractionListener, ChartsFragment.OnFragmentInteractionListener {
+        NotificationsFragment.OnListFragmentInteractionListener, ChartsFragment.OnFragmentInteractionListener {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        var selectedFragment: Fragment
+        val selectedFragment: Fragment
         when (item.itemId) {
             R.id.navigation_charts -> {
                 selectedFragment = ChartsFragment.newInstance("Apple", "Book")
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), DashboardFragment.OnListFragmentIntera
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                selectedFragment = NotificationsFragment.newInstance("Cat", "Dog")
+                selectedFragment = NotificationsFragment.newInstance(10)
                 val transaction = supportFragmentManager.beginTransaction()
                 transaction.replace(R.id.main_content_fragment, selectedFragment)
                 transaction.commit()
@@ -51,6 +51,8 @@ class MainActivity : AppCompatActivity(), DashboardFragment.OnListFragmentIntera
         setContentView(R.layout.activity_main)
         val myToolbar = findViewById<View>(R.id.my_toolbar) as Toolbar
         setSupportActionBar(myToolbar)
+
+        val navigation = findViewById<View>(R.id.navigation) as BottomNavigationView
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         val transaction = supportFragmentManager.beginTransaction()
@@ -81,6 +83,10 @@ class MainActivity : AppCompatActivity(), DashboardFragment.OnListFragmentIntera
 
     override fun onFragmentInteraction(uri: Uri) {
         Log.e("Item", "URI" + uri)
+    }
+
+    override fun onListFragmentInteraction(item: NotificationContent.NotificationItem) {
+        Log.e("Item", "val : " + item)
     }
 
 }
