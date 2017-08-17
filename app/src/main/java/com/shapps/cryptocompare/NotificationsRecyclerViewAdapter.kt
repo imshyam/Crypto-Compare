@@ -9,7 +9,7 @@ import com.shapps.cryptocompare.NotificationsFragment.OnListFragmentInteractionL
 import com.shapps.cryptocompare.Model.NotificationContent.NotificationItem
 import kotlinx.android.synthetic.main.fragment_item.view.*
 
-class MyItemRecyclerViewAdapter(private val mValues: List<NotificationItem>, private val mListener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder>() {
+class NotificationsRecyclerViewAdapter(private val mValues: List<NotificationItem>, private val mListener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<NotificationsRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)

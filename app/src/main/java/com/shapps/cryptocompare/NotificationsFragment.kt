@@ -49,7 +49,7 @@ class NotificationsFragment : Fragment() {
             } else {
                 view.layoutManager = GridLayoutManager(context, mColumnCount)
             }
-            view.adapter = MyItemRecyclerViewAdapter(NotificationContent.ITEMS, mListener)
+            view.adapter = NotificationsRecyclerViewAdapter(NotificationContent.ITEMS, mListener)
         }
         return view
     }
