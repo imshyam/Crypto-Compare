@@ -17,15 +17,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <ImageView
-                android:layout_marginLeft="@dimen/list_item_margin"
-                android:layout_width="10sp"
+            <TextView
+                android:id="@+id/currency_name"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_bitcoin"/>
+                android:layout_marginLeft="@dimen/list_item_margin"
+                android:textSize="10sp"
+                android:gravity="center"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/currency_name"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:textSize="10sp"
                 android:text="@string/dot_center"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"/>
@@ -33,85 +38,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@string/text_bitcoin"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/buy_parent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/line_margin"
-            android:orientation="horizontal"
-            android:weightSum="4">
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="0px"
-                android:layout_height="wrap_content">
-                <TextView
-                    style="@style/textLabel"
-                    android:text="Buy"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_weight="3"
-                android:layout_width="0px"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/buy_value"
-                    style="@style/textLabel"
-                    android:textColor="@color/buyLabel"
-                    android:text="2533.35"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_arrow_upward_black_24dp"/>
-                <TextView
-                    android:gravity="bottom"
-                    android:textColor="@color/buyLabel"
-                    android:textSize="12dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="(10.56)"/>
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/sell_parent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/line_margin"
-            android:orientation="horizontal"
-            android:weightSum="4">
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="0px"
-                android:layout_height="wrap_content">
-                <TextView
-                    style="@style/textLabel"
-                    android:text="Sell"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_weight="3"
-                android:layout_width="0px"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/sell_value"
-                    style="@style/textLabel"
-                    android:text="2691.56"
-                    android:textColor="@color/sellLabel"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_arrow_downward_black_24dp"/>
-                <TextView
-                    android:gravity="bottom"
-                    android:textColor="@color/sellLabel"
-                    android:textSize="12dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="(10.56)"/>
-            </LinearLayout>
+                android:textStyle="bold"
+                android:text="24H Vol : "
+                android:textSize="10sp"/>
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="1265.67"
+            android:textColor="@color/buyLabel"
+            android:textSize="10sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -119,6 +56,16 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="10">
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_marginLeft="@dimen/list_item_margin"
+                    android:layout_width="15dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_bitcoin"/>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="0px"
                 android:layout_weight="7"
@@ -129,16 +76,199 @@
                     android:textColor="@color/colorLabel"
                     android:text="Fyb-SG"/>
             </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/buy_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/line_margin"
+                    android:orientation="horizontal"
+                    android:weightSum="4" android:baselineAligned="false">
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="0px"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            style="@style/textLabel"
+                            android:text="@string/buy"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_weight="3"
+                        android:layout_width="0px"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/buy_value"
+                            style="@style/textLabel"
+                            android:textColor="@color/buyLabel"
+                            android:text="@string/_2533_35"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+                    <LinearLayout
+                        android:layout_width="0px"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/list_item_margin"
+                        android:orientation="horizontal" >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="L : "/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2325.37"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0px"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="H : "/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2325.37"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="2px"
+                android:layout_height="match_parent"
+                android:background="#bbb"/>
+
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/sell_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/line_margin"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="0px"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            style="@style/textLabel"
+                            android:text="Sell"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_weight="3"
+                        android:layout_width="0px"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/sell_value"
+                            style="@style/textLabel"
+                            android:text="2691.56"
+                            android:textColor="@color/sellLabel"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+                    <LinearLayout
+                        android:layout_width="0px"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/list_item_margin"
+                        android:orientation="horizontal" >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="L : "/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2325.37"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0px"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="H : "/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2325.37"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/list_item_margin"
+        android:layout_height="2px"
+        android:background="#bbb"
+        android:orientation="horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10">
             <LinearLayout
                 android:layout_width="0px"
                 android:layout_weight="3"
-                android:layout_gravity="right"
-                android:gravity="right"
+                android:layout_height="match_parent">
+                <TextView
+                    style="@style/textLabel"
+                    android:textColor="#327be1"
+                    android:text="Visit Site ->"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_weight="7"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:id="@+id/currency_name"
-                    style="@style/currencyTag"
-                    android:text="SGD"/>
+                    style="@style/textLabel"
+                    android:textColor="#327be1"
+                    android:text="Go To App ->"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
 
