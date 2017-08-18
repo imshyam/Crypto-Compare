@@ -115,7 +115,7 @@
                             android:id="@+id/buy_value"
                             style="@style/textLabel"
                             android:textColor="@color/buyLabel"
-                            android:text="@string/_2533_35"/>
+                            android:text="2533.35"/>
                     </LinearLayout>
                 </LinearLayout>
 
