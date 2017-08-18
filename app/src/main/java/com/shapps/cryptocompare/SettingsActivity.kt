@@ -1,6 +1,5 @@
 package com.shapps.cryptocompare
 
-import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -18,8 +17,6 @@ import android.preference.Preference.OnPreferenceClickListener
 import android.support.v4.app.NavUtils
 import android.util.Log
 import android.view.MenuItem
-import android.widget.Toast
-import java.time.Duration
 
 
 /**
@@ -64,6 +61,16 @@ class SettingsActivity : AppCompatPreferenceActivity() {
         return super.onMenuItemSelected(featureId, item)
     }
 
+    override fun onBackPressed() {
+        if (flag){
+            val mainAct = Intent(applicationContext, MainActivity::class.java)
+            startActivity(mainAct)
+            return
+        }
+        flag = true
+        fragmentManager.beginTransaction().replace(android.R.id.content, SettingsFragment()).commit()
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -78,7 +85,7 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             addPreferencesFromResource(R.xml.pref_settings)
 
             findPreference("pref_key_storage_manage_exchanges").onPreferenceClickListener = OnPreferenceClickListener {
-                fragmentManager.beginTransaction().replace(android.R.id.content, ManageExchangesFragment()).addToBackStack(ManageExchangesFragment::class.java!!.simpleName).commit()
+                fragmentManager.beginTransaction().replace(android.R.id.content, ManageExchangesFragment()).addToBackStack(ManageExchangesFragment::class.java.simpleName).commit()
                 true
             }
 
@@ -112,11 +119,10 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             val id = item.itemId
             if (id == android.R.id.home) {
                 fragmentManager.beginTransaction().replace(android.R.id.content, SettingsFragment()).commit()
-                true
+                return true
             }
             return super.onOptionsItemSelected(item)
         }
-
     }
 
     companion object {
