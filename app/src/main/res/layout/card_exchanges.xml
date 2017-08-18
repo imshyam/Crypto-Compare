@@ -262,12 +262,22 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0px"
-                android:layout_weight="7"
+                android:layout_weight="5"
                 android:layout_height="wrap_content">
                 <TextView
                     style="@style/textLabel"
                     android:textColor="#327be1"
                     android:text="Go To App ->"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_weight="2"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/textLabel"
+                    android:textColor="#327be1"
+                    android:text="Details"
                     android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
