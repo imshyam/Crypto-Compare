@@ -7,13 +7,13 @@ import android.view.ViewGroup
 
 import com.shapps.cryptocompare.NotificationsFragment.OnListFragmentInteractionListener
 import com.shapps.cryptocompare.Model.NotificationContent.NotificationItem
-import kotlinx.android.synthetic.main.fragment_item.view.*
+import kotlinx.android.synthetic.main.notification_item.view.*
 
 class NotificationsRecyclerViewAdapter(private val mValues: List<NotificationItem>, private val mListener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<NotificationsRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.fragment_item, parent, false)
+                .inflate(R.layout.notification_item, parent, false)
         return ViewHolder(view)
     }
 
@@ -23,9 +23,7 @@ class NotificationsRecyclerViewAdapter(private val mValues: List<NotificationIte
         holder.bindValues(mValues[position])
 
         holder.mView.setOnClickListener {
-            if (null != mListener) {
-                mListener!!.onListFragmentInteraction(holder.mItem as NotificationItem)
-            }
+            mListener?.onListFragmentInteraction(holder.mItem as NotificationItem)
         }
     }
 
@@ -37,8 +35,8 @@ class NotificationsRecyclerViewAdapter(private val mValues: List<NotificationIte
         var mItem: NotificationItem? = null
 
         fun bindValues(mValues: NotificationItem) {
-            mView.currency.text = mValues.currency
-            mView.site.text = mValues.site
+//            mView.currency.text = mValues.currency
+//            mView.site.text = mValues.site
             mView.value.text = mValues.value.toString()
             mView.type.text = mValues.type
         }

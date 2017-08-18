@@ -39,16 +39,12 @@ class NotificationsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_item_list, container, false)
+        val view = inflater!!.inflate(R.layout.fragment_notification_list, container, false)
 
         // Set the adapter
         if (view is RecyclerView) {
             val context = view.getContext()
-            if (mColumnCount <= 1) {
-                view.layoutManager = LinearLayoutManager(context)
-            } else {
-                view.layoutManager = GridLayoutManager(context, mColumnCount)
-            }
+            view.layoutManager = LinearLayoutManager(context)
             view.adapter = NotificationsRecyclerViewAdapter(NotificationContent.ITEMS, mListener)
         }
         return view
