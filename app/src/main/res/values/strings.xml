@@ -97,6 +97,8 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_settings2">Settings2</string>
+    <string name="dot_center">\u2022</string>
+    <string name="text_bitcoin">Bitcoin</string>
 
     <string-array name="list_preference_entries">
         <item>Entry 1</item>
