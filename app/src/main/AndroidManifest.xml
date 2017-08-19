@@ -25,13 +25,14 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
+            android:noHistory="true"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme"
-            android:noHistory="true">
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.shapps.cryptocompare.MainActivity" />
         </activity>
+        <activity android:name=".AddNotificationActivity"></activity>
     </application>
 
 </manifest>
