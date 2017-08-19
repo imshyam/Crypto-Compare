@@ -3,7 +3,6 @@ package com.shapps.cryptocompare
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -25,9 +24,9 @@ import com.shapps.cryptocompare.Model.NotificationContent.NotificationItem
  * fragment (e.g. upon screen orientation changes).
  */
 class NotificationsFragment : Fragment() {
-    // TODO: Customize parameters
     private var mColumnCount = 1
     private var mListener: OnListFragmentInteractionListener? = null
+    private var noNotifications = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +38,10 @@ class NotificationsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        if(noNotifications){
+            return inflater!!.inflate(R.layout.fragment_no_notification, container, false)
+        }
+
         val view = inflater!!.inflate(R.layout.fragment_notification_list, container, false)
 
         // Set the adapter

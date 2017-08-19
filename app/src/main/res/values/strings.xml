@@ -101,6 +101,9 @@
     <string name="currency_name">SGD</string>
     <string name="buy">Buy</string>
     <string name="text_currency_symbol">currency symbol</string>
+    <string name="text_no_notification">No Notification</string>
+    <string name="no_notification_description">Tap the add new notification button below and Check Again.</string>
+    <string name="text_add_new_notification">Add New Notification</string>
 
     <string-array name="list_preference_entries">
         <item>Entry 1</item>
