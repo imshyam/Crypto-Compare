@@ -50,13 +50,13 @@
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:layout_editor_absoluteY="421dp" />
 
-    <Button
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/add_notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:background="#FD6D78"
+        android:backgroundTint="#FD6D78"
         android:textColor="#FFF"
         android:textStyle="bold"
         android:padding="@dimen/list_item_margin"
