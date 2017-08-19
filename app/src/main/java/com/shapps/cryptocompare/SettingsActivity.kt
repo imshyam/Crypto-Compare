@@ -54,7 +54,7 @@ class SettingsActivity : AppCompatPreferenceActivity() {
         val id = item.itemId
         if (id == android.R.id.home && flag) {
             if (!super.onMenuItemSelected(featureId, item)) {
-                NavUtils.navigateUpFromSameTask(this)
+                super.finish()
             }
             return true
         }
@@ -63,8 +63,7 @@ class SettingsActivity : AppCompatPreferenceActivity() {
 
     override fun onBackPressed() {
         if (flag){
-            val mainAct = Intent(applicationContext, MainActivity::class.java)
-            startActivity(mainAct)
+            super.finish()
             return
         }
         flag = true
