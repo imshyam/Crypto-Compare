@@ -2,21 +2,29 @@ package com.shapps.cryptocompare
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.NavUtils
 import android.util.Log
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.activity_add_notification.*
 import java.util.*
+import android.widget.Toast
+
+
 
 class AddNotificationActivity : AppCompatActivity(), OnItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_notification)
+        setupActionBar()
 
         val spinnerArray = ArrayList<CharSequence>()
+        spinnerArray.add("Crypto Currency")
         spinnerArray.add("Bitcoin")
         spinnerArray.add("Ethereum")
         spinnerArray.add("Litecoin")
@@ -29,6 +37,7 @@ class AddNotificationActivity : AppCompatActivity(), OnItemSelectedListener {
 
 
         val spinnerArray1 = ArrayList<String>()
+        spinnerArray1.add("Currency")
         spinnerArray1.add("SGD")
         spinnerArray1.add("INR")
         spinnerArray1.add("USD")
@@ -41,6 +50,7 @@ class AddNotificationActivity : AppCompatActivity(), OnItemSelectedListener {
 
 
         val spinnerArray2 = ArrayList<String>()
+        spinnerArray2.add("Exchange")
         spinnerArray2.add("FYB-SG")
         spinnerArray2.add("zebpay")
         spinnerArray2.add("coinbase")
@@ -66,5 +76,19 @@ class AddNotificationActivity : AppCompatActivity(), OnItemSelectedListener {
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         Log.d("Nothing ", "Selected")
+    }
+
+    /**
+     * Set up the [android.app.ActionBar], if the API is available.
+     */
+    private fun setupActionBar() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> super.finish()
+        }
+        return true
     }
 }
