@@ -51,7 +51,7 @@
         tools:layout_editor_absoluteY="421dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/add_notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

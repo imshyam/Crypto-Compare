@@ -105,9 +105,4 @@
     <string name="no_notification_description">Tap the add new notification button below and Check Again.</string>
     <string name="text_add_new_notification">Add New Notification</string>
 
-    <string-array name="list_preference_entries">
-        <item>Entry 1</item>
-        <item>Entry 2</item>
-        <item>Entry 3</item>
-    </string-array>
 </resources>
