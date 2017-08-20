@@ -1,12 +1,17 @@
 package com.shapps.cryptocompare
 
 import android.content.Context
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 
 
 /**
@@ -36,7 +41,24 @@ class DetailsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater!!.inflate(R.layout.fragment_details, container, false)
+        var view = inflater!!.inflate(R.layout.fragment_details, container, false)
+        var entries = ArrayList<Entry>()
+        for (i in 1..25) {
+            entries.add(Entry(i.toFloat(), i.toFloat()))
+        }
+        var lds = LineDataSet(entries, "India")
+        lds.color = Color.parseColor("#003838")
+        lds.valueTextColor = Color.parseColor("#bbbbbb")
+
+        var lineData = LineData(lds)
+
+
+        // Implement this
+        val lineChart = view.findViewById<View>(R.id.exchange_chart) as LineChart
+        lineChart.data = lineData
+        lineChart.invalidate()
+
+        return view
     }
 
     // TODO: Rename method, update argument and hook method into UI event
