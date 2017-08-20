@@ -25,16 +25,20 @@ import com.github.mikephil.charting.data.LineDataSet
 class DetailsFragment : Fragment() {
 
     // TODO: Rename and change types of parameters
-    private var mParam1: String? = null
-    private var mParam2: String? = null
+    private var cryptoCurrency: String? = null
+    private var currency: String? = null
+    private var siteId: Int? = null
+    private var siteName: String? = null
 
     private var mListener: OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
-            mParam1 = arguments.getString(ARG_PARAM1)
-            mParam2 = arguments.getString(ARG_PARAM2)
+            cryptoCurrency = arguments.getString(CRYPTO_CURRENCY)
+            currency = arguments.getString(CURRENCY)
+            siteId = arguments.getString(SITE_ID).toInt()
+            siteName = arguments.getString(SITE_NAME)
         }
     }
 
@@ -59,13 +63,6 @@ class DetailsFragment : Fragment() {
         lineChart.invalidate()
 
         return view
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        if (mListener != null) {
-            mListener!!.onFragmentInteraction(uri)
-        }
     }
 
     override fun onAttach(context: Context?) {
@@ -99,8 +96,11 @@ class DetailsFragment : Fragment() {
     companion object {
         // TODO: Rename parameter arguments, choose names that match
         // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-        private val ARG_PARAM1 = "param1"
-        private val ARG_PARAM2 = "param2"
+        private val CRYPTO_CURRENCY = "Bitcoin"
+        private val CURRENCY = "SGD"
+        private val SITE_ID = "1"
+        private val SITE_NAME = "FYB-SG"
+
 
         /**
          * Use this factory method to create a new instance of
@@ -111,11 +111,13 @@ class DetailsFragment : Fragment() {
          * @return A new instance of fragment DetailsFragment.
          */
         // TODO: Rename and change types and number of parameters
-        fun newInstance(param1: String, param2: String): DetailsFragment {
+        fun newInstance(cryptoCurr: String, curr: String, siteId: String, siteName: String): DetailsFragment {
             val fragment = DetailsFragment()
             val args = Bundle()
-            args.putString(ARG_PARAM1, param1)
-            args.putString(ARG_PARAM2, param2)
+            args.putString(CRYPTO_CURRENCY, cryptoCurr)
+            args.putString(CURRENCY, curr)
+            args.putString(SITE_ID, siteId)
+            args.putString(SITE_NAME, siteName)
             fragment.arguments = args
             return fragment
         }
