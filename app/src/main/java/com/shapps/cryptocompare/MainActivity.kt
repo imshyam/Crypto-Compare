@@ -16,7 +16,8 @@ import com.shapps.cryptocompare.Model.NotificationContent
 
 
 class MainActivity : AppCompatActivity(), DashboardFragment.OnListFragmentInteractionListener,
-        NotificationsFragment.OnListFragmentInteractionListener, ChartsFragment.OnFragmentInteractionListener {
+        NotificationsFragment.OnListFragmentInteractionListener, ChartsFragment.OnFragmentInteractionListener,
+        DetailsFragment.OnFragmentInteractionListener {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         val selectedFragment: Fragment
