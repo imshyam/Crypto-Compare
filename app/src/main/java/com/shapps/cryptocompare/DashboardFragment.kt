@@ -81,7 +81,7 @@ class DashboardFragment : Fragment() {
      */
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: LiveData)
+        fun onListFragmentInteraction(cryptoCurrency: String, currency: String, exchangeId: String, exchangeName: String)
     }
 
     companion object {

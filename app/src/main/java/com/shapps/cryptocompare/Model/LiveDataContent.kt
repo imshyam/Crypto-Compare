@@ -34,10 +34,10 @@ object LiveDataContent {
     }
 
     private fun createLiveData(position: Int): LiveData {
-        return LiveData(position.toString(), "Fyb-SG " + position, "SGD",
-                "1239.32", "2321.22")
+        return LiveData(position.toString(), "Bitcoin", "SGD " + position, "1",
+                "Fyb-SG", "2321.22", "2100.33")
     }
 
-    class LiveData(val id: String, val exchangeName: String, val currencyCode: String,
+    class LiveData(val id: String, val cryptoCurrency: String, val currency: String, val exchangeId: String, val exchangeName: String,
                    val priceBuy: String, val priceSell: String)
 }

@@ -4,10 +4,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 
 import com.shapps.cryptocompare.DashboardFragment.OnListFragmentInteractionListener
 import com.shapps.cryptocompare.Model.LiveDataContent.LiveData
 import kotlinx.android.synthetic.main.card_exchanges.view.*
+
 
 /**
  * [RecyclerView.Adapter] that can display a [DummyItem] and makes a call to the
@@ -27,9 +29,11 @@ class ExchangesRecyclerViewAdapter(private val mValues: List<LiveData>, private 
 
         holder.bindValues(mValues[position])
 
-        holder.mView.setOnClickListener {
-            mListener?.onListFragmentInteraction(holder.mItem as LiveData)
+        holder.mView.findViewById<LinearLayout>(R.id.details_layout).setOnClickListener {
+            mListener?.onListFragmentInteraction(mValues[position].cryptoCurrency, mValues[position].currency,
+                    mValues[position].exchangeId, mValues[position].exchangeName)
         }
+
     }
 
     override fun getItemCount(): Int {
@@ -42,7 +46,7 @@ class ExchangesRecyclerViewAdapter(private val mValues: List<LiveData>, private 
 
         fun bindValues(mValues: LiveData) {
             mView.exchange_name.text = mValues.exchangeName
-            mView.currency_name.text = mValues.currencyCode
+            mView.currency_name.text = mValues.currency
             mView.buy_value.text = mValues.priceBuy
             mView.sell_value.text = mValues.priceSell
         }

@@ -271,6 +271,7 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/details_layout"
                 android:layout_width="0px"
                 android:layout_weight="2"
                 android:layout_height="wrap_content">
