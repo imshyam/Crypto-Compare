@@ -32,11 +32,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.shapps.cryptocompare.MainActivity" />
         </activity>
-        <activity android:name=".AddNotificationActivity"
+        <activity
+            android:name=".AddNotificationActivity"
             android:label="@string/title_add_notification_activity"
             android:noHistory="true"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.shapps.cryptocompare.MainActivity" />
+        </activity>
+        <activity android:name=".DetailsActivity"
+            android:noHistory="true"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.shapps.cryptocompare.MainActivity" />
