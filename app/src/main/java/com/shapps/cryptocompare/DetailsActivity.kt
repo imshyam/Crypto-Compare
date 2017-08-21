@@ -1,8 +1,10 @@
 package com.shapps.cryptocompare
 
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.view.MenuItem
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -20,8 +22,22 @@ class DetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
-        setupActionBar()
+
         setSupportActionBar(toolbar)
+        setupActionBar()
+
+        var upArrow = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_material)
+        upArrow.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
+        supportActionBar?.setHomeAsUpIndicator(upArrow)
+
+        collapsing_toolbar.setCollapsedTitleTextAppearance(R.style.collapsedappbar);
+        collapsing_toolbar.setExpandedTitleTextAppearance(R.style.expandedappbar);
+
+
+        cryptoCurrency = intent.getStringExtra("CRYPTO_CURR")
+        currency = intent.getStringExtra("CURR")
+        siteId = intent.getStringExtra("EX_ID").toInt()
+        siteName = intent.getStringExtra("EX_NAME")
         var entries = ArrayList<Entry>()
         for (i in 1..25) {
             entries.add(Entry(i.toFloat(), i.toFloat()))

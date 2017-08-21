@@ -74,4 +74,17 @@
         <item name="android:weightSum">5</item>
         <item name="android:orientation">horizontal</item>
     </style>
+
+    <style name="expandedappbar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">100sp</item>
+    </style>
+
+    <style name="collapsedappbar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginBottom">0sp</item>
+        <item name="android:textColor">#FFF</item>
+    </style>
 </resources>

@@ -80,6 +80,10 @@ class MainActivity : AppCompatActivity(), DashboardFragment.OnListFragmentIntera
 
     override fun onListFragmentInteraction(cryptoCurrency: String, currency: String, exchangeId: String, exchangeName: String) {
         var detailsIntent = Intent(this, DetailsActivity::class.java)
+        detailsIntent.putExtra("CRYPTO_CURR", cryptoCurrency)
+        detailsIntent.putExtra("CURR", currency)
+        detailsIntent.putExtra("EX_ID", exchangeId)
+        detailsIntent.putExtra("EX_NAME", exchangeName)
         startActivity(detailsIntent)
     }
 
