@@ -53,10 +53,11 @@ class MainActivity : AppCompatActivity(), DashboardFragment.OnListFragmentIntera
         setSupportActionBar(myToolbar)
 
         val navigation = findViewById<View>(R.id.navigation) as BottomNavigationView
+        navigation.selectedItemId = R.id.navigation_dashboard
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.main_content_fragment, ChartsFragment.newInstance("Apple", "Book"))
+        transaction.replace(R.id.main_content_fragment, DashboardFragment.newInstance(1))
         transaction.commit()
     }
 
