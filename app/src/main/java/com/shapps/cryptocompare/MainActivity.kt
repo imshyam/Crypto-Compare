@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.support.v4.app.Fragment;
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -13,6 +14,11 @@ import android.view.View
 import com.shapps.cryptocompare.Model.LiveDataContent
 import android.view.MenuItem
 import com.shapps.cryptocompare.Model.NotificationContent
+import kotlinx.android.synthetic.main.activity_main.*
+import com.github.mikephil.charting.charts.Chart.LOG_TAG
+import android.support.v4.widget.SwipeRefreshLayout
+
+
 
 
 class MainActivity : AppCompatActivity(), DashboardFragment.OnListFragmentInteractionListener,
@@ -52,13 +58,24 @@ class MainActivity : AppCompatActivity(), DashboardFragment.OnListFragmentIntera
         val myToolbar = findViewById<View>(R.id.my_toolbar) as Toolbar
         setSupportActionBar(myToolbar)
 
-        val navigation = findViewById<View>(R.id.navigation) as BottomNavigationView
         navigation.selectedItemId = R.id.navigation_dashboard
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
+        swiperefresh.setOnRefreshListener({
+            Log.i(LOG_TAG, "onRefresh called from SwipeRefreshLayout")
+            updateOperation();
+        })
+
 
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_content_fragment, DashboardFragment.newInstance(1))
         transaction.commit()
+    }
+
+    private fun updateOperation() {
+        Handler().postDelayed({
+            swiperefresh.isRefreshing = false
+        }, 2000)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -73,6 +90,12 @@ class MainActivity : AppCompatActivity(), DashboardFragment.OnListFragmentIntera
             R.id.action_settings-> {
                 val settingsAct = Intent(applicationContext, SettingsActivity::class.java)
                 startActivity(settingsAct)
+                return true
+            }
+            R.id.menu_refresh-> {
+                Log.i(LOG_TAG, "Refresh menu item selected");
+                swiperefresh.isRefreshing = true
+                updateOperation();
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
