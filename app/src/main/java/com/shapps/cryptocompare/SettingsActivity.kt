@@ -28,7 +28,7 @@ import android.view.MenuItem
  */
 class SettingsActivity : AppCompatPreferenceActivity() {
 
-    private var flag = true
+    var flag = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -86,7 +86,7 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             }
 
             findPreference("pref_key_storage_manage_ethereum_exchanges").onPreferenceClickListener = OnPreferenceClickListener {
-                fragmentManager.beginTransaction().replace(android.R.id.content, ManageBitcoinExchangesFragment()).addToBackStack(ManageBitcoinExchangesFragment::class.java.simpleName).commit()
+                fragmentManager.beginTransaction().replace(android.R.id.content, ManageEthereumExchangesFragment()).addToBackStack(ManageBitcoinExchangesFragment::class.java.simpleName).commit()
                 true
             }
 
@@ -100,30 +100,6 @@ class SettingsActivity : AppCompatPreferenceActivity() {
 
         }
 
-    }
-
-    class ManageBitcoinExchangesFragment : PreferenceFragment() {
-
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            addPreferencesFromResource(R.xml.pref_exchanges)
-
-            val settingsAct = activity as SettingsActivity
-            settingsAct.title = "Manage Exchanges"
-            settingsAct.flag = false
-
-            setHasOptionsMenu(true)
-
-        }
-
-        override fun onOptionsItemSelected(item: MenuItem): Boolean {
-            val id = item.itemId
-            if (id == android.R.id.home) {
-                fragmentManager.beginTransaction().replace(android.R.id.content, SettingsFragment()).commit()
-                return true
-            }
-            return super.onOptionsItemSelected(item)
-        }
     }
 
     companion object {
