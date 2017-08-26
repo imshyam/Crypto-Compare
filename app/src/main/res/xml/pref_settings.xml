@@ -1,13 +1,24 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:title="@string/general_settings"
+        android:title="@string/manage_exchanges"
         android:key="pref_key_storage_general_setting">
 
         <Preference
-            android:title="@string/manage_exchanges"
-            android:key="pref_key_storage_manage_exchanges"
+            android:title="@string/text_bitcoin"
+            android:key="pref_key_storage_manage_bitcoin_exchanges"
             android:persistent="false"/>
+        <Preference
+            android:title="@string/text_ethereum"
+            android:key="pref_key_storage_manage_ethereum_exchanges"
+            android:persistent="false"/>
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:title="@string/general_settings"
+        android:key="pref_key_storage_notification_settings">
 
         <ListPreference
             android:title="@string/graph_type"
@@ -15,13 +26,6 @@
             android:entries="@array/list_graph_types"
             android:entryValues="@array/list_graph_types_values"
             android:defaultValue="1"/>
-
-    </PreferenceCategory>
-
-
-    <PreferenceCategory
-        android:title="@string/notification_settings"
-        android:key="pref_key_storage_notification_settings">
 
         <SwitchPreference
             android:title="@string/notification"

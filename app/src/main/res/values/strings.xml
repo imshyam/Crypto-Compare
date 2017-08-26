@@ -106,5 +106,7 @@
     <string name="text_add_new_notification">Add New Notification</string>
     <string name="title_add_notification_activity">Add Notification</string>
     <string name="menu_refresh">Refresh</string>
+    <string name="text_bitcoin">Bitcoin</string>
+    <string name="text_ethereum">Ethereum</string>
 
 </resources>

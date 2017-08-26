@@ -1,7 +1,6 @@
 package com.shapps.cryptocompare
 
 import android.content.Context
-import android.content.Intent
 import android.content.res.Configuration
 import android.media.RingtoneManager
 import android.net.Uri
@@ -14,8 +13,6 @@ import android.preference.PreferenceManager
 import android.preference.RingtonePreference
 import android.text.TextUtils
 import android.preference.Preference.OnPreferenceClickListener
-import android.support.v4.app.NavUtils
-import android.util.Log
 import android.view.MenuItem
 
 
@@ -83,8 +80,13 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             super.onCreate(savedInstanceState)
             addPreferencesFromResource(R.xml.pref_settings)
 
-            findPreference("pref_key_storage_manage_exchanges").onPreferenceClickListener = OnPreferenceClickListener {
-                fragmentManager.beginTransaction().replace(android.R.id.content, ManageExchangesFragment()).addToBackStack(ManageExchangesFragment::class.java.simpleName).commit()
+            findPreference("pref_key_storage_manage_bitcoin_exchanges").onPreferenceClickListener = OnPreferenceClickListener {
+                fragmentManager.beginTransaction().replace(android.R.id.content, ManageBitcoinExchangesFragment()).addToBackStack(ManageBitcoinExchangesFragment::class.java.simpleName).commit()
+                true
+            }
+
+            findPreference("pref_key_storage_manage_ethereum_exchanges").onPreferenceClickListener = OnPreferenceClickListener {
+                fragmentManager.beginTransaction().replace(android.R.id.content, ManageBitcoinExchangesFragment()).addToBackStack(ManageBitcoinExchangesFragment::class.java.simpleName).commit()
                 true
             }
 
@@ -100,7 +102,7 @@ class SettingsActivity : AppCompatPreferenceActivity() {
 
     }
 
-    class ManageExchangesFragment : PreferenceFragment() {
+    class ManageBitcoinExchangesFragment : PreferenceFragment() {
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
