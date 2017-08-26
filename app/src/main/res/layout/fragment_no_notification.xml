@@ -61,6 +61,7 @@
         android:textStyle="bold"
         android:padding="@dimen/list_item_margin"
         android:text="@string/text_add_new_notification"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
