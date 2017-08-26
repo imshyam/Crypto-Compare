@@ -1,4 +1,4 @@
-package com.shapps.cryptocompare
+package com.shapps.cryptocompare.MainFragments
 
 import android.content.Context
 import android.os.Bundle
@@ -9,8 +9,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.shapps.cryptocompare.Adapters.ExchangesRecyclerView
 
 import com.shapps.cryptocompare.Model.LiveDataContent
+import com.shapps.cryptocompare.R
 
 /**
  * A fragment representing a list of Items.
@@ -23,7 +25,7 @@ import com.shapps.cryptocompare.Model.LiveDataContent
  * Mandatory empty constructor for the fragment manager to instantiate the
  * fragment (e.g. upon screen orientation changes).
  */
-class DashboardFragment : Fragment() {
+class Dashboard : Fragment() {
     // TODO: Customize parameters
     private var mColumnCount = 1
     private var mListener: OnListFragmentInteractionListener? = null
@@ -49,7 +51,7 @@ class DashboardFragment : Fragment() {
             } else {
                 recyclerView.layoutManager = GridLayoutManager(context, mColumnCount)
             }
-            recyclerView.adapter = ExchangesRecyclerViewAdapter(LiveDataContent.ITEMS, mListener)
+            recyclerView.adapter = ExchangesRecyclerView(LiveDataContent.ITEMS, mListener)
         }
         return view
     }
@@ -89,8 +91,8 @@ class DashboardFragment : Fragment() {
         private val ARG_COLUMN_COUNT = "column-count"
 
         // TODO: Customize parameter initialization
-        fun newInstance(columnCount: Int): DashboardFragment {
-            val fragment = DashboardFragment()
+        fun newInstance(columnCount: Int): Dashboard {
+            val fragment = Dashboard()
             val args = Bundle()
             args.putInt(ARG_COLUMN_COUNT, columnCount)
             fragment.arguments = args

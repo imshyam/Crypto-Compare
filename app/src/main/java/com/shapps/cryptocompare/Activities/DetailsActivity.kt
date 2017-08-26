@@ -1,4 +1,4 @@
-package com.shapps.cryptocompare
+package com.shapps.cryptocompare.Activities
 
 import android.graphics.Color
 import android.graphics.PorterDuff
@@ -9,6 +9,7 @@ import android.view.MenuItem
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.shapps.cryptocompare.R
 import kotlinx.android.synthetic.main.activity_details.*
 
 class DetailsActivity : AppCompatActivity() {

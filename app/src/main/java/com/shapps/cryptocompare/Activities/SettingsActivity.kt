@@ -1,4 +1,4 @@
-package com.shapps.cryptocompare
+package com.shapps.cryptocompare.Activities
 
 import android.content.Context
 import android.content.res.Configuration
@@ -8,12 +8,12 @@ import android.os.Bundle
 import android.preference.ListPreference
 import android.preference.Preference
 import android.preference.PreferenceActivity
-import android.preference.PreferenceFragment
 import android.preference.PreferenceManager
 import android.preference.RingtonePreference
 import android.text.TextUtils
-import android.preference.Preference.OnPreferenceClickListener
 import android.view.MenuItem
+import com.shapps.cryptocompare.R
+import com.shapps.cryptocompare.SettingsFragments.Main
 
 
 /**
@@ -35,7 +35,7 @@ class SettingsActivity : AppCompatPreferenceActivity() {
         setupActionBar()
 
         fragmentManager.beginTransaction()
-                .replace(android.R.id.content, SettingsFragment())
+                .replace(android.R.id.content, Main())
                 .commit()
 
     }
@@ -64,7 +64,7 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             return
         }
         flag = true
-        fragmentManager.beginTransaction().replace(android.R.id.content, SettingsFragment()).commit()
+        fragmentManager.beginTransaction().replace(android.R.id.content, Main()).commit()
     }
 
     /**
@@ -72,34 +72,6 @@ class SettingsActivity : AppCompatPreferenceActivity() {
      */
     override fun onIsMultiPane(): Boolean {
         return isXLargeTablet(this)
-    }
-
-    class SettingsFragment : PreferenceFragment() {
-
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            addPreferencesFromResource(R.xml.pref_settings)
-
-            findPreference("pref_key_storage_manage_bitcoin_exchanges").onPreferenceClickListener = OnPreferenceClickListener {
-                fragmentManager.beginTransaction().replace(android.R.id.content, ManageBitcoinExchangesFragment()).addToBackStack(ManageBitcoinExchangesFragment::class.java.simpleName).commit()
-                true
-            }
-
-            findPreference("pref_key_storage_manage_ethereum_exchanges").onPreferenceClickListener = OnPreferenceClickListener {
-                fragmentManager.beginTransaction().replace(android.R.id.content, ManageEthereumExchangesFragment()).addToBackStack(ManageBitcoinExchangesFragment::class.java.simpleName).commit()
-                true
-            }
-
-
-            val settingsAct = activity as SettingsActivity
-            settingsAct.title = "Settings"
-            settingsAct.flag = true
-
-            bindPreferenceSummaryToValue(findPreference("pref_key_storage_graph_type"))
-            bindPreferenceSummaryToValue(findPreference("pref_key_storage_alarm_tone"))
-
-        }
-
     }
 
     companion object {
@@ -171,7 +143,7 @@ class SettingsActivity : AppCompatPreferenceActivity() {
 
          * @see .sBindPreferenceSummaryToValueListener
          */
-        private fun bindPreferenceSummaryToValue(preference: Preference) {
+        fun bindPreferenceSummaryToValue(preference: Preference) {
             // Set the listener to watch for value changes.
             preference.onPreferenceChangeListener = sBindPreferenceSummaryToValueListener
 

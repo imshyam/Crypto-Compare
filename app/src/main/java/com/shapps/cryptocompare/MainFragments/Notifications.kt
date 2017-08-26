@@ -1,4 +1,4 @@
-package com.shapps.cryptocompare
+package com.shapps.cryptocompare.MainFragments
 
 import android.content.Context
 import android.content.Intent
@@ -10,9 +10,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import com.shapps.cryptocompare.Activities.AddNotificationActivity
 
 import com.shapps.cryptocompare.Model.NotificationContent
 import com.shapps.cryptocompare.Model.NotificationContent.NotificationItem
+import com.shapps.cryptocompare.Adapters.NotificationsRecyclerView
+import com.shapps.cryptocompare.R
 
 /**
  * A fragment representing a list of Items.
@@ -25,7 +28,7 @@ import com.shapps.cryptocompare.Model.NotificationContent.NotificationItem
  * Mandatory empty constructor for the fragment manager to instantiate the
  * fragment (e.g. upon screen orientation changes).
  */
-class NotificationsFragment : Fragment() {
+class Notifications : Fragment() {
     private var mColumnCount = 1
     private var mListener: OnListFragmentInteractionListener? = null
     private var noNotifications = true
@@ -58,7 +61,7 @@ class NotificationsFragment : Fragment() {
         if (view is RecyclerView) {
             val context = view.getContext()
             view.layoutManager = LinearLayoutManager(context)
-            view.adapter = NotificationsRecyclerViewAdapter(NotificationContent.ITEMS, mListener)
+            view.adapter = NotificationsRecyclerView(NotificationContent.ITEMS, mListener)
         }
         return view
     }
@@ -98,8 +101,8 @@ class NotificationsFragment : Fragment() {
         private val ARG_COLUMN_COUNT = "column-count"
 
         // TODO: Customize parameter initialization
-        fun newInstance(columnCount: Int): NotificationsFragment {
-            val fragment = NotificationsFragment()
+        fun newInstance(columnCount: Int): Notifications {
+            val fragment = Notifications()
             val args = Bundle()
             args.putInt(ARG_COLUMN_COUNT, columnCount)
             fragment.arguments = args

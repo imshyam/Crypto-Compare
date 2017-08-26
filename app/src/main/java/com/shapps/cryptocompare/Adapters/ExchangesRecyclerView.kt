@@ -1,4 +1,4 @@
-package com.shapps.cryptocompare
+package com.shapps.cryptocompare.Adapters
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 
-import com.shapps.cryptocompare.DashboardFragment.OnListFragmentInteractionListener
+import com.shapps.cryptocompare.MainFragments.Dashboard.OnListFragmentInteractionListener
 import com.shapps.cryptocompare.Model.LiveDataContent.LiveData
+import com.shapps.cryptocompare.R
 import kotlinx.android.synthetic.main.card_exchanges.view.*
 
 
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.card_exchanges.view.*
  * specified [OnListFragmentInteractionListener].
  * TODO: Replace the implementation with code for your data type.
  */
-class ExchangesRecyclerViewAdapter(private val mValues: List<LiveData>, private val mListener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<ExchangesRecyclerViewAdapter.ViewHolder>() {
+class ExchangesRecyclerView(private val mValues: List<LiveData>, private val mListener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<ExchangesRecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)

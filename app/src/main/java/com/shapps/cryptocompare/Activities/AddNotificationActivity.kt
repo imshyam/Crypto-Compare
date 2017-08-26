@@ -1,10 +1,8 @@
-package com.shapps.cryptocompare
+package com.shapps.cryptocompare.Activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.NavUtils
 import android.util.Log
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView.OnItemSelectedListener
@@ -12,8 +10,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.activity_add_notification.*
 import java.util.*
-import android.widget.Toast
-
+import com.shapps.cryptocompare.R
 
 
 class AddNotificationActivity : AppCompatActivity(), OnItemSelectedListener {

@@ -1,15 +1,16 @@
-package com.shapps.cryptocompare
+package com.shapps.cryptocompare.Adapters
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import com.shapps.cryptocompare.NotificationsFragment.OnListFragmentInteractionListener
+import com.shapps.cryptocompare.MainFragments.Notifications.OnListFragmentInteractionListener
 import com.shapps.cryptocompare.Model.NotificationContent.NotificationItem
+import com.shapps.cryptocompare.R
 import kotlinx.android.synthetic.main.notification_item.view.*
 
-class NotificationsRecyclerViewAdapter(private val mValues: List<NotificationItem>, private val mListener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<NotificationsRecyclerViewAdapter.ViewHolder>() {
+class NotificationsRecyclerView(private val mValues: List<NotificationItem>, private val mListener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<NotificationsRecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)

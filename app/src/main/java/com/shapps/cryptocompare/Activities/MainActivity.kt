@@ -1,4 +1,4 @@
-package com.shapps.cryptocompare
+package com.shapps.cryptocompare.Activities
 
 import android.content.Intent
 import android.net.Uri
@@ -11,38 +11,38 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.View
-import com.shapps.cryptocompare.Model.LiveDataContent
 import android.view.MenuItem
 import com.shapps.cryptocompare.Model.NotificationContent
 import kotlinx.android.synthetic.main.activity_main.*
 import com.github.mikephil.charting.charts.Chart.LOG_TAG
-import android.support.v4.widget.SwipeRefreshLayout
+import com.shapps.cryptocompare.MainFragments.Charts
+import com.shapps.cryptocompare.MainFragments.Dashboard
+import com.shapps.cryptocompare.MainFragments.Notifications
+import com.shapps.cryptocompare.R
 
 
-
-
-class MainActivity : AppCompatActivity(), DashboardFragment.OnListFragmentInteractionListener,
-        NotificationsFragment.OnListFragmentInteractionListener, ChartsFragment.OnFragmentInteractionListener {
+class MainActivity : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
+        Notifications.OnListFragmentInteractionListener, Charts.OnFragmentInteractionListener {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         val selectedFragment: Fragment
         when (item.itemId) {
             R.id.navigation_charts -> {
-                selectedFragment = ChartsFragment.newInstance("Apple", "Book")
+                selectedFragment = Charts.newInstance("Apple", "Book")
                 val transaction = supportFragmentManager.beginTransaction()
                 transaction.replace(R.id.main_content_fragment, selectedFragment)
                 transaction.commit()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                selectedFragment = DashboardFragment.newInstance(1)
+                selectedFragment = Dashboard.newInstance(1)
                 val transaction = supportFragmentManager.beginTransaction()
                 transaction.replace(R.id.main_content_fragment, selectedFragment)
                 transaction.commit()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                selectedFragment = NotificationsFragment.newInstance(10)
+                selectedFragment = Notifications.newInstance(10)
                 val transaction = supportFragmentManager.beginTransaction()
                 transaction.replace(R.id.main_content_fragment, selectedFragment)
                 transaction.commit()
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity(), DashboardFragment.OnListFragmentIntera
 
 
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.main_content_fragment, DashboardFragment.newInstance(1))
+        transaction.replace(R.id.main_content_fragment, Dashboard.newInstance(1))
         transaction.commit()
     }
 
@@ -87,12 +87,12 @@ class MainActivity : AppCompatActivity(), DashboardFragment.OnListFragmentIntera
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle item selection
         when (item.itemId) {
-            R.id.action_settings-> {
+            R.id.action_settings -> {
                 val settingsAct = Intent(applicationContext, SettingsActivity::class.java)
                 startActivity(settingsAct)
                 return true
             }
-            R.id.menu_refresh-> {
+            R.id.menu_refresh -> {
                 Log.i(LOG_TAG, "Refresh menu item selected");
                 swiperefresh.isRefreshing = true
                 updateOperation();

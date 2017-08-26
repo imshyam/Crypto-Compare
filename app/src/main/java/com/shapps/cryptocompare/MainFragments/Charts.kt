@@ -1,4 +1,4 @@
-package com.shapps.cryptocompare
+package com.shapps.cryptocompare.MainFragments
 
 import android.content.Context
 import android.graphics.Color
@@ -12,16 +12,17 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.shapps.cryptocompare.R
 
 /**
  * A fragment with a Google +1 button.
  * Activities that contain this fragment must implement the
- * [ChartsFragment.OnFragmentInteractionListener] interface
+ * [Charts.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [ChartsFragment.newInstance] factory method to
+ * Use the [Charts.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ChartsFragment : Fragment() {
+class Charts : Fragment() {
 
     private var mListener: OnFragmentInteractionListener? = null
 
@@ -98,11 +99,11 @@ class ChartsFragment : Fragment() {
          * *
          * @param param2 Parameter 2.
          * *
-         * @return A new instance of fragment ChartsFragment.
+         * @return A new instance of fragment Charts.
          */
         // TODO: Rename and change types and number of parameters
-        fun newInstance(param1: String, param2: String): ChartsFragment {
-            val fragment = ChartsFragment()
+        fun newInstance(param1: String, param2: String): Charts {
+            val fragment = Charts()
             val args = Bundle()
             args.putString(ARG_PARAM1, param1)
             args.putString(ARG_PARAM2, param2)
