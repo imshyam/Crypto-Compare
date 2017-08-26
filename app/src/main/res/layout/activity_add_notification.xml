@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.shapps.cryptocompare.Activities.AddNotificationActivity">
+    tools:context="com.shapps.cryptocompare.Activities.AddNotification">
 
     <NumberPicker
         android:id="@+id/price_picker"

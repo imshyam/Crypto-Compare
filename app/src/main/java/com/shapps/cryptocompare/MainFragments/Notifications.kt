@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import com.shapps.cryptocompare.Activities.AddNotificationActivity
+import com.shapps.cryptocompare.Activities.AddNotification
 
 import com.shapps.cryptocompare.Model.NotificationContent
 import com.shapps.cryptocompare.Model.NotificationContent.NotificationItem
@@ -48,7 +48,7 @@ class Notifications : Fragment() {
 
             val addNotification = view.findViewById<Button>(R.id.add_notification)
             addNotification.setOnClickListener{
-                val addNotificationAct = Intent(context, AddNotificationActivity::class.java)
+                val addNotificationAct = Intent(context, AddNotification::class.java)
                 startActivity(addNotificationAct)
             }
 

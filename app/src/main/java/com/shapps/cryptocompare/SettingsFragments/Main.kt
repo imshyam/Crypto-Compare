@@ -6,7 +6,7 @@ import android.preference.PreferenceFragment
 import com.shapps.cryptocompare.SettingsFragments.ManageExchanges.Bitcoin
 import com.shapps.cryptocompare.SettingsFragments.ManageExchanges.Ethereum
 import com.shapps.cryptocompare.R
-import com.shapps.cryptocompare.Activities.SettingsActivity
+import com.shapps.cryptocompare.Activities.Settings
 
 /**
  * Created by shyam on 26/8/17.
@@ -28,12 +28,12 @@ class Main : PreferenceFragment() {
         }
 
 
-        val settingsAct = activity as SettingsActivity
+        val settingsAct = activity as Settings
         settingsAct.title = "Settings"
         settingsAct.flag = true
 
-        SettingsActivity.bindPreferenceSummaryToValue(findPreference("pref_key_storage_graph_type"))
-        SettingsActivity.bindPreferenceSummaryToValue(findPreference("pref_key_storage_alarm_tone"))
+        Settings.bindPreferenceSummaryToValue(findPreference("pref_key_storage_graph_type"))
+        Settings.bindPreferenceSummaryToValue(findPreference("pref_key_storage_alarm_tone"))
 
     }
 

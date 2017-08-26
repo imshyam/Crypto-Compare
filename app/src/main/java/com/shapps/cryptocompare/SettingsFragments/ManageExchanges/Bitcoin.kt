@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.preference.PreferenceFragment
 import android.view.MenuItem
 import com.shapps.cryptocompare.R
-import com.shapps.cryptocompare.Activities.SettingsActivity
+import com.shapps.cryptocompare.Activities.Settings
 import com.shapps.cryptocompare.SettingsFragments.Main
 
 /**
@@ -17,7 +17,7 @@ class Bitcoin : PreferenceFragment() {
         super.onCreate(savedInstanceState)
         addPreferencesFromResource(R.xml.pref_bitcoin_exchanges)
 
-        val settingsAct = activity as SettingsActivity
+        val settingsAct = activity as Settings
         settingsAct.title = "Bitcoin Exchanges"
         settingsAct.flag = false
 
