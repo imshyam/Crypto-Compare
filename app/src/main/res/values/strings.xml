@@ -105,5 +105,6 @@
     <string name="no_notification_description">Tap the add new notification button below and Check Again.</string>
     <string name="text_add_new_notification">Add New Notification</string>
     <string name="title_add_notification_activity">Add Notification</string>
+    <string name="menu_refresh">Refresh</string>
 
 </resources>
