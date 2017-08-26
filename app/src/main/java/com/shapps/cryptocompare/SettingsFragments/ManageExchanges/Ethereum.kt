@@ -5,6 +5,7 @@ import android.preference.PreferenceFragment
 import android.view.MenuItem
 import com.shapps.cryptocompare.R
 import com.shapps.cryptocompare.Activities.SettingsActivity
+import com.shapps.cryptocompare.SettingsFragments.Main
 
 /**
  * Created by shyam on 26/8/17.
@@ -26,7 +27,7 @@ class Ethereum : PreferenceFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == android.R.id.home) {
-            fragmentManager.beginTransaction().replace(android.R.id.content, SettingsActivity.Main()).commit()
+            fragmentManager.beginTransaction().replace(android.R.id.content, Main()).commit()
             return true
         }
         return super.onOptionsItemSelected(item)
