@@ -108,5 +108,7 @@
     <string name="menu_refresh">Refresh</string>
     <string name="text_bitcoin">Bitcoin</string>
     <string name="text_ethereum">Ethereum</string>
+    <string name="no_internet_description">Hold on sailor, no internet try again.</string>
+    <string name="text_open_settings">Open Settings</string>
 
 </resources>
