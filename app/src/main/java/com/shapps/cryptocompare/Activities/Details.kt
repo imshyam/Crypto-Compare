@@ -12,7 +12,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.shapps.cryptocompare.R
 import kotlinx.android.synthetic.main.activity_details.*
 
-class DetailsActivity : AppCompatActivity() {
+class Details : AppCompatActivity() {
 
 
     private var cryptoCurrency: String? = null

@@ -21,7 +21,7 @@ import com.shapps.cryptocompare.MainFragments.Notifications
 import com.shapps.cryptocompare.R
 
 
-class MainActivity : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
+class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
         Notifications.OnListFragmentInteractionListener, Charts.OnFragmentInteractionListener {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity(), Dashboard.OnListFragmentInteractionLis
         // Handle item selection
         when (item.itemId) {
             R.id.action_settings -> {
-                val settingsAct = Intent(applicationContext, SettingsActivity::class.java)
+                val settingsAct = Intent(applicationContext, Settings::class.java)
                 startActivity(settingsAct)
                 return true
             }
@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity(), Dashboard.OnListFragmentInteractionLis
     }
 
     override fun onListFragmentInteraction(cryptoCurrency: String, currency: String, exchangeId: String, exchangeName: String) {
-        var detailsIntent = Intent(this, DetailsActivity::class.java)
+        var detailsIntent = Intent(this, Details::class.java)
         detailsIntent.putExtra("CRYPTO_CURR", cryptoCurrency)
         detailsIntent.putExtra("CURR", currency)
         detailsIntent.putExtra("EX_ID", exchangeId)
