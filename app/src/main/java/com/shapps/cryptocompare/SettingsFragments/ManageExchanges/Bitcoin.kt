@@ -14,6 +14,15 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.shapps.cryptocompare.Networking.DetailURLs
+import org.json.JSONArray
+import org.json.JSONObject
+
+
+
+
+
+
+
 
 
 
@@ -34,7 +43,17 @@ class Bitcoin : PreferenceFragment() {
 
         val strReq = StringRequest(Request.Method.GET,
                 url, Response.Listener { response ->
-            Log.d("TAG", response.toString())
+            var jsonObj = JSONObject(response);
+            var allBitcoinExchanges =  JSONObject(jsonObj.getString("Bitcoin"))
+            val keys = allBitcoinExchanges.keys()
+
+            while (keys.hasNext()) {
+                val key = keys.next() as String
+                var currencywiseB =  JSONArray(allBitcoinExchanges.get(key).toString())
+                (0 until currencywiseB.length())
+                        .map { JSONObject(currencywiseB.get(it).toString()) }
+                        .forEach { Log.d(key, it.getString("name")) }
+            }
             pDialog.hide()
         }, Response.ErrorListener { error ->
             VolleyLog.d("TAG ", "Error: " + error.message)
