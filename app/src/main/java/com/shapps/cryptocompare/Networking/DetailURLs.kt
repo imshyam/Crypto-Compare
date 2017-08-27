@@ -3,10 +3,10 @@ package com.shapps.cryptocompare.Networking
 /**
  * Created by shyam on 27/8/17.
  */
-class DetailURLs {
+object DetailURLs {
 
-    val URL_EXCHANGES = "XXX"
-    val URL_GET_CURRENT = "XXX"
-    val URL_GET_HISTORY = "XXX"
-    val URL_CREATE_NOTIFICATION = "XXX"
+        const val URL_EXCHANGES: String = "XXX"
+        const public val URL_GET_CURRENT = "XXX"
+        const public val URL_GET_HISTORY = "XXX"
+        const public val URL_CREATE_NOTIFICATION = "XXX"
 }
