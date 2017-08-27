@@ -19,3 +19,4 @@
 /build
 /captures
 .externalNativeBuild
+app/src/main/java/com/shapps/cryptocompare/Networking/DetailURLs.kt

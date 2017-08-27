@@ -1,12 +1,12 @@
 package com.shapps.cryptocompare.Networking
 
 import android.app.Application
+import android.content.Context
 import android.text.TextUtils
 import com.android.volley.Request
 import com.android.volley.toolbox.ImageLoader
 import com.android.volley.toolbox.Volley
 import com.android.volley.RequestQueue
-
 
 
 /**
@@ -17,16 +17,18 @@ class AppController : Application() {
 
     private var mRequestQueue: RequestQueue? = null
     private var mImageLoader: ImageLoader? = null
+    private var mInstance: AppController? = null
+    private var contxt: Context? = null
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
+        mInstance = this
     }
 
-    val requestQueue: RequestQueue
+    private val requestQueue: RequestQueue
         get() {
             if (mRequestQueue == null) {
-                mRequestQueue = Volley.newRequestQueue(getApplicationContext())
+                mRequestQueue = Volley.newRequestQueue(contxt)
             }
 
             return this.mRequestQueue!!
@@ -42,14 +44,15 @@ class AppController : Application() {
             return this.mImageLoader!!
         }
 
-    fun <T> addToRequestQueue(req: Request<T>, tag: String) {
+    fun <T> addToRequestQueue(req: Request<T>, tag: String, context: Context) {
         // set the default tag if tag is empty
-        req.setTag(if (TextUtils.isEmpty(tag)) TAG else tag)
+        this.contxt = context
+        req.tag = if (TextUtils.isEmpty(tag)) TAG else tag
         requestQueue.add(req)
     }
 
     fun <T> addToRequestQueue(req: Request<T>) {
-        req.setTag(TAG)
+        req.tag = TAG
         requestQueue.add(req)
     }
 
@@ -62,10 +65,9 @@ class AppController : Application() {
     companion object {
 
         val TAG = AppController::class.java
-                .simpleName
+                .simpleName!!
 
-        @get:Synchronized
-        var instance: AppController? = null
+        var instance: AppController? = AppController()
             private set
     }
 }
