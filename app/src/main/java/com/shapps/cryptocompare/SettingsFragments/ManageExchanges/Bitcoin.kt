@@ -9,6 +9,7 @@ import com.shapps.cryptocompare.SettingsFragments.Main
 import com.shapps.cryptocompare.Networking.AppController
 import com.android.volley.VolleyLog
 import android.app.ProgressDialog
+import android.preference.SwitchPreference
 import android.util.Log
 import com.android.volley.Request
 import com.android.volley.Response
@@ -16,14 +17,8 @@ import com.android.volley.toolbox.StringRequest
 import com.shapps.cryptocompare.Networking.DetailURLs
 import org.json.JSONArray
 import org.json.JSONObject
-
-
-
-
-
-
-
-
+import android.util.TypedValue
+import android.view.ContextThemeWrapper
 
 
 /**
@@ -34,6 +29,13 @@ class Bitcoin : PreferenceFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        var prefBitcoinsScreen = preferenceManager.createPreferenceScreen(activity)
+        preferenceScreen = prefBitcoinsScreen
+
+        val themeTypedValue = TypedValue()
+        activity.theme.resolveAttribute(R.style.AppTheme, themeTypedValue, true)
+        val contextThemeWrapper = ContextThemeWrapper(activity, themeTypedValue.resourceId)
 
         var url = DetailURLs.URL_EXCHANGES
 
@@ -50,9 +52,17 @@ class Bitcoin : PreferenceFragment() {
             while (keys.hasNext()) {
                 val key = keys.next() as String
                 var currencywiseB =  JSONArray(allBitcoinExchanges.get(key).toString())
+//                Log.d("CurrencyWise", currencywiseB.toString())
                 (0 until currencywiseB.length())
                         .map { JSONObject(currencywiseB.get(it).toString()) }
-                        .forEach { Log.d(key, it.getString("name")) }
+                        .forEach {
+                            Log.d(key, it.getString("name"))
+                            var switchPref = SwitchPreference(contextThemeWrapper)
+                            switchPref.title = it.getString("name")
+                            switchPref.key = "pref_key_storage_bitcoin_exchanges_" + key + "_" + it.getString("name")
+                            switchPref.summary = key
+                            preferenceScreen.addPreference(switchPref)
+                        }
             }
             pDialog.hide()
         }, Response.ErrorListener { error ->
@@ -64,7 +74,7 @@ class Bitcoin : PreferenceFragment() {
         AppController.instance?.addToRequestQueue(strReq, "APPLE", activity)
 
 
-        addPreferencesFromResource(R.xml.pref_bitcoin_exchanges)
+//        addPreferencesFromResource(R.xml.pref_bitcoin_exchanges)
 
         val settingsAct = activity as Settings
         settingsAct.title = "Bitcoin Exchanges"

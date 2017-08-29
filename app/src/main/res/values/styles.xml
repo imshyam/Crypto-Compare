@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowDrawsSystemBarBackgrounds">false</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -87,4 +88,5 @@
         <item name="android:layout_marginBottom">0sp</item>
         <item name="android:textColor">#FFF</item>
     </style>
+
 </resources>

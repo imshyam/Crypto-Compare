@@ -17,12 +17,12 @@ class Main : PreferenceFragment() {
         super.onCreate(savedInstanceState)
         addPreferencesFromResource(R.xml.pref_settings)
 
-        findPreference("pref_key_storage_manage_bitcoin_exchanges").onPreferenceClickListener = Preference.OnPreferenceClickListener {
+        findPreference("pref_key_storage_bitcoin_exchanges").onPreferenceClickListener = Preference.OnPreferenceClickListener {
             fragmentManager.beginTransaction().replace(android.R.id.content, Bitcoin()).addToBackStack(Bitcoin::class.java.simpleName).commit()
             true
         }
 
-        findPreference("pref_key_storage_manage_ethereum_exchanges").onPreferenceClickListener = Preference.OnPreferenceClickListener {
+        findPreference("pref_key_storage_ethereum_exchanges").onPreferenceClickListener = Preference.OnPreferenceClickListener {
             fragmentManager.beginTransaction().replace(android.R.id.content, Ethereum()).addToBackStack(Bitcoin::class.java.simpleName).commit()
             true
         }

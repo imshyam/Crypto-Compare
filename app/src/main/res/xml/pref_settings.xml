@@ -2,15 +2,15 @@
 
     <PreferenceCategory
         android:title="@string/manage_exchanges"
-        android:key="pref_key_storage_general_setting">
+        android:key="pref_key_storage_manage_exchanges">
 
         <Preference
             android:title="@string/text_bitcoin"
-            android:key="pref_key_storage_manage_bitcoin_exchanges"
+            android:key="pref_key_storage_bitcoin_exchanges"
             android:persistent="false"/>
         <Preference
             android:title="@string/text_ethereum"
-            android:key="pref_key_storage_manage_ethereum_exchanges"
+            android:key="pref_key_storage_ethereum_exchanges"
             android:persistent="false"/>
 
     </PreferenceCategory>
@@ -18,7 +18,7 @@
 
     <PreferenceCategory
         android:title="@string/general_settings"
-        android:key="pref_key_storage_notification_settings">
+        android:key="pref_key_storage_general_settings">
 
         <ListPreference
             android:title="@string/graph_type"
