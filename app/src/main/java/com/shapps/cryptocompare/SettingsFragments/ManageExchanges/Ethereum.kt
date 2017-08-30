@@ -45,20 +45,20 @@ class Ethereum : PreferenceFragment() {
         val strReq = StringRequest(Request.Method.GET,
                 url, Response.Listener { response ->
             var jsonObj = JSONObject(response);
-            var allBitcoinExchanges =  JSONObject(jsonObj.getString("Ethereum"))
-            val keys = allBitcoinExchanges.keys()
+            var allEthereumExchanges =  JSONObject(jsonObj.getString("Ethereum"))
+            val keys = allEthereumExchanges.keys()
 
             while (keys.hasNext()) {
                 val key = keys.next() as String
-                var currencywiseB =  JSONArray(allBitcoinExchanges.get(key).toString())
+                var currencywiseE =  JSONArray(allEthereumExchanges.get(key).toString())
 //                Log.d("CurrencyWise", currencywiseB.toString())
-                (0 until currencywiseB.length())
-                        .map { JSONObject(currencywiseB.get(it).toString()) }
+                (0 until currencywiseE.length())
+                        .map { JSONObject(currencywiseE.get(it).toString()) }
                         .forEach {
                             Log.d(key, it.getString("name"))
                             var switchPref = SwitchPreference(contextThemeWrapper)
                             switchPref.title = it.getString("name")
-                            switchPref.key = "pref_key_storage_bitcoin_exchanges_" + key + "_" + it.getString("name")
+                            switchPref.key = "pref_key_storage_ethereum_exchanges_" + key + "_" + it.getString("name")
                             switchPref.summary = key
                             preferenceScreen.addPreference(switchPref)
                         }
