@@ -15,9 +15,9 @@ import android.view.MenuItem
 import com.shapps.cryptocompare.Model.NotificationContent
 import kotlinx.android.synthetic.main.activity_main.*
 import com.github.mikephil.charting.charts.Chart.LOG_TAG
-import com.shapps.cryptocompare.MainFragments.Charts
-import com.shapps.cryptocompare.MainFragments.Dashboard
-import com.shapps.cryptocompare.MainFragments.Notifications
+import com.shapps.cryptocompare.Fragments.Charts
+import com.shapps.cryptocompare.Fragments.Dashboard
+import com.shapps.cryptocompare.Fragments.Notifications
 import com.shapps.cryptocompare.R
 
 

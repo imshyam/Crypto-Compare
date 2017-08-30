@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import com.shapps.cryptocompare.MainFragments.Notifications.OnListFragmentInteractionListener
+import com.shapps.cryptocompare.Fragments.Notifications.OnListFragmentInteractionListener
 import com.shapps.cryptocompare.Model.NotificationContent.NotificationItem
 import com.shapps.cryptocompare.R
 import kotlinx.android.synthetic.main.notification_item.view.*

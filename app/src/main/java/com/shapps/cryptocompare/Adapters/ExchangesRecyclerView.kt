@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 
-import com.shapps.cryptocompare.MainFragments.Dashboard.OnListFragmentInteractionListener
+import com.shapps.cryptocompare.Fragments.Dashboard.OnListFragmentInteractionListener
 import com.shapps.cryptocompare.Model.LiveDataContent.LiveData
 import com.shapps.cryptocompare.R
 import kotlinx.android.synthetic.main.card_exchanges.view.*
