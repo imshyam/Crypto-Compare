@@ -1,20 +1,17 @@
-package com.shapps.cryptocompare.MainFragments
+package com.shapps.cryptocompare.Fragments
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import com.shapps.cryptocompare.Activities.AddNotification
+import com.shapps.cryptocompare.Adapters.ExchangesRecyclerView
 
-import com.shapps.cryptocompare.Model.NotificationContent
-import com.shapps.cryptocompare.Model.NotificationContent.NotificationItem
-import com.shapps.cryptocompare.Adapters.NotificationsRecyclerView
+import com.shapps.cryptocompare.Model.LiveDataContent
 import com.shapps.cryptocompare.R
 
 /**
@@ -28,10 +25,10 @@ import com.shapps.cryptocompare.R
  * Mandatory empty constructor for the fragment manager to instantiate the
  * fragment (e.g. upon screen orientation changes).
  */
-class Notifications : Fragment() {
+class Dashboard : Fragment() {
+    // TODO: Customize parameters
     private var mColumnCount = 1
     private var mListener: OnListFragmentInteractionListener? = null
-    private var noNotifications = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,25 +40,18 @@ class Notifications : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        if(noNotifications){
-            val view = inflater!!.inflate(R.layout.fragment_no_notification, container, false)
-
-            val addNotification = view.findViewById<Button>(R.id.add_notification)
-            addNotification.setOnClickListener{
-                val addNotificationAct = Intent(context, AddNotification::class.java)
-                startActivity(addNotificationAct)
-            }
-
-            return view
-        }
-
-        val view = inflater!!.inflate(R.layout.fragment_notification_list, container, false)
+        val view = inflater!!.inflate(R.layout.fragment_dashboard, container, false)
 
         // Set the adapter
         if (view is RecyclerView) {
             val context = view.getContext()
-            view.layoutManager = LinearLayoutManager(context)
-            view.adapter = NotificationsRecyclerView(NotificationContent.ITEMS, mListener)
+            val recyclerView = view
+            if (mColumnCount <= 1) {
+                recyclerView.layoutManager = LinearLayoutManager(context)
+            } else {
+                recyclerView.layoutManager = GridLayoutManager(context, mColumnCount)
+            }
+            recyclerView.adapter = ExchangesRecyclerView(LiveDataContent.ITEMS, mListener)
         }
         return view
     }
@@ -92,7 +82,7 @@ class Notifications : Fragment() {
      */
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: NotificationItem)
+        fun onListFragmentInteraction(cryptoCurrency: String, currency: String, exchangeId: String, exchangeName: String)
     }
 
     companion object {
@@ -101,8 +91,8 @@ class Notifications : Fragment() {
         private val ARG_COLUMN_COUNT = "column-count"
 
         // TODO: Customize parameter initialization
-        fun newInstance(columnCount: Int): Notifications {
-            val fragment = Notifications()
+        fun newInstance(columnCount: Int): Dashboard {
+            val fragment = Dashboard()
             val args = Bundle()
             args.putInt(ARG_COLUMN_COUNT, columnCount)
             fragment.arguments = args

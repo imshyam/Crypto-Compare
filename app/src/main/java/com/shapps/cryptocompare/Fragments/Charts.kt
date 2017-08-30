@@ -1,4 +1,4 @@
-package com.shapps.cryptocompare.MainFragments
+package com.shapps.cryptocompare.Fragments
 
 import android.content.Context
 import android.graphics.Color
