@@ -45,25 +45,21 @@ class Bitcoin : PreferenceFragment() {
 
         val strReq = StringRequest(Request.Method.GET,
                 url, Response.Listener { response ->
-            var jsonObj = JSONObject(response);
-            var allBitcoinExchanges =  JSONObject(jsonObj.getString("Bitcoin"))
-            val keys = allBitcoinExchanges.keys()
+            var jsonArr = JSONArray(response)
 
-            while (keys.hasNext()) {
-                val key = keys.next() as String
-                var currencywiseB =  JSONArray(allBitcoinExchanges.get(key).toString())
-//                Log.d("CurrencyWise", currencywiseB.toString())
-                (0 until currencywiseB.length())
-                        .map { JSONObject(currencywiseB.get(it).toString()) }
-                        .forEach {
-                            Log.d(key, it.getString("name"))
-                            var switchPref = SwitchPreference(contextThemeWrapper)
-                            switchPref.title = it.getString("name")
-                            switchPref.key = "pref_key_storage_bitcoin_exchanges_" + key + "_" + it.getString("name")
-                            switchPref.summary = key
-                            preferenceScreen.addPreference(switchPref)
-                        }
-            }
+        (0 until jsonArr.length())
+                .map { JSONObject(jsonArr.get(it).toString()) }
+                .forEach {
+                    if (it.getString("crypto_currency").equals("Bitcoin")) {
+                        var currency = it.getString("currency")
+                        Log.d("Exchange", it.getString("name"))
+                        var switchPref = SwitchPreference(contextThemeWrapper)
+                        switchPref.title = it.getString("name")
+                        switchPref.key = "pref_key_storage_bitcoin_exchanges_" + currency + "_" + it.getString("id")
+                        switchPref.summary = currency
+                        preferenceScreen.addPreference(switchPref)
+                    }
+                }
             pDialog.hide()
         }, Response.ErrorListener { error ->
             VolleyLog.d("TAG ", "Error: " + error.message)
