@@ -55,7 +55,7 @@ class Bitcoin : PreferenceFragment() {
                         Log.d("Exchange", it.getString("name"))
                         var switchPref = SwitchPreference(contextThemeWrapper)
                         switchPref.title = it.getString("name")
-                        switchPref.key = "pref_key_storage_bitcoin_exchanges_" + currency + "_" + it.getString("id")
+                        switchPref.key = "pref_key_storage_bitcoin_exchanges_" + it.getString("id")
                         switchPref.summary = currency
                         preferenceScreen.addPreference(switchPref)
                     }
