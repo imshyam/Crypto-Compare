@@ -44,25 +44,21 @@ class Ethereum : PreferenceFragment() {
 
         val strReq = StringRequest(Request.Method.GET,
                 url, Response.Listener { response ->
-            var jsonObj = JSONObject(response);
-            var allEthereumExchanges =  JSONObject(jsonObj.getString("Ethereum"))
-            val keys = allEthereumExchanges.keys()
+            var jsonArr = JSONArray(response)
 
-            while (keys.hasNext()) {
-                val key = keys.next() as String
-                var currencywiseE =  JSONArray(allEthereumExchanges.get(key).toString())
-//                Log.d("CurrencyWise", currencywiseB.toString())
-                (0 until currencywiseE.length())
-                        .map { JSONObject(currencywiseE.get(it).toString()) }
-                        .forEach {
-                            Log.d(key, it.getString("name"))
+            (0 until jsonArr.length())
+                    .map { JSONObject(jsonArr.get(it).toString()) }
+                    .forEach {
+                        if (it.getString("crypto_currency").equals("Ethereum")) {
+                            var currency = it.getString("currency")
+                            Log.d("Exchange", it.getString("name"))
                             var switchPref = SwitchPreference(contextThemeWrapper)
                             switchPref.title = it.getString("name")
-                            switchPref.key = "pref_key_storage_ethereum_exchanges_" + key + "_" + it.getString("name")
-                            switchPref.summary = key
+                            switchPref.key = "pref_key_storage_bitcoin_exchanges_" + currency + "_" + it.getString("id")
+                            switchPref.summary = currency
                             preferenceScreen.addPreference(switchPref)
                         }
-            }
+                    }
             pDialog.hide()
         }, Response.ErrorListener { error ->
             VolleyLog.d("TAG ", "Error: " + error.message)
