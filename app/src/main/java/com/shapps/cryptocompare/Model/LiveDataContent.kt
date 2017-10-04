@@ -1,6 +1,5 @@
 package com.shapps.cryptocompare.Model
 
-import android.app.ProgressDialog
 import android.preference.SwitchPreference
 import android.util.Log
 import com.android.volley.Request
@@ -31,13 +30,8 @@ object LiveDataContent {
      */
     private val ITEM_MAP: MutableMap<String, LiveData> = HashMap()
 
-    private val COUNT = 25
-
     init {
         // Add some sample items.
-        for (i in 1..COUNT) {
-            addItem(createLiveData(i))
-        }
     }
 
     private fun addItem(item: LiveData) {
@@ -45,24 +39,27 @@ object LiveDataContent {
         ITEM_MAP.put(item.id, item)
     }
 
-    private fun createLiveData(position: Int): LiveData {
-
-        return LiveData(position.toString(), "Bitcoin", "SGD " + position, "1",
-                "Fyb-SG", "2321.22", "2100.33")
-    }
-
     class LiveData(val id: String, val cryptoCurrency: String, val currency: String, val exchangeId: String, val exchangeName: String,
                    val priceBuy: String, val priceSell: String)
 
-    fun getData(activityContext: Main) {
+    fun getData(activityContext: Main, currentExchanges: String) {
         Log.d("Load", "Ing")
 
-        var url = DetailURLs.URL_GET_CURRENT
+        val url = DetailURLs.URL_GET_CURRENT + currentExchanges
 
         val strReq = StringRequest(Request.Method.GET,
                 url, Response.Listener { response ->
             var currentData = JSONArray(response)
-
+            for(i in 0..currentData.length()-1){
+                var exchangeCurrent = JSONObject(currentData.get(i).toString())
+                var cryptoCurr = exchangeCurrent.getString("crypto_curr")
+                var currency = exchangeCurrent.getString("curr")
+                var exchangeId = exchangeCurrent.getString("exchange_id")
+                var priceBuy = exchangeCurrent.getString("buy")
+                var priceSell = exchangeCurrent.getString("sell")
+                addItem(LiveData(i.toString(), cryptoCurr, currency , exchangeId,
+                        "Fyb-SG", priceBuy, priceSell))
+            }
             Log.d("currentData : ", currentData.toString())
             Log.d("Load", "Done")
         }, Response.ErrorListener { error ->
