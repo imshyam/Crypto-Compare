@@ -18,6 +18,7 @@ import com.github.mikephil.charting.charts.Chart.LOG_TAG
 import com.shapps.cryptocompare.Fragments.Charts
 import com.shapps.cryptocompare.Fragments.Dashboard
 import com.shapps.cryptocompare.Fragments.Notifications
+import com.shapps.cryptocompare.Model.LiveDataContent
 import com.shapps.cryptocompare.R
 
 
@@ -57,6 +58,8 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
         setContentView(R.layout.activity_main)
         val myToolbar = findViewById<View>(R.id.my_toolbar) as Toolbar
         setSupportActionBar(myToolbar)
+
+        LiveDataContent.getData(this)
 
         navigation.selectedItemId = R.id.navigation_dashboard
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
