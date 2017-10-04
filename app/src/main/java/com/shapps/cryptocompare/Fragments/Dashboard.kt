@@ -45,13 +45,12 @@ class Dashboard : Fragment() {
         // Set the adapter
         if (view is RecyclerView) {
             val context = view.getContext()
-            val recyclerView = view
             if (mColumnCount <= 1) {
-                recyclerView.layoutManager = LinearLayoutManager(context)
+                view.layoutManager = LinearLayoutManager(context)
             } else {
-                recyclerView.layoutManager = GridLayoutManager(context, mColumnCount)
+                view.layoutManager = GridLayoutManager(context, mColumnCount)
             }
-            recyclerView.adapter = ExchangesRecyclerView(LiveDataContent.ITEMS, mListener)
+            view.adapter = ExchangesRecyclerView(LiveDataContent.ITEMS, mListener)
         }
         return view
     }
