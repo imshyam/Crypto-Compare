@@ -50,6 +50,11 @@ class ExchangesRecyclerView(private val mValues: List<LiveData>, private val mLi
             mView.currency_name.text = mValues.currency
             mView.buy_value.text = mValues.priceBuy
             mView.sell_value.text = mValues.priceSell
+            mView.volume.text = mValues.volume
+            mView.low_buy.text = mValues.lowBuy
+            mView.high_buy.text = mValues.highBuy
+            mView.low_sell.text = mValues.lowSell
+            mView.high_sell.text = mValues.highSell
         }
 
     }
