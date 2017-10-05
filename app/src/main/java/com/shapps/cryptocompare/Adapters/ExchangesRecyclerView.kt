@@ -55,6 +55,8 @@ class ExchangesRecyclerView(private val mValues: List<LiveData>, private val mLi
             mView.high_buy.text = mValues.highBuy
             mView.low_sell.text = mValues.lowSell
             mView.high_sell.text = mValues.highSell
+            if(mValues.cryptoCurrency == "Ethereum")
+                mView.currency_icon.setImageResource(R.drawable.ic_ethereum)
         }
 
     }
