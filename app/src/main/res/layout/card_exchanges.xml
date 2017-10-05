@@ -64,7 +64,7 @@
 
                 <ImageView
                     android:id="@+id/currency_icon"
-                    android:layout_width="10dp"
+                    android:layout_width="16dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/list_item_margin"
                     android:src="@drawable/ic_bitcoin" />
