@@ -1,5 +1,6 @@
 package com.shapps.cryptocompare.Activities
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.support.v4.app.Fragment;
@@ -18,18 +19,11 @@ import com.github.mikephil.charting.charts.Chart.LOG_TAG
 import com.shapps.cryptocompare.Fragments.Charts
 import com.shapps.cryptocompare.Fragments.Dashboard
 import com.shapps.cryptocompare.Fragments.Notifications
-import com.shapps.cryptocompare.Model.LiveDataContent
 import com.shapps.cryptocompare.R
-import android.preference.PreferenceManager
-
-
 
 
 class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
         Notifications.OnListFragmentInteractionListener, Charts.OnFragmentInteractionListener {
-
-    private val NO_OF_BITCOIN_EXCHANGES = 19
-    private val NO_OF_ETHEREUM_EXCHANGES = 4
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         val selectedFragment: Fragment
@@ -64,24 +58,6 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
         setContentView(R.layout.activity_main)
         val myToolbar = findViewById<View>(R.id.my_toolbar) as Toolbar
         setSupportActionBar(myToolbar)
-
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        var getCurrentExchanges = ""
-        for (i in 1..NO_OF_BITCOIN_EXCHANGES) {
-            var x = prefs.getBoolean("pref_key_storage_bitcoin_exchanges_" + i.toString(), false)
-            if(x) {
-                getCurrentExchanges += i.toString()
-                if(i < NO_OF_BITCOIN_EXCHANGES) getCurrentExchanges += ","
-            }
-        }
-        for (i in 1001..1000+NO_OF_ETHEREUM_EXCHANGES) {
-            var x = prefs.getBoolean("pref_key_storage_ethereum_exchanges_" + i.toString(), false)
-            if(x) {
-                getCurrentExchanges += i.toString()
-                if(i < 1000+NO_OF_ETHEREUM_EXCHANGES) getCurrentExchanges += ","
-            }
-        }
-        LiveDataContent.getData(this, getCurrentExchanges)
 
         navigation.selectedItemId = R.id.navigation_dashboard
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)

@@ -1,7 +1,9 @@
 package com.shapps.cryptocompare.Fragments
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -9,10 +11,18 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.VolleyLog
+import com.android.volley.toolbox.StringRequest
 import com.shapps.cryptocompare.Adapters.ExchangesRecyclerView
 
 import com.shapps.cryptocompare.Model.LiveDataContent
+import com.shapps.cryptocompare.Networking.AppController
+import com.shapps.cryptocompare.Networking.DetailURLs
 import com.shapps.cryptocompare.R
+import org.json.JSONArray
+import org.json.JSONObject
 
 /**
  * A fragment representing a list of Items.
@@ -29,6 +39,16 @@ class Dashboard : Fragment() {
     // TODO: Customize parameters
     private var mColumnCount = 1
     private var mListener: OnListFragmentInteractionListener? = null
+
+
+    /**
+     * Shared Preferences File Name
+     */
+    private val PREF_FILE = "ExchangesList"
+
+    private val NO_OF_BITCOIN_EXCHANGES = 19
+    private val NO_OF_ETHEREUM_EXCHANGES = 4
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +71,93 @@ class Dashboard : Fragment() {
                 view.layoutManager = GridLayoutManager(context, mColumnCount)
             }
             view.adapter = ExchangesRecyclerView(LiveDataContent.ITEMS, mListener)
+            insertData(view.adapter)
         }
         return view
+    }
+
+    private fun insertData(viewAdap: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
+
+        val prefs = PreferenceManager.getDefaultSharedPreferences(activity)
+        var getCurrentExchanges = ""
+        for (i in 1..NO_OF_BITCOIN_EXCHANGES) {
+            var x = prefs.getBoolean("pref_key_storage_bitcoin_exchanges_" + i.toString(), false)
+            if(x) {
+                getCurrentExchanges += i.toString()
+                if(i < NO_OF_BITCOIN_EXCHANGES) getCurrentExchanges += ","
+            }
+        }
+        for (i in 1001..1000+NO_OF_ETHEREUM_EXCHANGES) {
+            var x = prefs.getBoolean("pref_key_storage_ethereum_exchanges_" + i.toString(), false)
+            if(x) {
+                getCurrentExchanges += i.toString()
+                if(i < 1000+NO_OF_ETHEREUM_EXCHANGES) getCurrentExchanges += ","
+            }
+        }
+
+        var pDialog = ProgressDialog(activity)
+        pDialog.setMessage("Loading...")
+        pDialog.show()
+
+        val url = DetailURLs.URL_GET_CURRENT + getCurrentExchanges
+        val strReq = StringRequest(Request.Method.GET,
+                url, Response.Listener { response ->
+            var currentData = JSONArray(response)
+            for(i in 0 until currentData.length()){
+                var exchangeCurrent = JSONObject(currentData.get(i).toString())
+                var cryptoCurr = exchangeCurrent.getString("crypto_curr")
+                var currency = exchangeCurrent.getString("curr")
+                var exchangeId = exchangeCurrent.getString("exchange_id")
+                var priceBuy = exchangeCurrent.getString("buy")
+                var priceSell = exchangeCurrent.getString("sell")
+                var timeInt = 1
+                var volume = "100"
+                var lowBuy = ""
+                var highBuy = ""
+                var lowSell = ""
+                var highSell = ""
+                when (timeInt) {
+                    1 -> {
+                        lowBuy = exchangeCurrent.getString("last_hour_min_buy")
+                        highBuy = exchangeCurrent.getString("last_hour_max_buy")
+                        lowSell = exchangeCurrent.getString("last_hour_min_sell")
+                        highSell = exchangeCurrent.getString("last_hour_max_sell")
+                    }
+                    2 -> {
+                        lowBuy = exchangeCurrent.getString("last_day_min_buy")
+                        highBuy = exchangeCurrent.getString("last_day_max_buy")
+                        lowSell = exchangeCurrent.getString("last_day_min_sell")
+                        highSell = exchangeCurrent.getString("last_day_max_sell")
+                    }
+                    3 -> {
+                        lowBuy = exchangeCurrent.getString("last_week_min_buy")
+                        highBuy = exchangeCurrent.getString("last_week_max_buy")
+                        lowSell = exchangeCurrent.getString("last_week_min_sell")
+                        highSell = exchangeCurrent.getString("last_week_max_sell")
+                    }
+                    4 -> {
+                        lowBuy = exchangeCurrent.getString("last_month_min_buy")
+                        highBuy = exchangeCurrent.getString("last_month_max_buy")
+                        lowSell = exchangeCurrent.getString("last_month_min_sell")
+                        highSell = exchangeCurrent.getString("last_month_max_sell")
+                    }
+                }
+
+
+                var sharedPref = activity.getSharedPreferences(PREF_FILE, 0)
+                var name = sharedPref.getString(exchangeId, "No Name Found")
+
+                LiveDataContent.addItem(LiveDataContent.LiveData(i.toString(), cryptoCurr, currency , exchangeId,
+                        name, priceBuy, priceSell, volume, lowBuy, highBuy, lowSell, highSell))
+            }
+            pDialog.hide()
+            viewAdap.notifyDataSetChanged()
+        }, Response.ErrorListener { error ->
+            VolleyLog.d("TAG ", "Error: " + error.message)
+        })
+
+        // Adding request to request queue
+        AppController.instance?.addToRequestQueue(strReq, "APPLE", activity)
     }
 
 
@@ -96,6 +201,10 @@ class Dashboard : Fragment() {
             args.putInt(ARG_COLUMN_COUNT, columnCount)
             fragment.arguments = args
             return fragment
+        }
+
+        fun notifyChange() {
+
         }
     }
 }
