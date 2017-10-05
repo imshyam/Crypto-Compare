@@ -57,7 +57,7 @@ object LiveDataContent {
         val strReq = StringRequest(Request.Method.GET,
                 url, Response.Listener { response ->
             var currentData = JSONArray(response)
-            for(i in 0..currentData.length()-1){
+            for(i in 0 until currentData.length()){
                 var exchangeCurrent = JSONObject(currentData.get(i).toString())
                 var cryptoCurr = exchangeCurrent.getString("crypto_curr")
                 var currency = exchangeCurrent.getString("curr")
