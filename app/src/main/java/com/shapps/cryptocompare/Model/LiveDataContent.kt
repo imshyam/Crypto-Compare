@@ -1,5 +1,6 @@
 package com.shapps.cryptocompare.Model
 
+import android.content.SharedPreferences
 import android.preference.SwitchPreference
 import android.util.Log
 import com.android.volley.Request
@@ -13,13 +14,19 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.util.ArrayList
 import java.util.HashMap
+import android.R.id.edit
+
+
 
 /**
  * Created by shyam on 23/7/17.
  */
 
 object LiveDataContent {
-
+    /**
+     * Shared Preferences File Name
+     */
+    private const val PREF_FILE = "ExchangesList"
     /**
      * An array of sample items.
      */
@@ -57,8 +64,12 @@ object LiveDataContent {
                 var exchangeId = exchangeCurrent.getString("exchange_id")
                 var priceBuy = exchangeCurrent.getString("buy")
                 var priceSell = exchangeCurrent.getString("sell")
+
+                var sharedPref = activityContext.getSharedPreferences(PREF_FILE, 0)
+                var name = sharedPref.getString(exchangeId, "No Name Found")
+
                 addItem(LiveData(i.toString(), cryptoCurr, currency , exchangeId,
-                        "Fyb-SG", priceBuy, priceSell))
+                        name, priceBuy, priceSell))
             }
             Log.d("currentData : ", currentData.toString())
             Log.d("Load", "Done")

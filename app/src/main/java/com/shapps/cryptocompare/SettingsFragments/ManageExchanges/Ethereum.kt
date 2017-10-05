@@ -24,6 +24,10 @@ import org.json.JSONObject
  * Created by shyam on 26/8/17.
  */
 class Ethereum : PreferenceFragment() {
+    /**
+     * Shared Preferences File Name
+     */
+    private val PREF_FILE = "ExchangesList"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +61,13 @@ class Ethereum : PreferenceFragment() {
                             switchPref.key = "pref_key_storage_ethereum_exchanges_" + it.getString("id")
                             switchPref.summary = currency
                             preferenceScreen.addPreference(switchPref)
+
+                            var sharedPref = activity.getSharedPreferences(PREF_FILE, 0)
+                            if (!sharedPref.contains(it.getInt("id").toString())){
+                                val editor = sharedPref.edit()
+                                editor.putString(it.getInt("id").toString(), it.getString("name"))
+                                editor.commit()
+                            }
                         }
                     }
             pDialog.hide()

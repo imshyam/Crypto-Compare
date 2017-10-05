@@ -19,6 +19,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import android.util.TypedValue
 import android.view.ContextThemeWrapper
+import com.shapps.cryptocompare.Model.LiveDataContent
 
 
 /**
@@ -26,6 +27,10 @@ import android.view.ContextThemeWrapper
  */
 
 class Bitcoin : PreferenceFragment() {
+    /**
+     * Shared Preferences File Name
+     */
+    private val PREF_FILE = "ExchangesList"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +63,13 @@ class Bitcoin : PreferenceFragment() {
                         switchPref.key = "pref_key_storage_bitcoin_exchanges_" + it.getString("id")
                         switchPref.summary = currency
                         preferenceScreen.addPreference(switchPref)
+
+                        var sharedPref = activity.getSharedPreferences(PREF_FILE, 0)
+                        if (!sharedPref.contains(it.getInt("id").toString())){
+                            val editor = sharedPref.edit()
+                            editor.putString(it.getInt("id").toString(), it.getString("name"))
+                            editor.commit()
+                        }
                     }
                 }
             pDialog.hide()
