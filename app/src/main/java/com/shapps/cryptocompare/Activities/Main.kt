@@ -74,11 +74,11 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
                 if(i < NO_OF_BITCOIN_EXCHANGES) getCurrentExchanges += ","
             }
         }
-        for (i in 1001..1000+NO_OF_BITCOIN_EXCHANGES) {
-            var x = prefs.getBoolean("pref_key_storage_bitcoin_exchanges_" + i.toString(), false)
+        for (i in 1001..1000+NO_OF_ETHEREUM_EXCHANGES) {
+            var x = prefs.getBoolean("pref_key_storage_ethereum_exchanges_" + i.toString(), false)
             if(x) {
                 getCurrentExchanges += i.toString()
-                if(i < NO_OF_BITCOIN_EXCHANGES) getCurrentExchanges += ","
+                if(i < 1000+NO_OF_ETHEREUM_EXCHANGES) getCurrentExchanges += ","
             }
         }
         LiveDataContent.getData(this, getCurrentExchanges)
