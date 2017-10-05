@@ -110,8 +110,8 @@ class Dashboard : Fragment() {
                 var exchangeId = exchangeCurrent.getString("exchange_id")
                 var priceBuy = exchangeCurrent.getString("buy")
                 var priceSell = exchangeCurrent.getString("sell")
+                var volume = exchangeCurrent.getString("volume")
                 var timeInt = 1
-                var volume = "100"
                 var lowBuy = ""
                 var highBuy = ""
                 var lowSell = ""
