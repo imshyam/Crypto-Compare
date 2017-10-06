@@ -45,4 +45,9 @@ object LiveDataContent {
     class LiveData(val id: String, val cryptoCurrency: String, val currency: String, val exchangeId: String, val exchangeName: String,
                    val priceBuy: String, val priceSell: String, val volume: String, val lowBuy: String, val highBuy: String,
                    val lowSell: String, val highSell: String)
+
+    fun dumpData() {
+        ITEMS.clear()
+        ITEM_MAP.clear()
+    }
 }

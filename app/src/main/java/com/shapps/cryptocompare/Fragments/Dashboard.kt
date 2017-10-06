@@ -106,6 +106,7 @@ class Dashboard : Fragment() {
         val strReq = StringRequest(Request.Method.GET,
                 url, Response.Listener { response ->
             var currentData = JSONArray(response)
+            LiveDataContent.dumpData()
             for(i in 0 until currentData.length()){
                 var exchangeCurrent = JSONObject(currentData.get(i).toString())
                 var cryptoCurr = exchangeCurrent.getString("crypto_curr")
@@ -150,7 +151,6 @@ class Dashboard : Fragment() {
 
                 var sharedPref = activity.getSharedPreferences(PREF_FILE, 0)
                 var name = sharedPref.getString(exchangeId, "No Name Found")
-
                 LiveDataContent.addItem(LiveDataContent.LiveData(i.toString(), cryptoCurr, currency , exchangeId,
                         name, priceBuy, priceSell, volume, lowBuy, highBuy, lowSell, highSell))
             }
