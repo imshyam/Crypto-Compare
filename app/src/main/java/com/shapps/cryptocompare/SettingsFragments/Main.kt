@@ -23,7 +23,7 @@ class Main : PreferenceFragment() {
         }
 
         findPreference("pref_key_storage_ethereum_exchanges").onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            fragmentManager.beginTransaction().replace(android.R.id.content, Ethereum()).addToBackStack(Bitcoin::class.java.simpleName).commit()
+            fragmentManager.beginTransaction().replace(android.R.id.content, Ethereum()).addToBackStack(Ethereum::class.java.simpleName).commit()
             true
         }
 
@@ -32,6 +32,7 @@ class Main : PreferenceFragment() {
         settingsAct.title = "Settings"
         settingsAct.flag = true
 
+        Settings.bindPreferenceSummaryToValue(findPreference("pref_key_storage_min_max_period"))
         Settings.bindPreferenceSummaryToValue(findPreference("pref_key_storage_graph_type"))
         Settings.bindPreferenceSummaryToValue(findPreference("pref_key_storage_alarm_tone"))
 

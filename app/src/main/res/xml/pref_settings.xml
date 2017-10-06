@@ -27,6 +27,13 @@
             android:entryValues="@array/list_graph_types_values"
             android:defaultValue="1"/>
 
+        <ListPreference
+            android:title="@string/min_max_period"
+            android:key="pref_key_storage_min_max_period"
+            android:entries="@array/list_min_max_period"
+            android:entryValues="@array/list_min_max_period_values"
+            android:defaultValue="1"/>
+
         <SwitchPreference
             android:title="@string/notification"
             android:key="pref_key_storage_notification"

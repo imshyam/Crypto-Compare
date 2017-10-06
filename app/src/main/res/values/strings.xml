@@ -77,11 +77,19 @@
         <item>2</item>
     </string-array>
 
-    <string-array name="list_preference_entry_values">
+    <string-array name="list_min_max_period">
+        <item>@string/last_hour</item>
+        <item>@string/last_day</item>
+        <item>@string/last_week</item>
+        <item>@string/last_month</item>
+    </string-array>
+    <string-array name="list_min_max_period_values">
         <item>1</item>
         <item>2</item>
         <item>3</item>
+        <item>4</item>
     </string-array>
+
 
     <string-array name="multi_select_list_preference_default_value" />
 
@@ -110,5 +118,10 @@
     <string name="text_ethereum">Ethereum</string>
     <string name="no_internet_description">Hold on sailor, no internet, try refreshing or</string>
     <string name="text_open_settings">Open Settings</string>
+    <string name="min_max_period">Min Max Period</string>
+    <string name="last_hour">Last Hour</string>
+    <string name="last_day">Last Day</string>
+    <string name="last_week">Last Week</string>
+    <string name="last_month">Last Month</string>
 
 </resources>
