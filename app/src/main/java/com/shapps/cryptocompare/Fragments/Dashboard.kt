@@ -40,6 +40,7 @@ class Dashboard : Fragment() {
     // TODO: Customize parameters
     private var mColumnCount = 1
     private var mListener: OnListFragmentInteractionListener? = null
+    private var viewAdap: RecyclerView.Adapter<RecyclerView.ViewHolder>? = null
 
 
     /**
@@ -72,12 +73,13 @@ class Dashboard : Fragment() {
                 view.layoutManager = GridLayoutManager(context, mColumnCount)
             }
             view.adapter = ExchangesRecyclerView(LiveDataContent.ITEMS, mListener)
-            insertData(view.adapter)
+            viewAdap = view.adapter
+            insertDataIntoAdapter()
         }
         return view
     }
 
-    private fun insertData(viewAdap: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
+    private fun insertDataIntoAdapter() {
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(activity)
         var getCurrentExchanges = ""
@@ -112,7 +114,7 @@ class Dashboard : Fragment() {
                 var priceBuy = exchangeCurrent.getString("buy")
                 var priceSell = exchangeCurrent.getString("sell")
                 var volume = exchangeCurrent.getString("volume")
-                var timeInt = prefs.getInt("pref_key_storage_min_max_period", 1)
+                var timeInt = prefs.getString("pref_key_storage_min_max_period", "1").toInt()
                 Log.e("Period", timeInt.toString())
                 var lowBuy = ""
                 var highBuy = ""
@@ -153,7 +155,7 @@ class Dashboard : Fragment() {
                         name, priceBuy, priceSell, volume, lowBuy, highBuy, lowSell, highSell))
             }
             pDialog.hide()
-            viewAdap.notifyDataSetChanged()
+            viewAdap!!.notifyDataSetChanged()
         }, Response.ErrorListener { error ->
             VolleyLog.d("TAG ", "Error: " + error.message)
         })
@@ -197,16 +199,11 @@ class Dashboard : Fragment() {
         private val ARG_COLUMN_COUNT = "column-count"
 
         // TODO: Customize parameter initialization
-        fun newInstance(columnCount: Int): Dashboard {
-            val fragment = Dashboard()
-            val args = Bundle()
-            args.putInt(ARG_COLUMN_COUNT, columnCount)
-            fragment.arguments = args
-            return fragment
-        }
-
-        fun notifyChange() {
-
+        fun newInstance(): Dashboard {
+            //            val args = Bundle()
+//            args.putInt(ARG_COLUMN_COUNT, columnCount)
+//            fragment.arguments = args
+            return Dashboard()
         }
     }
 }

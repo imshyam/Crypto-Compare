@@ -36,7 +36,7 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                selectedFragment = Dashboard.newInstance(1)
+                selectedFragment = Dashboard.newInstance()
                 val transaction = supportFragmentManager.beginTransaction()
                 transaction.replace(R.id.main_content_fragment, selectedFragment)
                 transaction.commit()
@@ -69,14 +69,15 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
 
 
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.main_content_fragment, Dashboard.newInstance(1))
+        transaction.replace(R.id.main_content_fragment, Dashboard.newInstance())
         transaction.commit()
     }
 
     private fun updateOperation() {
-        Handler().postDelayed({
-            swiperefresh.isRefreshing = false
-        }, 2000)
+        var refreshFragment = Dashboard.newInstance()
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.main_content_fragment, refreshFragment)
+        transaction.commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -87,19 +88,19 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle item selection
-        when (item.itemId) {
+        return when (item.itemId) {
             R.id.action_settings -> {
                 val settingsAct = Intent(applicationContext, Settings::class.java)
                 startActivity(settingsAct)
-                return true
+                true
             }
             R.id.menu_refresh -> {
                 Log.i(LOG_TAG, "Refresh menu item selected");
                 swiperefresh.isRefreshing = true
                 updateOperation();
-                return true
+                true
             }
-            else -> return super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
