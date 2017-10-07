@@ -63,8 +63,8 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         swiperefresh.setOnRefreshListener({
-            Log.i(LOG_TAG, "onRefresh called from SwipeRefreshLayout")
-            updateOperation();
+            swiperefresh.isRefreshing = false
+            updateOperation()
         })
 
 
@@ -96,7 +96,6 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
             }
             R.id.menu_refresh -> {
                 Log.i(LOG_TAG, "Refresh menu item selected");
-                swiperefresh.isRefreshing = true
                 updateOperation();
                 true
             }
