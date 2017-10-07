@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -116,7 +115,6 @@ class Dashboard : Fragment() {
                 var priceSell = exchangeCurrent.getString("sell")
                 var volume = exchangeCurrent.getString("volume")
                 var timeInt = prefs.getString("pref_key_storage_min_max_period", "1").toInt()
-                Log.e("Period", timeInt.toString())
                 var lowBuy = ""
                 var highBuy = ""
                 var lowSell = ""
