@@ -72,10 +72,10 @@ class Bitcoin : PreferenceFragment() {
                         }
                     }
                 }
-            pDialog.hide()
+            pDialog.dismiss()
         }, Response.ErrorListener { error ->
             VolleyLog.d("TAG ", "Error: " + error.message)
-            pDialog.hide()
+            pDialog.dismiss()
         })
 
         // Adding request to request queue
