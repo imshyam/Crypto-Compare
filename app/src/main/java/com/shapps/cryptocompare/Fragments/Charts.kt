@@ -84,7 +84,7 @@ class Charts : Fragment() {
 
         val url = DetailURLs.URL_GET_HISTORY + getCurrentExchanges + "?hours=1"
 
-        val map: HashMap<Int, HashMap<String, FloatArray>> = hashMapOf(1 to hashMapOf("buy" to FloatArray(10), "sell" to FloatArray(10)),
+        val map: HashMap<Int, HashMap<String, FloatArray>> = hashMapOf(1 to hashMapOf("buy" to FloatArray(5), "sell" to FloatArray(5)),
                 2 to hashMapOf("buy" to FloatArray(50), "sell" to FloatArray(50)))
         val strReq = StringRequest(Request.Method.GET,
                 url, Response.Listener { response ->
@@ -115,13 +115,13 @@ class Charts : Fragment() {
             }
             pDialog.hide()
             var entries = ArrayList<Entry>()
-            (0 until 10).mapTo(entries) { Entry(it.toFloat(), map[1]!!["buy"]!![it]) }
+            (0 until 5).mapTo(entries) { Entry(it.toFloat(), map[1]!!["buy"]!![it]) }
             var lds = LineDataSet(entries, "FYB-SG")
             lds.color = Color.parseColor("#003838")
             lds.valueTextColor = Color.parseColor("#bbbbbb")
 
             var entries1 = ArrayList<Entry>()
-            (0 until 10).mapTo(entries) { Entry(it.toFloat(), map[1]!!["sell"]!![it]) }
+            (0 until 5).mapTo(entries1) { Entry(it.toFloat(), map[1]!!["sell"]!![it]) }
             var lds1 = LineDataSet(entries1, "FYB-SG-Sell")
             lds1.color = Color.parseColor("#01B6AD")
             lds1.valueTextColor = Color.parseColor("#0A4958")
