@@ -90,6 +90,13 @@
         <item>4</item>
     </string-array>
 
+    <string-array name="currency_list">
+        <item>@string/text_sgd</item>
+        <item>@string/text_usd</item>
+        <item>@string/text_inr</item>
+        <item>@string/text_eur</item>
+    </string-array>
+
 
     <string-array name="multi_select_list_preference_default_value" />
 
@@ -106,7 +113,6 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_settings2">Settings2</string>
     <string name="dot_center">\u2022</string>
-    <string name="currency_name">SGD</string>
     <string name="buy">Buy</string>
     <string name="text_currency_symbol">currency symbol</string>
     <string name="text_no_notification">No Notification</string>
@@ -123,5 +129,9 @@
     <string name="last_day">Last Day</string>
     <string name="last_week">Last Week</string>
     <string name="last_month">Last Month</string>
+    <string name="text_sgd">SGD</string>
+    <string name="text_usd">USD</string>
+    <string name="text_inr">INR</string>
+    <string name="text_eur">EUR</string>
 
 </resources>

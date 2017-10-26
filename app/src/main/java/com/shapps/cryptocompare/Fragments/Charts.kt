@@ -10,6 +10,8 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyLog
@@ -56,6 +58,13 @@ class Charts : Fragment() {
 
         view_main = inflater!!.inflate(R.layout.fragment_charts, container, false)
 
+        val spinner = view_main?.findViewById<Spinner>(R.id.currency_spinner)
+        var adapter = ArrayAdapter.createFromResource(activity, R.array.currency_list, android.R.layout.simple_spinner_item)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        if (spinner != null) {
+            spinner.adapter = adapter
+        }
+
         return view_main
     }
 
@@ -99,6 +108,7 @@ class Charts : Fragment() {
                 var exchangeId = exchangeCurrent.getString("exchange_id")
                 var priceBuy = exchangeCurrent.getString("buy")
                 var priceSell = exchangeCurrent.getString("sell")
+                var date_time = exchangeCurrent.getString("date_time")
 
 //                var sharedPref = activity.getSharedPreferences(PREF_FILE, 0)
 //                var name = sharedPref.getString(exchangeId, "No Name Found")

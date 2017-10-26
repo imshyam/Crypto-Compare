@@ -25,7 +25,7 @@
                 android:textSize="10sp"
                 android:gravity="center"
                 android:textColor="@color/colorPrimary"
-                android:text="@string/currency_name"/>
+                android:text="SGD"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
