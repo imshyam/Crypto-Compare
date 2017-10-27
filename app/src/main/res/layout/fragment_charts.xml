@@ -40,9 +40,6 @@
                     android:layout_weight="1"
                     android:text="ETH"
                     android:textAllCaps="false" />
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"></Spinner>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0px"
