@@ -1,0 +1,420 @@
+[
+  {
+    "id": 1,
+    "name": "FYB-SG",
+    "crypto_currency": "Bitcoin",
+    "currency": "SGD",
+    "buy_fee": "0", 
+    "sell_fee": "0",
+    "app": "",
+    "web": "https://fybsg.com/",
+    "api": {
+      "all": {
+        "endpoint": "https://www.fybsg.com/api/SGD/tickerdetailed.json",
+        "buyKey": "ask",
+        "sellKey": "bid",
+        "volumeKey": "vol"
+      }
+    }
+  },
+  {
+    "id": 2,
+    "name": "Coinbase",
+    "crypto_currency": "Bitcoin",
+    "currency": "SGD",
+    "buy_fee": "0", 
+    "sell_fee": "0",
+    "app": "com.coinbase.android",
+    "web": "https://www.coinbase.com/",
+    "api": {
+      "buy": {
+        "endpoint": "https://api.coinbase.com/v2/prices/buy?currency=SGD",
+        "buyKey": "data.amount"
+      },
+      "sell": {
+        "endpoint": "https://api.coinbase.com/v2/prices/sell?currency=SGD",
+        "sellKey": "data.amount"
+      }
+    }
+  },
+  {
+    "id": 3,
+    "name": "Coinhako",
+    "crypto_currency": "Bitcoin",
+    "currency": "SGD",
+    "buy_fee": "0.9", 
+    "sell_fee": "0.9",
+    "app": "",
+    "web": "https://www.coinhako.com/",
+    "api": {
+      "all": {
+        "endpoint": "https://www.coinhako.com/api/v1/price/currency/BTCSGD",
+        "buyKey": "data.buy_price",
+        "sellKey": "data.sell_price"
+      }
+    }
+  },
+  {
+    "id": 4,
+    "name": "Zebpay",
+    "crypto_currency": "Bitcoin",
+    "currency": "INR",
+    "buy_fee": "0", 
+    "sell_fee": "0",
+    "app": "zebpay.Application",
+    "web": "https://www.zebpay.com/",
+    "api": {
+      "all": {
+        "endpoint": "https://api.zebpay.com/api/v1/ticker?currencyCode=INR",
+        "buyKey": "buy",
+        "sellKey": "sell",
+        "volumeKey": "volume"
+      }
+    }
+  },
+  {
+    "id": 5,
+    "name": "Bitlio",
+    "crypto_currency": "Bitcoin",
+    "currency": "INR",
+    "buy_fee": "0", 
+    "sell_fee": "0",
+    "app": "",
+    "web": "https://www.bitlio.com/",
+    "api": {
+      "buy": {
+        "endpoint": "https://www.bitlio.com/api/v1/stats/buy",
+        "buyKey": "inr.current_rate"
+      },
+      "sell": {
+        "endpoint": "https://www.bitlio.com/api/v1/stats/sell",
+        "sellKey": "inr.current_rate"
+      }
+    }
+  },
+  {
+    "id": 6,
+    "name": "Coinbase",
+    "crypto_currency": "Bitcoin",
+    "currency": "USD",
+    "buy_fee": "0", 
+    "sell_fee": "0",
+    "app": "com.coinbase.android",
+    "web": "https://www.coinbase.com/",
+    "api": {
+      "buy": {
+        "endpoint": "https://api.coinbase.com/v2/prices/buy?currency=USD",
+        "buyKey": "data.amount"
+      },
+      "sell": {
+        "endpoint": "https://api.coinbase.com/v2/prices/sell?currency=USD",
+        "sellKey": "data.amount"
+      }
+    }
+  },
+  {
+    "id": 7,
+    "name": "Cex.io",
+    "crypto_currency": "Bitcoin",
+    "currency": "USD",
+    "buy_fee": "0", 
+    "sell_fee": "0",
+    "app": "io.cex.app.prod",
+    "web": "https://cex.io/",
+    "api": {
+      "all": {
+        "endpoint": "https://cex.io/api/ticker/BTC/USD",
+        "buyKey": "ask",
+        "sellKey": "bid",
+        "volumeKey": "volume"
+      }
+    }
+  },
+  {
+    "id": 8,
+    "name": "OKCoin",
+    "crypto_currency": "Bitcoin",
+    "currency": "USD",
+    "buy_fee": "0", 
+    "sell_fee": "0",
+    "app": "com.okcoin.trader.google",
+    "web": "https://www.okcoin.com/",
+    "api": {
+      "all": {
+        "endpoint": "https://www.okcoin.com/api/v1/ticker.do?symbol=btc_usd",
+        "buyKey": "ticker.buy",
+        "sellKey": "ticker.sell",
+        "volumeKey": "ticker.vol"
+      }
+    }
+  },
+  {
+    "id": 9,
+    "name": "BitFinex",
+    "crypto_currency": "Bitcoin",
+    "currency": "USD",
+    "buy_fee": "0", 
+    "sell_fee": "0",
+    "app": "com.bitfinex.bfxapp",
+    "web": "https://www.bitfinex.com/",
+    "api": {
+      "all": {
+        "endpoint": "https://api.bitfinex.com/v1/pubticker/btcusd",
+        "buyKey": "ask",
+        "sellKey": "bid",
+        "volumeKey": "volume"
+      }
+    }
+  },
+  {
+    "id": 10,
+    "name": "Bitstamp",
+    "crypto_currency": "Bitcoin",
+    "currency": "USD",
+    "buy_fee": "0", 
+    "sell_fee": "0",
+    "app": "net.bitstamp.bitstamp",
+    "web": "https://www.bitstamp.net/",
+    "api": {
+      "all": {
+        "endpoint": "https://www.bitstamp.net/api/v2/ticker/BTCUSD/",
+        "buyKey": "ask",
+        "sellKey": "bid",
+        "volumeKey": "volume"
+      }
+    }
+  },
+  {
+    "id": 11,
+    "crypto_currency": "Bitcoin",
+    "currency": "USD",
+    "name": "GDAX",
+    "buy_fee": "0", 
+    "sell_fee": "0",
+    "app": "",
+    "web": "https://www.gdax.com/",
+    "api": {
+      "all": {
+        "endpoint": "https://api.gdax.com/products/BTC-USD/ticker",
+        "buyKey": "ask",
+        "sellKey": "bid",
+        "volumeKey": "volume"
+      }
+    }
+  },
+  {
+    "id": 12,
+    "name": "Coinhako",
+    "crypto_currency": "Bitcoin",
+    "currency": "USD",
+    "buy_fee": "0.9", 
+    "sell_fee": "0.9",
+    "app": "",
+    "web": "https://www.coinhako.com/",
+    "api": {
+      "all": {
+        "endpoint": "https://www.coinhako.com/api/v1/price/currency/BTCUSD",
+        "buyKey": "data.buy_price",
+        "sellKey": "data.sell_price"
+      }
+    }
+  },
+  {
+    "id": 13,
+    "name": "HitBTC",
+    "crypto_currency": "Bitcoin",
+    "currency": "EUR",
+    "buy_fee": "0", 
+    "sell_fee": "0",
+    "app": "",
+    "web": "https://hitbtc.com/",
+    "api": {
+      "all": {
+        "endpoint": "http://api.hitbtc.com/api/1/public/BTCEUR/ticker",
+        "buyKey": "ask",
+        "sellKey": "bid",
+        "volumeKey": "volume"
+      }
+    }
+  },
+  {
+    "id": 14,
+    "name": "Cex.io",
+    "crypto_currency": "Bitcoin",
+    "currency": "EUR",
+    "buy_fee": "0", 
+    "sell_fee": "0",
+    "app": "io.cex.app.prod",
+    "web": "https://cex.io/",
+    "api": {
+      "all": {
+        "endpoint": "https://cex.io/api/ticker/BTC/EUR",
+        "buyKey": "ask",
+        "sellKey": "bid",
+        "volumeKey": "volume"
+      }
+    }
+  },
+  {
+    "id": 15,
+    "name": "Kraken",
+    "crypto_currency": "Bitcoin",
+    "currency": "EUR",
+    "buy_fee": "0", 
+    "sell_fee": "0",
+    "app": "",
+    "web": "https://www.kraken.com/",
+    "api": {
+      "all": {
+        "endpoint": "https://api.kraken.com/0/public/Ticker?pair=XBTEUR",
+        "buyKey": "result.XXBTZEUR.a.0",
+        "sellKey": "result.XXBTZEUR.b.0",
+        "volumeKey": "result.XXBTZEUR.v.1"
+      }
+    }
+  },
+  {
+    "id": 16,
+    "name": "Bitstamp",
+    "crypto_currency": "Bitcoin",
+    "currency": "EUR",
+    "buy_fee": "0", 
+    "sell_fee": "0",
+    "app": "net.bitstamp.bitstamp",
+    "web": "https://www.bitstamp.net/",
+    "api": {
+      "all": {
+        "endpoint": "https://www.bitstamp.net/api/v2/ticker/BTCEUR/",
+        "buyKey": "ask",
+        "sellKey": "bid",
+        "volumeKey": "volume"
+      }
+    }
+  },
+  {
+    "id": 17,
+    "name": "GDAX",
+    "crypto_currency": "Bitcoin",
+    "currency": "EUR",
+    "buy_fee": "0", 
+    "sell_fee": "0",
+    "app": "",
+    "web": "https://www.gdax.com/",
+    "api": {
+      "all": {
+        "endpoint": "https://api.gdax.com/products/BTC-EUR/ticker",
+        "buyKey": "ask",
+        "sellKey": "bid",
+        "volumeKey": "volume"
+      }
+    }
+  },
+  {
+    "id": 18,
+    "name": "OKCoin",
+    "crypto_currency": "Bitcoin",
+    "currency": "CNY",
+    "buy_fee": "0", 
+    "sell_fee": "0",
+    "app": "com.okcoin.trader.google",
+    "web": "https://www.okcoin.com/",
+    "api": {
+      "all": {
+        "endpoint": "https://www.okcoin.cn/api/v1/ticker.do?symbol=btc_cny",
+        "buyKey": "ticker.buy",
+        "sellKey": "ticker.sell",
+        "volumeKey": "ticker.vol"
+      }
+    }
+  },
+  {
+    "id": 19,
+    "name": "BTCCHINA",
+    "crypto_currency": "Bitcoin",
+    "currency": "CNY",
+    "buy_fee": "0", 
+    "sell_fee": "0",
+    "app": "com.btcchina.spot",
+    "web": "https://www.btcchina.com/",
+    "api": {
+      "all": {
+        "endpoint": "https://data.btcchina.com/data/ticker?market=btccny",
+        "buyKey": "ticker.buy",
+        "sellKey": "ticker.sell",
+        "volumeKey": "ticker.vol"
+      }
+    }
+  },
+  {
+    "id": 1001,
+    "name": "Coinbase",
+    "crypto_currency": "Ethereum",
+    "currency": "SGD",
+    "buy_fee": "0", 
+    "sell_fee": "0",
+    "app": "com.coinbase.android",
+    "web": "https://www.coinbase.com/",
+    "api": {
+      "buy": {
+        "endpoint": "https://api.coinbase.com/v2/prices/ETH-SGD/buy",
+        "buyKey": "data.amount"
+      },
+      "sell": {
+        "endpoint": "https://api.coinbase.com/v2/prices/ETH-SGD/sell",
+        "sellKey": "data.amount"
+      }
+    }
+  },{
+    "id": 1002,
+    "name": "Coinhako",
+    "crypto_currency": "Ethereum",
+    "currency": "SGD",
+    "buy_fee": "0.9", 
+    "sell_fee": "0.9",
+    "app": "",
+    "web": "https://www.coinhako.com/",
+    "api": {
+      "all": {
+        "endpoint": "https://www.coinhako.com/api/v1/price/currency/ETHSGD",
+        "buyKey": "data.buy_price",
+        "sellKey": "data.sell_price"
+      }
+    }
+  },
+  {
+    "id": 1003,
+    "name": "Coinbase",
+    "crypto_currency": "Ethereum",
+    "currency": "USD",
+    "buy_fee": "0", 
+    "sell_fee": "0",
+    "app": "com.coinbase.android",
+    "web": "https://www.coinbase.com/",
+    "api": {
+      "buy": {
+        "endpoint": "https://api.coinbase.com/v2/prices/ETH-USD/buy",
+        "buyKey": "data.amount"
+      },
+      "sell": {
+        "endpoint": "https://api.coinbase.com/v2/prices/ETH-USD/sell",
+        "sellKey": "data.amount"
+      }
+    }
+  },{
+    "id": 1004,
+    "name": "Coinhako",
+    "crypto_currency": "Ethereum",
+    "currency": "USD",
+    "buy_fee": "0.9", 
+    "sell_fee": "0.9",
+    "app": "",
+    "web": "https://www.coinhako.com/",
+    "api": {
+      "all": {
+        "endpoint": "https://www.coinhako.com/api/v1/price/currency/ETHUSD",
+        "buyKey": "data.buy_price",
+        "sellKey": "data.sell_price"
+      }
+    }
+  }
+]

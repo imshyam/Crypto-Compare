@@ -1,11 +1,9 @@
 package com.shapps.cryptocompare.Activities
 
-import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.support.v4.app.Fragment;
 import android.os.Bundle
-import android.os.Handler
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -16,10 +14,13 @@ import android.view.MenuItem
 import com.shapps.cryptocompare.Model.NotificationContent
 import kotlinx.android.synthetic.main.activity_main.*
 import com.github.mikephil.charting.charts.Chart.LOG_TAG
+import com.shapps.cryptocompare.Constants.Exchanges
 import com.shapps.cryptocompare.Fragments.Charts
 import com.shapps.cryptocompare.Fragments.Dashboard
 import com.shapps.cryptocompare.Fragments.Notifications
 import com.shapps.cryptocompare.R
+import java.io.IOException
+import java.nio.charset.Charset
 
 
 class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
@@ -58,6 +59,10 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
         setContentView(R.layout.activity_main)
         val myToolbar = findViewById<View>(R.id.my_toolbar) as Toolbar
         setSupportActionBar(myToolbar)
+
+        var filename = "exchanges.json"
+        var json = loadJSONFromAsset(filename)
+        Exchanges.saveData(json)
 
         navigation.selectedItemId = R.id.navigation_dashboard
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
@@ -119,5 +124,23 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
     override fun onListFragmentInteraction(item: NotificationContent.NotificationItem) {
         Log.e("Item", "val : " + item)
     }
+
+    private fun loadJSONFromAsset(filename: String): String? {
+        var json: String? = null
+        try {
+            val `is` = this.assets.open(filename)
+            val size = `is`.available()
+            val buffer = ByteArray(size)
+            `is`.read(buffer)
+            `is`.close()
+            json = String(buffer, Charset.defaultCharset())
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            return null
+        }
+
+        return json
+    }
+
 
 }
