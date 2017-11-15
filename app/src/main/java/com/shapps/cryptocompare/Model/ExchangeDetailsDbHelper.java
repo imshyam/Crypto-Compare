@@ -4,12 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import static com.shapps.cryptocompare.Model.ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ACTIVE;
-import static com.shapps.cryptocompare.Model.ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_CRYPTO_CURRENCY;
-import static com.shapps.cryptocompare.Model.ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_CURRENCY;
-import static com.shapps.cryptocompare.Model.ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_EX_NAME;
-import static com.shapps.cryptocompare.Model.ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID;
-import static com.shapps.cryptocompare.Model.ExchangeDetailsSchema.ExchangesDetailsEntry.TABLE_NAME;
+import static com.shapps.cryptocompare.Model.ExchangeDetailsSchema.ExchangesDetailsEntry.*;
 
 /**
  * Created by shyam on 14/11/17.
@@ -19,9 +14,9 @@ public class ExchangeDetailsDbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "FeedReader.db";
-    private static String SQL_CREATE_ENTRIES = null;
-    private static String SQL_DELETE_ENTRIES = null;
+    public static final String DATABASE_NAME = "Exchanges.db";
+    private static String SQL_CREATE_ENTRIES = "";
+    private static String SQL_DELETE_ENTRIES = "";
 
     public ExchangeDetailsDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -33,7 +28,7 @@ public class ExchangeDetailsDbHelper extends SQLiteOpenHelper {
                         COLUMN_NAME_CRYPTO_CURRENCY + " TEXT," +
                         COLUMN_NAME_CURRENCY + " TEXT," +
                         COLUMN_NAME_EX_NAME + " TEXT," +
-                        COLUMN_NAME_ACTIVE + " TEXT)";
+                        COLUMN_NAME_ACTIVE + " INTEGER)";
 
         db.execSQL(SQL_CREATE_ENTRIES);
     }
