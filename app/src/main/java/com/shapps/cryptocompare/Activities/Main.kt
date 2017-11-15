@@ -1,5 +1,6 @@
 package com.shapps.cryptocompare.Activities
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.support.v4.app.Fragment;
@@ -21,6 +22,12 @@ import com.shapps.cryptocompare.Fragments.Notifications
 import com.shapps.cryptocompare.R
 import java.io.IOException
 import java.nio.charset.Charset
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
+import android.R.id.edit
+import android.database.sqlite.SQLiteDatabase
+import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
+import com.shapps.cryptocompare.Model.ExchangeDetailsSchema.ExchangesDetailsEntry.*
 
 
 class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
@@ -61,8 +68,24 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
         setSupportActionBar(myToolbar)
 
         var filename = "exchanges.json"
-        var json = loadJSONFromAsset(filename)
-        Exchanges.saveData(json)
+
+        val sharedPref = this.getPreferences(Context.MODE_PRIVATE)
+
+        val savedFileName = sharedPref.getString(getString(R.string.saved_file_name), "NO_DATA")
+        if(savedFileName == filename){
+            Log.d("Already Loaded", filename)
+        } else{
+            Log.d("Loading", filename)
+            var json = loadJSONFromAsset(filename)
+            var success = Exchanges.saveData(json, this)
+            if(success){
+                val editor = sharedPref.edit()
+                editor.putString(getString(R.string.saved_file_name), filename)
+                editor.commit()
+            }
+        }
+
+        testDB()
 
         navigation.selectedItemId = R.id.navigation_dashboard
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
@@ -76,6 +99,36 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_content_fragment, Dashboard.newInstance())
         transaction.commit()
+    }
+
+    private fun testDB() {
+        val mDbHelper = ExchangeDetailsDbHelper(this)
+
+        val db = mDbHelper.readableDatabase
+
+// Define a projection that specifies which columns from the database
+// you will actually use after this query.
+        val projection = arrayOf(COLUMN_NAME_ID, COLUMN_NAME_EX_NAME, COLUMN_NAME_CRYPTO_CURRENCY, COLUMN_NAME_CURRENCY)
+
+// Filter results WHERE "title" = 'My Title'
+        val selection = COLUMN_NAME_CRYPTO_CURRENCY + " = ?"
+        val selectionArgs = arrayOf("Bitcoin")
+
+// How you want the results sorted in the resulting Cursor
+        val sortOrder = COLUMN_NAME_ID + " ASC"
+
+        val cursor = db.query(
+                TABLE_NAME, // The table to query
+                projection, // The columns to return
+                selection, // The columns for the WHERE clause
+                selectionArgs, // don't group the rows
+                null, null, // don't filter by row groups
+                sortOrder                                 // The sort order
+        )
+        while (cursor.moveToNext()) {
+            Log.d("Cursor", cursor.getString(1))
+        }
+        cursor.close()
     }
 
     private fun updateOperation() {
