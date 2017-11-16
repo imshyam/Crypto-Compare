@@ -133,5 +133,6 @@
     <string name="text_usd">USD</string>
     <string name="text_inr">INR</string>
     <string name="text_eur">EUR</string>
+    <string name="saved_file_name">saved_file_name</string>
 
 </resources>
