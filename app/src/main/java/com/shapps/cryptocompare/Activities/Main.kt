@@ -22,10 +22,6 @@ import com.shapps.cryptocompare.Fragments.Notifications
 import com.shapps.cryptocompare.R
 import java.io.IOException
 import java.nio.charset.Charset
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
-import android.R.id.edit
-import android.database.sqlite.SQLiteDatabase
 import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
 import com.shapps.cryptocompare.Model.ExchangeDetailsSchema.ExchangesDetailsEntry.*
 
