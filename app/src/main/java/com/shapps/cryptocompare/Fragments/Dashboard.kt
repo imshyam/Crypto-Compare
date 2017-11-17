@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.preference.SwitchPreference
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -16,6 +17,8 @@ import com.android.volley.Response
 import com.android.volley.VolleyLog
 import com.android.volley.toolbox.StringRequest
 import com.shapps.cryptocompare.Adapters.ExchangesRecyclerView
+import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
+import com.shapps.cryptocompare.Model.ExchangeDetailsSchema
 
 import com.shapps.cryptocompare.Model.LiveDataContent
 import com.shapps.cryptocompare.Networking.AppController
@@ -40,12 +43,6 @@ class Dashboard : Fragment() {
     private var mColumnCount = 1
     private var mListener: OnListFragmentInteractionListener? = null
     private var viewAdap: RecyclerView.Adapter<RecyclerView.ViewHolder>? = null
-
-
-    /**
-     * Shared Preferences File Name
-     */
-    private val PREF_FILE = "ExchangesList"
 
     private val NO_OF_BITCOIN_EXCHANGES = 19
     private val NO_OF_ETHEREUM_EXCHANGES = 4
@@ -106,6 +103,11 @@ class Dashboard : Fragment() {
                 url, Response.Listener { response ->
             var currentData = JSONArray(response)
             LiveDataContent.dumpData()
+
+            val mDbHelper = ExchangeDetailsDbHelper(activity)
+
+            val db = mDbHelper.readableDatabase
+            
             for(i in 0 until currentData.length()){
                 var exchangeCurrent = JSONObject(currentData.get(i).toString())
                 var cryptoCurr = exchangeCurrent.getString("crypto_curr")
@@ -146,11 +148,35 @@ class Dashboard : Fragment() {
                     }
                 }
 
+// Define a projection that specifies which columns from the database
+// you will actually use after this query.
+                val projection = arrayOf(
+                        ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID,
+                        ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_EX_NAME)
 
-                var sharedPref = activity.getSharedPreferences(PREF_FILE, 0)
-                var name = sharedPref.getString(exchangeId, "No Name Found")
+// Filter results WHERE "title" = 'My Title'
+                val selection = ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID + " = ?"
+                val selectionArgs = arrayOf(exchangeId)
+
+// How you want the results sorted in the resulting Cursor
+                val sortOrder = ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID + " ASC"
+
+                val cursor = db.query(
+                        ExchangeDetailsSchema.ExchangesDetailsEntry.TABLE_NAME, // The table to query
+                        projection, // The columns to return
+                        selection, // The columns for the WHERE clause
+                        selectionArgs, // don't group the rows
+                        null, null, // don't filter by row groups
+                        sortOrder                                 // The sort order
+                )
+                var ex_name = ""
+                while (cursor.moveToNext()) {
+                    ex_name = cursor.getString(1)
+                }
+                cursor.close()
+
                 LiveDataContent.addItem(LiveDataContent.LiveData(i.toString(), cryptoCurr, currency , exchangeId,
-                        name, priceBuy, priceSell, volume, lowBuy, highBuy, lowSell, highSell))
+                        ex_name, priceBuy, priceSell, volume, lowBuy, highBuy, lowSell, highSell))
             }
             pDialog.hide()
             viewAdap!!.notifyDataSetChanged()
