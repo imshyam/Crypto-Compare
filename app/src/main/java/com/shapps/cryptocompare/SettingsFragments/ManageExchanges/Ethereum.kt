@@ -14,6 +14,8 @@ import com.android.volley.VolleyLog
 import com.android.volley.toolbox.StringRequest
 import com.shapps.cryptocompare.R
 import com.shapps.cryptocompare.Activities.Settings
+import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
+import com.shapps.cryptocompare.Model.ExchangeDetailsSchema
 import com.shapps.cryptocompare.Networking.AppController
 import com.shapps.cryptocompare.Networking.DetailURLs
 import com.shapps.cryptocompare.SettingsFragments.Main
@@ -40,45 +42,44 @@ class Ethereum : PreferenceFragment() {
         activity.theme.resolveAttribute(R.style.AppTheme, themeTypedValue, true)
         val contextThemeWrapper = ContextThemeWrapper(activity, themeTypedValue.resourceId)
 
-        var url = DetailURLs.URL_EXCHANGES
+        val mDbHelper = ExchangeDetailsDbHelper(activity)
 
-        val pDialog = ProgressDialog(activity)
-        pDialog.setMessage("Loading...")
-        pDialog.show()
+        val db = mDbHelper.readableDatabase
 
-        val strReq = StringRequest(Request.Method.GET,
-                url, Response.Listener { response ->
-            var jsonArr = JSONArray(response)
+// Define a projection that specifies which columns from the database
+// you will actually use after this query.
+        val projection = arrayOf(
+                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID,
+                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_EX_NAME,
+                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_CURRENCY)
 
-            (0 until jsonArr.length())
-                    .map { JSONObject(jsonArr.get(it).toString()) }
-                    .forEach {
-                        if (it.getString("crypto_currency").equals("Ethereum")) {
-                            var currency = it.getString("currency")
-                            Log.d("Exchange", it.getString("name"))
-                            var switchPref = SwitchPreference(contextThemeWrapper)
-                            switchPref.title = it.getString("name")
-                            switchPref.key = "pref_key_storage_ethereum_exchanges_" + it.getString("id")
-                            switchPref.summary = currency
-                            preferenceScreen.addPreference(switchPref)
+// Filter results WHERE "title" = 'My Title'
+        val selection = ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_CRYPTO_CURRENCY + " = ?"
+        val selectionArgs = arrayOf("Ethereum")
 
-                            var sharedPref = activity.getSharedPreferences(PREF_FILE, 0)
-                            if (!sharedPref.contains(it.getInt("id").toString())){
-                                val editor = sharedPref.edit()
-                                editor.putString(it.getInt("id").toString(), it.getString("name"))
-                                editor.commit()
-                            }
-                        }
-                    }
-            pDialog.dismiss()
-        }, Response.ErrorListener { error ->
-            VolleyLog.d("TAG ", "Error: " + error.message)
-            pDialog.dismiss()
-        })
+// How you want the results sorted in the resulting Cursor
+        val sortOrder = ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID + " ASC"
 
-        // Adding request to request queue
-        AppController.instance?.addToRequestQueue(strReq, "APPLE", activity)
+        val cursor = db.query(
+                ExchangeDetailsSchema.ExchangesDetailsEntry.TABLE_NAME, // The table to query
+                projection, // The columns to return
+                selection, // The columns for the WHERE clause
+                selectionArgs, // don't group the rows
+                null, null, // don't filter by row groups
+                sortOrder                                 // The sort order
+        )
+        while (cursor.moveToNext()) {
+            var ex_id = cursor.getInt(0)
+            var ex_name = cursor.getString(1)
+            var currency = cursor.getString(2)
+            var switchPref = SwitchPreference(contextThemeWrapper)
+            switchPref.title = ex_name
+            switchPref.key = "pref_key_storage_bitcoin_exchanges_" + ex_id
+            switchPref.summary = currency
+            preferenceScreen.addPreference(switchPref)
 
+        }
+        cursor.close()
         val settingsAct = activity as Settings
         settingsAct.title = "Ethereum Exchanges"
         settingsAct.flag = false

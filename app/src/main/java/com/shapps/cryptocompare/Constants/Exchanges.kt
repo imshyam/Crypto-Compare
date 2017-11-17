@@ -20,7 +20,6 @@ class Exchanges {
     companion object {
 
         fun saveData(json: String?, context: Main?): Boolean {
-            Log.d("Ex : ", json)
             try {
                 var jsonArr = JSONArray(json)
                 val mDbHelper = ExchangeDetailsDbHelper(context)
