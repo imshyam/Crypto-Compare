@@ -6,22 +6,22 @@ import android.view.MenuItem
 import com.shapps.cryptocompare.R
 import com.shapps.cryptocompare.Activities.Settings
 import com.shapps.cryptocompare.SettingsFragments.Main
-import com.shapps.cryptocompare.Networking.AppController
-import com.android.volley.VolleyLog
-import android.app.ProgressDialog
 import android.preference.SwitchPreference
-import android.util.Log
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
-import com.shapps.cryptocompare.Networking.DetailURLs
-import org.json.JSONArray
-import org.json.JSONObject
 import android.util.TypedValue
 import android.view.ContextThemeWrapper
 import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
 import com.shapps.cryptocompare.Model.ExchangeDetailsSchema
-import com.shapps.cryptocompare.Model.LiveDataContent
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
+import android.content.ContentValues
+import com.shapps.cryptocompare.Model.ExchangeDetailsSchema.ExchangesDetailsEntry.*
+import java.util.regex.Pattern
+
+
+
+
+
+
 
 
 /**
@@ -66,6 +66,41 @@ class Bitcoin : PreferenceFragment() {
                 null, null, // don't filter by row groups
                 sortOrder                                 // The sort order
         )
+        val prefs = PreferenceManager.getDefaultSharedPreferences(activity)
+        // Use instance field for listener
+// It will not be gc'd as long as this instance is kept referenced
+        var listener = SharedPreferences.OnSharedPreferenceChangeListener { prefs, key ->
+            val active = prefs.getBoolean(key, false)
+            var updateTo = "0"
+
+            if(active)
+                updateTo = "1"
+
+
+            val values = ContentValues()
+            values.put(COLUMN_NAME_ACTIVE, updateTo)
+
+            val p = Pattern.compile("\\d+")
+            val m = p.matcher(key)
+            var ex_id = "1"
+            while (m.find()) {
+                ex_id = m.group()
+            }
+
+
+// Which row to update, based on the title
+            val selection = COLUMN_NAME_ID + " = ?"
+            val selectionArgs = arrayOf(ex_id)
+
+            val count = db.update(
+                    TABLE_NAME,
+                    values,
+                    selection,
+                    selectionArgs)
+
+        }
+
+        prefs.registerOnSharedPreferenceChangeListener(listener)
         while (cursor.moveToNext()) {
             var ex_id = cursor.getInt(0)
             var ex_name = cursor.getString(1)
@@ -75,6 +110,8 @@ class Bitcoin : PreferenceFragment() {
             switchPref.key = "pref_key_storage_bitcoin_exchanges_" + ex_id
             switchPref.summary = currency
             preferenceScreen.addPreference(switchPref)
+
+
 
         }
         cursor.close()
