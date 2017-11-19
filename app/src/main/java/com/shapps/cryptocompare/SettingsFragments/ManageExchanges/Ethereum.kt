@@ -30,10 +30,6 @@ import java.util.regex.Pattern
  * Created by shyam on 26/8/17.
  */
 class Ethereum : PreferenceFragment() {
-    /**
-     * Shared Preferences File Name
-     */
-    private val PREF_FILE = "ExchangesList"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,35 +72,38 @@ class Ethereum : PreferenceFragment() {
         // Use instance field for listener
 // It will not be gc'd as long as this instance is kept referenced
         var listener = SharedPreferences.OnSharedPreferenceChangeListener { prefs, key ->
-            val active = prefs.getBoolean(key, false)
-            var updateTo = "0"
 
-            if(active)
-                updateTo = "1"
+            if(key.contains("exchanges")) {
+                val active = prefs.getBoolean(key, false)
+                var updateTo = "0"
+
+                if (active)
+                    updateTo = "1"
 
 
-            val values = ContentValues()
-            values.put(ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ACTIVE, updateTo)
+                val values = ContentValues()
+                values.put(ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ACTIVE, updateTo)
 
-            val p = Pattern.compile("\\d+")
-            val m = p.matcher(key)
-            var ex_id = "1"
-            while (m.find()) {
-                ex_id = m.group()
-            }
+                val p = Pattern.compile("\\d+")
+                val m = p.matcher(key)
+                var ex_id = "1"
+                while (m.find()) {
+                    ex_id = m.group()
+                }
 
 
 // Which row to update, based on the title
-            val selection = ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID + " = ?"
-            val selectionArgs = arrayOf(ex_id)
+                val selection = ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID + " = ?"
+                val selectionArgs = arrayOf(ex_id)
 
-            val count = db.update(
-                    ExchangeDetailsSchema.ExchangesDetailsEntry.TABLE_NAME,
-                    values,
-                    selection,
-                    selectionArgs)
+                val count = db.update(
+                        ExchangeDetailsSchema.ExchangesDetailsEntry.TABLE_NAME,
+                        values,
+                        selection,
+                        selectionArgs)
 
-            Log.d("Updated Rows", count.toString())
+                Log.d("Updated Rows", count.toString())
+            }
 
         }
 
@@ -115,7 +114,7 @@ class Ethereum : PreferenceFragment() {
             var currency = cursor.getString(2)
             var switchPref = SwitchPreference(contextThemeWrapper)
             switchPref.title = ex_name
-            switchPref.key = "pref_key_storage_bitcoin_exchanges_" + ex_id
+            switchPref.key = "pref_key_storage_ethereum_exchanges_" + ex_id
             switchPref.summary = currency
             preferenceScreen.addPreference(switchPref)
 

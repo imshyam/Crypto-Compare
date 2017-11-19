@@ -71,35 +71,38 @@ class Bitcoin : PreferenceFragment() {
         // Use instance field for listener
 // It will not be gc'd as long as this instance is kept referenced
         var listener = SharedPreferences.OnSharedPreferenceChangeListener { prefs, key ->
-            val active = prefs.getBoolean(key, false)
-            var updateTo = "0"
 
-            if(active)
-                updateTo = "1"
+            if(key.contains("exchanges")) {
+                val active = prefs.getBoolean(key, false)
+                var updateTo = "0"
+
+                if (active)
+                    updateTo = "1"
 
 
-            val values = ContentValues()
-            values.put(COLUMN_NAME_ACTIVE, updateTo)
+                val values = ContentValues()
+                values.put(COLUMN_NAME_ACTIVE, updateTo)
 
-            val p = Pattern.compile("\\d+")
-            val m = p.matcher(key)
-            var ex_id = "1"
-            while (m.find()) {
-                ex_id = m.group()
-            }
+                val p = Pattern.compile("\\d+")
+                val m = p.matcher(key)
+                var ex_id = "1"
+                while (m.find()) {
+                    ex_id = m.group()
+                }
 
 
 // Which row to update, based on the title
-            val selection = COLUMN_NAME_ID + " = ?"
-            val selectionArgs = arrayOf(ex_id)
+                val selection = COLUMN_NAME_ID + " = ?"
+                val selectionArgs = arrayOf(ex_id)
 
-            val count = db.update(
-                    TABLE_NAME,
-                    values,
-                    selection,
-                    selectionArgs)
+                val count = db.update(
+                        TABLE_NAME,
+                        values,
+                        selection,
+                        selectionArgs)
 
-            Log.d("Updated Rows", count.toString())
+                Log.d("Updated Rows", count.toString())
+            }
 
         }
 
