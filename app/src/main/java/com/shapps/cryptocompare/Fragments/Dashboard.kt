@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,9 +45,6 @@ class Dashboard : Fragment() {
     private var mListener: OnListFragmentInteractionListener? = null
     private var viewAdap: RecyclerView.Adapter<RecyclerView.ViewHolder>? = null
 
-    private val NO_OF_BITCOIN_EXCHANGES = 19
-    private val NO_OF_ETHEREUM_EXCHANGES = 4
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,22 +75,45 @@ class Dashboard : Fragment() {
 
     private fun insertDataIntoAdapter() {
 
+        var id_name_map: HashMap<Int, String> = hashMapOf()
+
         val prefs = PreferenceManager.getDefaultSharedPreferences(activity)
         var getCurrentExchanges = ""
-        for (i in 1..NO_OF_BITCOIN_EXCHANGES) {
-            var x = prefs.getBoolean("pref_key_storage_bitcoin_exchanges_" + i.toString(), false)
-            if(x) {
-                getCurrentExchanges += i.toString()
-                if(i < NO_OF_BITCOIN_EXCHANGES) getCurrentExchanges += ","
-            }
+
+        val mDbHelper = ExchangeDetailsDbHelper(activity)
+
+        val db = mDbHelper.readableDatabase
+
+        val projection = arrayOf(
+                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID,
+                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_EX_NAME)
+
+// Filter results WHERE "title" = 'My Title'
+        val selection = ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ACTIVE + " = ?"
+        val selectionArgs = arrayOf("1")
+
+// How you want the results sorted in the resulting Cursor
+        val sortOrder = ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID + " ASC"
+
+        val cursor = db.query(
+                ExchangeDetailsSchema.ExchangesDetailsEntry.TABLE_NAME, // The table to query
+                projection, // The columns to return
+                selection, // The columns for the WHERE clause
+                selectionArgs, // don't group the rows
+                null, null, // don't filter by row groups
+                sortOrder                                 // The sort order
+        )
+        while (cursor.moveToNext()) {
+            id_name_map.put(cursor.getInt(0), cursor.getString(1))
+            getCurrentExchanges += cursor.getInt(0).toString() + ","
         }
-        for (i in 1001..1000+NO_OF_ETHEREUM_EXCHANGES) {
-            var x = prefs.getBoolean("pref_key_storage_ethereum_exchanges_" + i.toString(), false)
-            if(x) {
-                getCurrentExchanges += i.toString()
-                if(i < 1000+NO_OF_ETHEREUM_EXCHANGES) getCurrentExchanges += ","
-            }
-        }
+        cursor.close()
+
+        if(getCurrentExchanges.length > 1)
+            getCurrentExchanges = getCurrentExchanges.substring(0, getCurrentExchanges.length-1)
+
+        Log.d("Tmp " , getCurrentExchanges)
+
 
         var pDialog = ProgressDialog(activity)
         pDialog.setMessage("Loading...")
@@ -104,10 +125,6 @@ class Dashboard : Fragment() {
             var currentData = JSONArray(response)
             LiveDataContent.dumpData()
 
-            val mDbHelper = ExchangeDetailsDbHelper(activity)
-
-            val db = mDbHelper.readableDatabase
-            
             for(i in 0 until currentData.length()){
                 var exchangeCurrent = JSONObject(currentData.get(i).toString())
                 var cryptoCurr = exchangeCurrent.getString("crypto_curr")
@@ -148,35 +165,10 @@ class Dashboard : Fragment() {
                     }
                 }
 
-// Define a projection that specifies which columns from the database
-// you will actually use after this query.
-                val projection = arrayOf(
-                        ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID,
-                        ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_EX_NAME)
-
-// Filter results WHERE "title" = 'My Title'
-                val selection = ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID + " = ?"
-                val selectionArgs = arrayOf(exchangeId)
-
-// How you want the results sorted in the resulting Cursor
-                val sortOrder = ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID + " ASC"
-
-                val cursor = db.query(
-                        ExchangeDetailsSchema.ExchangesDetailsEntry.TABLE_NAME, // The table to query
-                        projection, // The columns to return
-                        selection, // The columns for the WHERE clause
-                        selectionArgs, // don't group the rows
-                        null, null, // don't filter by row groups
-                        sortOrder                                 // The sort order
-                )
-                var ex_name = ""
-                while (cursor.moveToNext()) {
-                    ex_name = cursor.getString(1)
-                }
-                cursor.close()
+                var ex_name = id_name_map[exchangeId.toInt()]
 
                 LiveDataContent.addItem(LiveDataContent.LiveData(i.toString(), cryptoCurr, currency , exchangeId,
-                        ex_name, priceBuy, priceSell, volume, lowBuy, highBuy, lowSell, highSell))
+                        ex_name!!, priceBuy, priceSell, volume, lowBuy, highBuy, lowSell, highSell))
             }
             pDialog.hide()
             viewAdap!!.notifyDataSetChanged()
