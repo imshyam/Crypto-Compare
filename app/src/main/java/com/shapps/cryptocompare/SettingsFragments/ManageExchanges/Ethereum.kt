@@ -1,8 +1,11 @@
 package com.shapps.cryptocompare.SettingsFragments.ManageExchanges
 
 import android.app.ProgressDialog
+import android.content.ContentValues
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceFragment
+import android.preference.PreferenceManager
 import android.preference.SwitchPreference
 import android.util.Log
 import android.util.TypedValue
@@ -21,6 +24,7 @@ import com.shapps.cryptocompare.Networking.DetailURLs
 import com.shapps.cryptocompare.SettingsFragments.Main
 import org.json.JSONArray
 import org.json.JSONObject
+import java.util.regex.Pattern
 
 /**
  * Created by shyam on 26/8/17.
@@ -68,6 +72,43 @@ class Ethereum : PreferenceFragment() {
                 null, null, // don't filter by row groups
                 sortOrder                                 // The sort order
         )
+        val prefs = PreferenceManager.getDefaultSharedPreferences(activity)
+        // Use instance field for listener
+// It will not be gc'd as long as this instance is kept referenced
+        var listener = SharedPreferences.OnSharedPreferenceChangeListener { prefs, key ->
+            val active = prefs.getBoolean(key, false)
+            var updateTo = "0"
+
+            if(active)
+                updateTo = "1"
+
+
+            val values = ContentValues()
+            values.put(ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ACTIVE, updateTo)
+
+            val p = Pattern.compile("\\d+")
+            val m = p.matcher(key)
+            var ex_id = "1"
+            while (m.find()) {
+                ex_id = m.group()
+            }
+
+
+// Which row to update, based on the title
+            val selection = ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID + " = ?"
+            val selectionArgs = arrayOf(ex_id)
+
+            val count = db.update(
+                    ExchangeDetailsSchema.ExchangesDetailsEntry.TABLE_NAME,
+                    values,
+                    selection,
+                    selectionArgs)
+
+            Log.d("Updated Rows", count.toString())
+
+        }
+
+        prefs.registerOnSharedPreferenceChangeListener(listener)
         while (cursor.moveToNext()) {
             var ex_id = cursor.getInt(0)
             var ex_name = cursor.getString(1)

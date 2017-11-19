@@ -14,6 +14,7 @@ import com.shapps.cryptocompare.Model.ExchangeDetailsSchema
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.content.ContentValues
+import android.util.Log
 import com.shapps.cryptocompare.Model.ExchangeDetailsSchema.ExchangesDetailsEntry.*
 import java.util.regex.Pattern
 
@@ -97,6 +98,8 @@ class Bitcoin : PreferenceFragment() {
                     values,
                     selection,
                     selectionArgs)
+
+            Log.d("Updated Rows", count.toString())
 
         }
 
