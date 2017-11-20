@@ -23,6 +23,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
 import com.shapps.cryptocompare.Model.ExchangeDetailsSchema
+import com.shapps.cryptocompare.Model.ExchangeDetailsSchema.ExchangesDetailsEntry.*
 import com.shapps.cryptocompare.Model.LiveDataContent
 import com.shapps.cryptocompare.Networking.AppController
 import com.shapps.cryptocompare.Networking.DetailURLs
@@ -73,8 +74,10 @@ class Charts : Fragment() {
         val db = mDbHelper.readableDatabase
 
         val projection = arrayOf(
-                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID,
-                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_EX_NAME)
+                COLUMN_NAME_ID,
+                COLUMN_NAME_EX_NAME,
+                COLUMN_NAME_CRYPTO_CURRENCY,
+                COLUMN_NAME_CURRENCY)
 
 // Filter results WHERE "title" = 'My Title'
         val selection = ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ACTIVE + " = ?"
@@ -107,10 +110,9 @@ class Charts : Fragment() {
         pDialog.setMessage("Loading...")
         pDialog.show()
 
-        val url = DetailURLs.URL_GET_HISTORY + getCurrentExchanges + "&hours=1"
+        val url = DetailURLs.URL_GET_HISTORY + getCurrentExchanges + "&hours=24"
 
-        val map: HashMap<Int, HashMap<String, FloatArray>> = hashMapOf(1 to hashMapOf("buy" to FloatArray(5), "sell" to FloatArray(5)),
-                2 to hashMapOf("buy" to FloatArray(50), "sell" to FloatArray(50)))
+        val map: HashMap<Int, HashMap<String, MutableList<Float>>> = hashMapOf()
         val strReq = StringRequest(Request.Method.GET,
                 url, Response.Listener { response ->
             var historyData = JSONArray(response)
@@ -126,16 +128,21 @@ class Charts : Fragment() {
                 var priceSell = exchangeCurrent.getString("sell")
                 var date_time = exchangeCurrent.getString("date_time")
 
-//                var sharedPref = activity.getSharedPreferences(PREF_FILE, 0)
-//                var name = sharedPref.getString(exchangeId, "No Name Found")
-                if(exchangeId == "1") {
-                    map[1]!!["buy"]!!.set(a, priceBuy.toFloat())
-                    map[1]!!["sell"]!!.set(a, priceSell.toFloat())
-                    a++
-                } else if(exchangeId == "2") {
-//                    map[2]!!["buy"]!!.set(b, priceBuy.toFloat())
-//                    map[2]!!["sell"]!!.set(b, priceSell.toFloat())
-                    b++
+                var buyPrice = priceBuy.toFloat()
+                var sellPrice = priceSell.toFloat()
+                if(map.containsKey(exchangeId.toInt())){
+                    var x = map[exchangeId.toInt()]!!["buy"]
+                    x!!.add(buyPrice)
+                    var y = map[exchangeId.toInt()]!!["sell"]
+                    y!!.add(sellPrice)
+                }
+                else{
+                    var buyInit = hashMapOf<String, MutableList<Float>>("buy" to mutableListOf())
+                    map.put(exchangeId.toInt(), buyInit)
+                    var sellInit = hashMapOf<String, MutableList<Float>>("sell" to mutableListOf())
+                    map.put(exchangeId.toInt(), sellInit)
+                    map[exchangeId.toInt()]!!["buy"]!!.add(buyPrice)
+                    map[exchangeId.toInt()]!!["sell"]!!.add(sellPrice)
                 }
 
             }
