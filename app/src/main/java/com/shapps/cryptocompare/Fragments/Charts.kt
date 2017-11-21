@@ -110,15 +110,13 @@ class Charts : Fragment() {
         pDialog.setMessage("Loading...")
         pDialog.show()
 
-        val url = DetailURLs.URL_GET_HISTORY + getCurrentExchanges + "&hours=24"
+        val url = DetailURLs.URL_GET_HISTORY + getCurrentExchanges + "&hours=1"
 
-        val map: HashMap<Int, HashMap<String, MutableList<Float>>> = hashMapOf()
+        val map: HashMap<Int, MutableList<HashMap<String, MutableList<Float>>>> = hashMapOf()
         val strReq = StringRequest(Request.Method.GET,
                 url, Response.Listener { response ->
             var historyData = JSONArray(response)
             LiveDataContent.dumpData()
-            var a = 0
-            var b = 0
             for(i in 0 until historyData.length()){
                 var exchangeCurrent = JSONObject(historyData.get(i).toString())
                 var cryptoCurr = exchangeCurrent.getString("crypto_curr")
@@ -131,30 +129,28 @@ class Charts : Fragment() {
                 var buyPrice = priceBuy.toFloat()
                 var sellPrice = priceSell.toFloat()
                 if(map.containsKey(exchangeId.toInt())){
-                    var x = map[exchangeId.toInt()]!!["buy"]
-                    x!!.add(buyPrice)
-                    var y = map[exchangeId.toInt()]!!["sell"]
-                    y!!.add(sellPrice)
+                    map[exchangeId.toInt()]!![0]["buy"]!!.add(buyPrice)
+                    map[exchangeId.toInt()]!![1]["sell"]!!.add(sellPrice)
                 }
                 else{
                     var buyInit = hashMapOf<String, MutableList<Float>>("buy" to mutableListOf())
-                    map.put(exchangeId.toInt(), buyInit)
+                    map.put(exchangeId.toInt(), mutableListOf())
                     var sellInit = hashMapOf<String, MutableList<Float>>("sell" to mutableListOf())
-                    map.put(exchangeId.toInt(), sellInit)
-                    map[exchangeId.toInt()]!!["buy"]!!.add(buyPrice)
-                    map[exchangeId.toInt()]!!["sell"]!!.add(sellPrice)
+                    map.put(exchangeId.toInt(), mutableListOf())
+                    map[exchangeId.toInt()]!!.add(buyInit)
+                    map[exchangeId.toInt()]!!.add(sellInit)
                 }
 
             }
             pDialog.hide()
             var entries = ArrayList<Entry>()
-            (0 until 5).mapTo(entries) { Entry(it.toFloat(), map[1]!!["buy"]!![it]) }
+            (0 until map[4]!![0]["buy"]!!.size).mapTo(entries) { Entry(it.toFloat(), map[4]!![0]["buy"]!![it]) }
             var lds = LineDataSet(entries, "FYB-SG")
             lds.color = Color.parseColor("#003838")
             lds.valueTextColor = Color.parseColor("#bbbbbb")
 
             var entries1 = ArrayList<Entry>()
-            (0 until 5).mapTo(entries1) { Entry(it.toFloat(), map[1]!!["sell"]!![it]) }
+            (0 until map[4]!![1]["sell"]!!.size).mapTo(entries1) { Entry(it.toFloat(), map[4]!![1]["sell"]!![it]) }
             var lds1 = LineDataSet(entries1, "FYB-SG-Sell")
             lds1.color = Color.parseColor("#01B6AD")
             lds1.valueTextColor = Color.parseColor("#0A4958")
