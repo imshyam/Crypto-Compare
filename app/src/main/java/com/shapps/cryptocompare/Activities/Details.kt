@@ -6,9 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.MenuItem
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
+import com.shapps.cryptocompare.Networking.History
 import com.shapps.cryptocompare.R
 import kotlinx.android.synthetic.main.activity_details.*
 
@@ -17,8 +15,8 @@ class Details : AppCompatActivity() {
 
     private var cryptoCurrency: String? = null
     private var currency: String? = null
-    private var siteId: Int? = null
-    private var siteName: String? = null
+    private var siteId: String = ""
+    private var siteName: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,20 +35,13 @@ class Details : AppCompatActivity() {
 
         cryptoCurrency = intent.getStringExtra("CRYPTO_CURR")
         currency = intent.getStringExtra("CURR")
-        siteId = intent.getStringExtra("EX_ID").toInt()
+        siteId = intent.getStringExtra("EX_ID")
         siteName = intent.getStringExtra("EX_NAME")
-        var entries = ArrayList<Entry>()
-        for (i in 1..25) {
-            entries.add(Entry(i.toFloat(), i.toFloat()))
-        }
-        var lds = LineDataSet(entries, "India")
-        lds.color = Color.parseColor("#003838")
-        lds.valueTextColor = Color.parseColor("#bbbbbb")
 
-        var lineData = LineData(lds)
+        var term = "hours=1"
 
-        exchange_chart.data = lineData
-        exchange_chart.invalidate()
+        History.draw(siteId, siteName, term, this, exchange_chart)
+
     }
 
     /**
