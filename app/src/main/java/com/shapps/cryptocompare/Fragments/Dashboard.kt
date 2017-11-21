@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyLog
@@ -170,9 +171,13 @@ class Dashboard : Fragment() {
                         ex_name!!, priceBuy, priceSell, volume, lowBuy, highBuy, lowSell, highSell))
             }
             pDialog.hide()
+            pDialog.dismiss()
             viewAdap!!.notifyDataSetChanged()
         }, Response.ErrorListener { error ->
             VolleyLog.d("TAG ", "Error: " + error.message)
+            pDialog.hide()
+            pDialog.dismiss()
+            Toast.makeText(activity, "Network Error", Toast.LENGTH_SHORT).show()
         })
 
         // Adding request to request queue

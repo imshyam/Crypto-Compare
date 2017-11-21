@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyLog
@@ -143,6 +144,7 @@ class Charts : Fragment() {
 
             }
             pDialog.hide()
+            pDialog.dismiss()
             var entries = ArrayList<Entry>()
             (0 until map[4]!![0]["buy"]!!.size).mapTo(entries) { Entry(it.toFloat(), map[4]!![0]["buy"]!![it]) }
             var lds = LineDataSet(entries, "FYB-SG")
@@ -165,6 +167,9 @@ class Charts : Fragment() {
 
         }, Response.ErrorListener { error ->
             VolleyLog.d("TAG ", "Error: " + error.message)
+            pDialog.hide()
+            pDialog.dismiss()
+            Toast.makeText(activity, "Network Error", Toast.LENGTH_SHORT).show()
         })
 
         // Adding request to request queue
