@@ -1,6 +1,5 @@
 package com.shapps.cryptocompare.SettingsFragments.ManageExchanges
 
-import android.app.ProgressDialog
 import android.content.ContentValues
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -11,19 +10,11 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.ContextThemeWrapper
 import android.view.MenuItem
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.VolleyLog
-import com.android.volley.toolbox.StringRequest
 import com.shapps.cryptocompare.R
 import com.shapps.cryptocompare.Activities.Settings
 import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
 import com.shapps.cryptocompare.Model.ExchangeDetailsSchema
-import com.shapps.cryptocompare.Networking.AppController
-import com.shapps.cryptocompare.Networking.DetailURLs
 import com.shapps.cryptocompare.SettingsFragments.Main
-import org.json.JSONArray
-import org.json.JSONObject
 import java.util.regex.Pattern
 
 /**
