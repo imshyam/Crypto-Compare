@@ -125,6 +125,11 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
         }
     }
 
+    override fun onResume() {
+        updateOperation()
+        super.onResume()
+    }
+
     override fun onListFragmentInteraction(cryptoCurrency: String, currency: String, exchangeId: String, exchangeName: String) {
         var detailsIntent = Intent(this, Details::class.java)
         detailsIntent.putExtra("CRYPTO_CURR", cryptoCurrency)
