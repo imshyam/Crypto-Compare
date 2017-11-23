@@ -34,16 +34,6 @@ class AppController : Application() {
             return this.mRequestQueue!!
         }
 
-    val imageLoader: ImageLoader
-        get() {
-            requestQueue
-            if (mImageLoader == null) {
-                mImageLoader = ImageLoader(this.mRequestQueue,
-                        LruBitmapCache())
-            }
-            return this.mImageLoader!!
-        }
-
     fun <T> addToRequestQueue(req: Request<T>, tag: String, context: Context) {
         // set the default tag if tag is empty
         this.contxt = context
