@@ -62,7 +62,7 @@ class Details : AppCompatActivity() {
 
         var term = "hours=1"
 
-        History.draw(siteId, siteName, term, this, exchange_chart)
+        History.draw(siteId, siteName, term, this, exchange_chart, buy, sell)
 
     }
 

@@ -25,7 +25,7 @@ import java.util.*
 class History {
 
     companion object {
-        fun draw(siteId: String, siteName: String, term: String, activity: Context, exchange_chart: LineChart) :HashMap<Int, MutableList<HashMap<String, MutableList<Float>>>>{
+        fun draw(siteId: String, siteName: String, term: String, activity: Context, exchange_chart: LineChart, buy: String, sell: String) {
             val url = DetailURLs.URL_GET_HISTORY + siteId + "&" + term
 
 
@@ -67,6 +67,15 @@ class History {
                 pDialog.dismiss()
 
                 var entries = ArrayList<Entry>()
+                if(!map.containsKey(siteId.toInt())) {
+                    var buyInit = hashMapOf("buy" to mutableListOf(buy.toFloat()))
+                    map.put(siteId.toInt(), mutableListOf())
+                    var sellInit = hashMapOf("sell" to mutableListOf(sell.toFloat()))
+                    map.put(siteId.toInt(), mutableListOf())
+                    map[siteId.toInt()]!!.add(buyInit)
+                    map[siteId.toInt()]!!.add(sellInit)
+                }
+
                 (0 until map[siteId.toInt()]!![0]["buy"]!!.size).mapTo(entries) { Entry(it.toFloat(), map[siteId.toInt()]!![0]["buy"]!![it]) }
                 var lds = LineDataSet(entries, siteName + " Buy")
                 lds.color = Color.parseColor("#003838")
@@ -91,8 +100,6 @@ class History {
 
             // Adding request to request queue
             AppController.instance?.addToRequestQueue(strReq, "APPLE", activity)
-
-            return map
         }
     }
 }
