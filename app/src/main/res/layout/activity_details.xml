@@ -192,6 +192,7 @@
                         android:layout_height="wrap_content"
                         android:text="Buy Low : "/>
                     <TextView
+                        android:id="@+id/buy_low"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2325.37"/>
@@ -207,6 +208,7 @@
                         android:layout_height="wrap_content"
                         android:text="Buy High : "/>
                     <TextView
+                        android:id="@+id/buy_high"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2325.37"/>
@@ -231,6 +233,7 @@
                         android:layout_height="wrap_content"
                         android:text="Sell Low : "/>
                     <TextView
+                        android:id="@+id/sell_low"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2325.37"/>
@@ -246,6 +249,7 @@
                         android:layout_height="wrap_content"
                         android:text="Sell High : "/>
                     <TextView
+                        android:id="@+id/sell_high"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2325.37"/>

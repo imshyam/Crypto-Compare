@@ -50,6 +50,13 @@ class Details : AppCompatActivity() {
         sellLow = intent.getStringExtra("SELL_LOW")
         sellHigh = intent.getStringExtra("SELL_HIGH")
 
+        buy_value.text = buy
+        sell_value.text = sell
+        buy_low.text = buyLow
+        buy_high.text = buyHigh
+        sell_low.text = sellLow
+        sell_high.text = sellHigh
+
         var term = "hours=1"
 
         History.draw(siteId, siteName, term, this, exchange_chart)
