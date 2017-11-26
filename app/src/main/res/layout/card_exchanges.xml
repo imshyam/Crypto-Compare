@@ -17,30 +17,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView
-                android:id="@+id/currency_name"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/list_item_margin"
-                android:textSize="10sp"
-                android:gravity="center"
-                android:textColor="@color/colorPrimary"
-                android:text="SGD"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:textSize="10sp"
-                android:text="@string/dot_center"
-                android:layout_marginLeft="5sp"
-                android:layout_marginRight="5sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:textStyle="bold"
                 android:text="24H Vol : "
-                android:textSize="10sp"/>
+                android:layout_marginLeft="10dp"
+                android:textSize="@dimen/list_item_margin"
+                android:textStyle="bold" />
             <TextView
                 android:id="@+id/volume"
                 android:layout_width="wrap_content"
@@ -80,6 +65,24 @@
                     android:layout_height="wrap_content"
                     android:text="Fyb-SG"
                     android:textColor="@color/colorLabel" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_weight="2"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/currency_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/tag_currency_rounded"
+                    android:layout_marginBottom="18dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="18dp"
+                    android:textSize="10sp"
+                    android:gravity="center"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:text="SGD"/>
             </LinearLayout>
         </LinearLayout>
 
