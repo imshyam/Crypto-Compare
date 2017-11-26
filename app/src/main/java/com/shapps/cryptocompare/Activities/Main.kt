@@ -131,7 +131,7 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
     }
 
     override fun onListFragmentInteraction(cryptoCurrency: String, currency: String, exchangeId: String, exchangeName: String, buy: String, sell: String,
-                                           buyLow: String, buyHigh: String, sellLow: String, sellHigh: String) {
+                                           buyLow: String, buyHigh: String, sellLow: String, sellHigh: String, vol: String) {
         var detailsIntent = Intent(this, Details::class.java)
         detailsIntent.putExtra("CRYPTO_CURR", cryptoCurrency)
         detailsIntent.putExtra("CURR", currency)
@@ -143,6 +143,7 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
         detailsIntent.putExtra("BUY_HIGH", buyHigh)
         detailsIntent.putExtra("SELL_LOW", sellLow)
         detailsIntent.putExtra("SELL_HIGH", sellHigh)
+        detailsIntent.putExtra("VOL", vol)
         startActivity(detailsIntent)
     }
 

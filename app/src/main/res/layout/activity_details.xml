@@ -70,6 +70,7 @@
                     android:text="24H Vol : "
                     android:textSize="10sp"/>
                 <TextView
+                    android:id="@+id/vol_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
@@ -275,6 +276,7 @@
                         android:layout_height="wrap_content"
                         android:text="Buy Fee : "/>
                     <TextView
+                        android:id="@+id/buy_fee"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0.9 %"/>
@@ -290,6 +292,7 @@
                         android:layout_height="wrap_content"
                         android:text="Sell Fee : "/>
                     <TextView
+                        android:id="@+id/sell_fee"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0.9 %"/>

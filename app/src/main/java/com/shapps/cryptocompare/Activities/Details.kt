@@ -23,6 +23,7 @@ class Details : AppCompatActivity() {
     private var buyHigh: String = ""
     private var sellLow: String = ""
     private var sellHigh: String = ""
+    private var volume: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +50,7 @@ class Details : AppCompatActivity() {
         buyHigh = intent.getStringExtra("BUY_HIGH")
         sellLow = intent.getStringExtra("SELL_LOW")
         sellHigh = intent.getStringExtra("SELL_HIGH")
+        volume = intent.getStringExtra("VOL")
 
         buy_value.text = buy
         sell_value.text = sell
@@ -56,6 +58,7 @@ class Details : AppCompatActivity() {
         buy_high.text = buyHigh
         sell_low.text = sellLow
         sell_high.text = sellHigh
+        vol_text_view.text = volume
 
         var term = "hours=1"
 

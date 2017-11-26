@@ -210,7 +210,7 @@ class Dashboard : Fragment() {
      */
     interface OnListFragmentInteractionListener {
         fun onListFragmentInteraction(cryptoCurrency: String, currency: String, exchangeId: String, exchangeName: String, buy: String, sell: String,
-                                      buyLow: String, buyHigh: String, sellLow: String, sellHigh: String)
+                                      buyLow: String, buyHigh: String, sellLow: String, sellHigh: String, vol: String)
     }
 
     companion object {
