@@ -32,7 +32,8 @@ class ExchangesRecyclerView(private val mValues: List<LiveData>, private val mLi
 
         holder.mView.findViewById<LinearLayout>(R.id.details_layout).setOnClickListener {
             mListener?.onListFragmentInteraction(mValues[position].cryptoCurrency, mValues[position].currency,
-                    mValues[position].exchangeId, mValues[position].exchangeName)
+                    mValues[position].exchangeId, mValues[position].exchangeName, mValues[position].priceBuy, mValues[position].priceSell,
+                    mValues[position].lowBuy, mValues[position].highBuy, mValues[position].lowSell, mValues[position].highSell)
         }
 
     }

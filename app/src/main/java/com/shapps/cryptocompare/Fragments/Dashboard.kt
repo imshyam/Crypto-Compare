@@ -209,8 +209,8 @@ class Dashboard : Fragment() {
      * See the Android Training lesson [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html) for more information.
      */
     interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onListFragmentInteraction(cryptoCurrency: String, currency: String, exchangeId: String, exchangeName: String)
+        fun onListFragmentInteraction(cryptoCurrency: String, currency: String, exchangeId: String, exchangeName: String, buy: String, sell: String,
+                                      buyLow: String, buyHigh: String, sellLow: String, sellHigh: String)
     }
 
     companion object {
