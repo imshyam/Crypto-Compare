@@ -17,6 +17,12 @@ class Details : AppCompatActivity() {
     private var currency: String? = null
     private var siteId: String = ""
     private var siteName: String = ""
+    private var buy: String = ""
+    private var sell: String = ""
+    private var buyLow: String = ""
+    private var buyHigh: String = ""
+    private var sellLow: String = ""
+    private var sellHigh: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +43,12 @@ class Details : AppCompatActivity() {
         currency = intent.getStringExtra("CURR")
         siteId = intent.getStringExtra("EX_ID")
         siteName = intent.getStringExtra("EX_NAME")
+        buy = intent.getStringExtra("BUY")
+        sell = intent.getStringExtra("SELL")
+        buyLow = intent.getStringExtra("BUY_LOW")
+        buyHigh = intent.getStringExtra("BUY_HIGH")
+        sellLow = intent.getStringExtra("SELL_LOW")
+        sellHigh = intent.getStringExtra("SELL_HIGH")
 
         var term = "hours=1"
 
