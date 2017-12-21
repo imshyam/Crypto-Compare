@@ -42,7 +42,6 @@ class History {
             val strReq = StringRequest(Request.Method.GET,
                     url, Response.Listener { response ->
                 var historyData = JSONArray(response)
-                Log.d("data", historyData.toString())
                 LiveDataContent.dumpData()
                 for(i in 0 until historyData.length()){
                     var exchangeCurrent = JSONObject(historyData.get(i).toString())
@@ -56,8 +55,6 @@ class History {
                     val dateParser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'.000Z'")
 
                     var formattedDate = dateParser.parse(date_time)
-
-                    Log.d("Date and Price", formattedDate.toString() + " " + priceBuy)
 
                     var buyPrice = priceBuy.toFloat()
                     var sellPrice = priceSell.toFloat()
@@ -115,6 +112,7 @@ class History {
 
                 var list: List<ILineDataSet> = listOf(lds, lds1)
 
+                exchange_chart.data = LineData(list)
 
                 exchange_chart.invalidate()
             }, Response.ErrorListener { error ->
