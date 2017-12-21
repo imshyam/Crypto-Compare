@@ -3,6 +3,7 @@ package com.shapps.cryptocompare.Networking
 import android.app.ProgressDialog
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
@@ -14,10 +15,14 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.shapps.cryptocompare.Model.LiveDataContent
-import kotlinx.android.synthetic.main.activity_details.*
 import org.json.JSONArray
 import org.json.JSONObject
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
+import java.time.Instant
 import java.util.*
+import kotlin.collections.HashMap
+
 
 /**
  * Created by shyam on 22/11/17.
@@ -33,10 +38,11 @@ class History {
             pDialog.setMessage("Loading...")
             pDialog.show()
 
-            val map: HashMap<Int, MutableList<HashMap<String, MutableList<Float>>>> = hashMapOf()
+            val map: HashMap<String, MutableList<HashMap<Date, Float>>> = hashMapOf()
             val strReq = StringRequest(Request.Method.GET,
                     url, Response.Listener { response ->
                 var historyData = JSONArray(response)
+                Log.d("data", historyData.toString())
                 LiveDataContent.dumpData()
                 for(i in 0 until historyData.length()){
                     var exchangeCurrent = JSONObject(historyData.get(i).toString())
@@ -47,49 +53,69 @@ class History {
                     var priceSell = exchangeCurrent.getString("sell")
                     var date_time = exchangeCurrent.getString("date_time")
 
+                    val dateParser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'.000Z'")
+
+                    var formattedDate = dateParser.parse(date_time)
+
+                    Log.d("Date and Price", formattedDate.toString() + " " + priceBuy)
+
                     var buyPrice = priceBuy.toFloat()
                     var sellPrice = priceSell.toFloat()
-                    if(map.containsKey(exchangeId.toInt())){
-                        map[exchangeId.toInt()]!![0]["buy"]!!.add(buyPrice)
-                        map[exchangeId.toInt()]!![1]["sell"]!!.add(sellPrice)
+                    if(map.containsKey(exchangeId.toInt().toString() + "_buy")){
+                        map[exchangeId.toInt().toString() + "_buy"]!!.add(hashMapOf(formattedDate to buyPrice))
+                        map[exchangeId.toInt().toString() + "_sell"]!!.add(hashMapOf(formattedDate to sellPrice))
                     }
                     else{
-                        var buyInit = hashMapOf<String, MutableList<Float>>("buy" to mutableListOf())
-                        map.put(exchangeId.toInt(), mutableListOf())
-                        var sellInit = hashMapOf<String, MutableList<Float>>("sell" to mutableListOf())
-                        map.put(exchangeId.toInt(), mutableListOf())
-                        map[exchangeId.toInt()]!!.add(buyInit)
-                        map[exchangeId.toInt()]!!.add(sellInit)
+                        var dateBuyVal = hashMapOf(formattedDate to buyPrice)
+                        map.put(exchangeId.toInt().toString() + "_buy", arrayListOf(dateBuyVal))
+                        var dateSellVal = hashMapOf(formattedDate to sellPrice)
+                        map.put(exchangeId.toInt().toString() + "_sell", arrayListOf(dateSellVal))
+
                     }
                 }
 
                 pDialog.hide()
                 pDialog.dismiss()
 
-                var entries = ArrayList<Entry>()
-                if(!map.containsKey(siteId.toInt())) {
-                    var buyInit = hashMapOf("buy" to mutableListOf(buy.toFloat()))
-                    map.put(siteId.toInt(), mutableListOf())
-                    var sellInit = hashMapOf("sell" to mutableListOf(sell.toFloat()))
-                    map.put(siteId.toInt(), mutableListOf())
-                    map[siteId.toInt()]!!.add(buyInit)
-                    map[siteId.toInt()]!!.add(sellInit)
+                // If nothing in history add current
+                val dateFormatGmt = SimpleDateFormat("yyyy-MMM-dd HH:mm:ss")
+                dateFormatGmt.timeZone = TimeZone.getTimeZone("UTC")
+                val dateFormatLocal = SimpleDateFormat("yyyy-MMM-dd HH:mm:ss")
+                var currDateTime = dateFormatLocal.parse(dateFormatGmt.format(Date()))
+                if(!map.containsKey(siteId.toInt().toString() + "_buy")) {
+                    var dateBuyVal = hashMapOf(currDateTime to buy.toFloat())
+                    map.put(siteId.toInt().toString() + "_buy", mutableListOf(dateBuyVal))
+                }
+                if(!map.containsKey(siteId.toInt().toString() + "_buy")) {
+                    var dateSellVal = hashMapOf(currDateTime to buy.toFloat())
+                    map.put(siteId.toInt().toString() + "_sell", mutableListOf(dateSellVal))
                 }
 
-                (0 until map[siteId.toInt()]!![0]["buy"]!!.size).mapTo(entries) { Entry(it.toFloat(), map[siteId.toInt()]!![0]["buy"]!![it]) }
+                var entries = ArrayList<Entry>()
+                var i = 0f
+                for (entry in map[siteId.toInt().toString() + "_buy"]!!) {
+                    // FIXME
+                    entries.add(Entry(i, entry.values.toFloatArray()[0]))
+                    i++
+                }
                 var lds = LineDataSet(entries, siteName + " Buy")
                 lds.color = Color.parseColor("#003838")
                 lds.valueTextColor = Color.parseColor("#bbbbbb")
 
                 var entries1 = ArrayList<Entry>()
-                (0 until map[siteId.toInt()]!![1]["sell"]!!.size).mapTo(entries1) { Entry(it.toFloat(), map[siteId.toInt()]!![1]["sell"]!![it]) }
+                i = 0f
+                for (entry in map[siteId.toInt().toString() + "_sell"]!!) {
+                    // FIXME
+                    entries1.add(Entry(i, entry.values.toFloatArray()[0]))
+                    i++
+                }
                 var lds1 = LineDataSet(entries1, siteName + " Sell")
                 lds1.color = Color.parseColor("#01B6AD")
                 lds1.valueTextColor = Color.parseColor("#0A4958")
 
                 var list: List<ILineDataSet> = listOf(lds, lds1)
 
-                exchange_chart.data = LineData(list)
+
                 exchange_chart.invalidate()
             }, Response.ErrorListener { error ->
                 VolleyLog.d("TAG ", "Error: " + error.message)
