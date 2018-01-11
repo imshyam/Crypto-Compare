@@ -10,6 +10,7 @@ import com.android.volley.Response
 import com.android.volley.VolleyLog
 import com.android.volley.toolbox.StringRequest
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -22,6 +23,11 @@ import java.text.SimpleDateFormat
 import java.time.Instant
 import java.util.*
 import kotlin.collections.HashMap
+import com.github.mikephil.charting.components.LimitLine
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import com.github.mikephil.charting.highlight.Highlight
+import com.shapps.cryptocompare.Model.XAxisValuesArray
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -75,24 +81,26 @@ class History {
                 pDialog.dismiss()
 
                 // If nothing in history add current
+
                 val dateFormatGmt = SimpleDateFormat("yyyy-MMM-dd HH:mm:ss")
                 dateFormatGmt.timeZone = TimeZone.getTimeZone("UTC")
                 val dateFormatLocal = SimpleDateFormat("yyyy-MMM-dd HH:mm:ss")
                 var currDateTime = dateFormatLocal.parse(dateFormatGmt.format(Date()))
+
                 if(!map.containsKey(siteId.toInt().toString() + "_buy")) {
                     var dateBuyVal = hashMapOf(currDateTime to buy.toFloat())
                     map.put(siteId.toInt().toString() + "_buy", mutableListOf(dateBuyVal))
                 }
-                if(!map.containsKey(siteId.toInt().toString() + "_buy")) {
-                    var dateSellVal = hashMapOf(currDateTime to buy.toFloat())
+                if(!map.containsKey(siteId.toInt().toString() + "_sell")) {
+                    var dateSellVal = hashMapOf(currDateTime to sell.toFloat())
                     map.put(siteId.toInt().toString() + "_sell", mutableListOf(dateSellVal))
                 }
 
                 var entries = ArrayList<Entry>()
                 var i = 0f
                 for (entry in map[siteId.toInt().toString() + "_buy"]!!) {
-                    // FIXME
-                    entries.add(Entry(i, entry.values.toFloatArray()[0]))
+                    var timestamp = Timestamp(entry.keys.elementAt(0).time).time
+                    entries.add(Entry(timestamp.toFloat(), entry.values.toFloatArray()[0]))
                     i++
                 }
                 var lds = LineDataSet(entries, siteName + " Buy")
@@ -102,8 +110,8 @@ class History {
                 var entries1 = ArrayList<Entry>()
                 i = 0f
                 for (entry in map[siteId.toInt().toString() + "_sell"]!!) {
-                    // FIXME
-                    entries1.add(Entry(i, entry.values.toFloatArray()[0]))
+                    var timestamp = Timestamp(entry.keys.elementAt(0).time).time
+                    entries1.add(Entry(timestamp.toFloat(), entry.values.toFloatArray()[0]))
                     i++
                 }
                 var lds1 = LineDataSet(entries1, siteName + " Sell")
@@ -113,6 +121,20 @@ class History {
                 var list: List<ILineDataSet> = listOf(lds, lds1)
 
                 exchange_chart.data = LineData(list)
+
+                var xAxis = exchange_chart.xAxis
+
+                xAxis.valueFormatter = object : IAxisValueFormatter {
+
+                    private val mFormat = SimpleDateFormat("dd MMM HH:mm")
+
+                    override fun getFormattedValue(value: Float, axis: AxisBase): String {
+
+                        val x = value.toLong()
+
+                        return mFormat.format(Date(x))
+                    }
+                }
 
                 exchange_chart.invalidate()
             }, Response.ErrorListener { error ->
