@@ -34,7 +34,7 @@
                 android:value="com.shapps.cryptocompare.Activities.Main" />
         </activity>
         <activity
-            android:name=".Activities.AddNotification"
+            android:name=".Activities.AddUserNotification"
             android:label="@string/title_add_notification_activity"
             android:noHistory="true"
             android:parentActivityName=".Activities.Main"

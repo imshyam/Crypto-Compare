@@ -13,7 +13,7 @@ import java.util.*
 import com.shapps.cryptocompare.R
 
 
-class AddNotification : AppCompatActivity(), OnItemSelectedListener {
+class AddUserNotification : AppCompatActivity(), OnItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
