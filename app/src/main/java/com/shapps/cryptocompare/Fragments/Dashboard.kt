@@ -1,10 +1,14 @@
 package com.shapps.cryptocompare.Fragments
 
+import android.app.Notification
+import android.app.NotificationManager
 import android.app.ProgressDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
+import android.support.v4.app.NotificationCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -12,11 +16,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RemoteViews
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyLog
 import com.android.volley.toolbox.StringRequest
+import com.shapps.cryptocompare.Activities.Main
 import com.shapps.cryptocompare.Adapters.ExchangesRecyclerView
 import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
 import com.shapps.cryptocompare.Model.ExchangeDetailsSchema
@@ -45,6 +51,10 @@ class Dashboard : Fragment() {
     private var mListener: OnListFragmentInteractionListener? = null
     private var viewAdap: RecyclerView.Adapter<RecyclerView.ViewHolder>? = null
 
+    private lateinit var notificationManager: NotificationManager
+
+    private val NOTIFICATION_ID = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +62,30 @@ class Dashboard : Fragment() {
         if (arguments != null) {
             mColumnCount = arguments.getInt(ARG_COLUMN_COUNT)
         }
+
+        // Add Notification
+        notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        //notification view
+        var viewNoti = RemoteViews(
+                context.packageName,
+                R.layout.price_notification_item
+        )
+
+        // TODO
+        //notification intent
+//        var notificationIntent = Intent(context, Main.class) as Intent
+
+        var notifyBuilder = NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.ic_refresh_black_24dp)
+                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .setCustomBigContentView(viewNoti)
+                .setAutoCancel(false)
+
+        var notification = notifyBuilder.build()
+
+        notificationManager.notify(NOTIFICATION_ID, notification)
+
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
