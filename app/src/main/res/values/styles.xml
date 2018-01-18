@@ -89,4 +89,30 @@
         <item name="android:textColor">#FFF</item>
     </style>
 
+    <style name="chart_timeperiod_button">
+        <item name="android:layout_width">0px</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:textSize">10dp</item>
+        <item name="android:background">@drawable/time_period_rounded</item>
+    </style>
+
+    <style name="chart_timeperiod_button_selected">
+        <item name="android:layout_width">0px</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:textSize">10dp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/tag_currency_rounded</item>
+    </style>
+
+    <style name="dash_time_period">
+        <item name="android:layout_width">0px</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">#bbb</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
 </resources>
