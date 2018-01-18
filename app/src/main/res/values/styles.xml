@@ -94,6 +94,8 @@
         <item name="android:layout_weight">2</item>
         <item name="android:layout_height">30dp</item>
         <item name="android:textSize">10dp</item>
+        <item name="android:layout_marginBottom">@dimen/list_item_margin</item>
+        <item name="android:layout_marginTop">@dimen/list_item_margin</item>
         <item name="android:background">@drawable/time_period_rounded</item>
     </style>
 
@@ -104,6 +106,8 @@
         <item name="android:textSize">10dp</item>
         <item name="android:textColor">#fff</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">@dimen/list_item_margin</item>
+        <item name="android:layout_marginTop">@dimen/list_item_margin</item>
         <item name="android:background">@drawable/tag_currency_rounded</item>
     </style>
 

@@ -57,7 +57,8 @@
             layout="@layout/chart_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/list_item_margin"
+            android:layout_marginLeft="@dimen/list_item_margin"
+            android:layout_marginRight="@dimen/list_item_margin"
             />
 
         <com.github.mikephil.charting.charts.LineChart
