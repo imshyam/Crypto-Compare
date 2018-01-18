@@ -53,43 +53,12 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="1"
-            android:weightSum="5"
-            android:orientation="horizontal">
-            <Button
-                android:layout_width="0px"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:text="1 Hour"
-                android:textAllCaps="false"/>
-            <Button
-                android:layout_width="0px"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:text="1 day"
-                android:textAllCaps="false"/>
-            <Button
-                android:layout_width="0px"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:text="1 week"
-                android:textAllCaps="false"/>
-            <Button
-                android:layout_width="0px"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:text="1 Month"
-                android:textAllCaps="false"/>
-            <Button
-                android:layout_width="0px"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:text="All"
-                android:textAllCaps="false"/>
-        </LinearLayout>
+        <include
+            layout="@layout/chart_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/list_item_margin"
+            />
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/price_chart"
