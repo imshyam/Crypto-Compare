@@ -1,8 +1,6 @@
 package com.shapps.cryptocompare.Fragments
 
-import android.app.Notification
-import android.app.NotificationManager
-import android.app.ProgressDialog
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -49,6 +47,7 @@ class Dashboard : Fragment() {
     // TODO: Customize parameters
     private var mColumnCount = 1
     private var mListener: OnListFragmentInteractionListener? = null
+    private var mListenerPriceNotification: OnListFragmentInteractionListener? = null
     private var viewAdap: RecyclerView.Adapter<RecyclerView.ViewHolder>? = null
 
     private lateinit var notificationManager: NotificationManager
@@ -74,11 +73,15 @@ class Dashboard : Fragment() {
 
         // TODO
         //notification intent
-//        var notificationIntent = Intent(context, Main.class) as Intent
-
+        var notificationIntent = Intent(context, Main::class.java)
+        var pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0)
         var notifyBuilder = NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_refresh_black_24dp)
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
+//                .setContent(smallViewNoti)
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText("Price List")
+                .setContentIntent(pendingIntent)
                 .setCustomBigContentView(viewNoti)
                 .setAutoCancel(false)
 
