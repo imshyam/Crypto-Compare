@@ -9,30 +9,35 @@
     android:orientation="horizontal">
 
     <Button
+        android:id="@+id/period_1_hour"
         style="@style/chart_timeperiod_button_selected"
         android:text="1 Hour" />
     <LinearLayout
         style="@style/dash_time_period"
         />
     <Button
+        android:id="@+id/period_1_day"
         style="@style/chart_timeperiod_button"
         android:text="1 Day" />
     <LinearLayout
         style="@style/dash_time_period"
         />
     <Button
+        android:id="@+id/period_1_week"
         style="@style/chart_timeperiod_button"
         android:text="1 Week" />
     <LinearLayout
         style="@style/dash_time_period"
         />
     <Button
+        android:id="@+id/period_1_month"
         style="@style/chart_timeperiod_button"
         android:text="1 Month" />
     <LinearLayout
         style="@style/dash_time_period"
         />
     <Button
+        android:id="@+id/period_all"
         style="@style/chart_timeperiod_button"
         android:text="All" />
 </LinearLayout>
