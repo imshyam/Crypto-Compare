@@ -214,7 +214,6 @@ class Dashboard : Fragment() {
             VolleyLog.d("TAG ", "Error: " + error.message)
             pDialog.hide()
             pDialog.dismiss()
-            Toast.makeText(activity, "Network Error", Toast.LENGTH_SHORT).show()
         })
 
         // Adding request to request queue
