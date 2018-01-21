@@ -80,8 +80,7 @@ class History {
                 pDialog.hide()
                 pDialog.dismiss()
 
-                // If nothing in history add current
-
+                // If nothing in history, add current
                 val dateFormatGmt = SimpleDateFormat("yyyy-MMM-dd HH:mm:ss")
                 dateFormatGmt.timeZone = TimeZone.getTimeZone("UTC")
                 val dateFormatLocal = SimpleDateFormat("yyyy-MMM-dd HH:mm:ss")
@@ -96,6 +95,7 @@ class History {
                     map.put(siteId.toInt().toString() + "_sell", mutableListOf(dateSellVal))
                 }
 
+                // Add to entries
                 var entries = ArrayList<Entry>()
                 var i = 0f
                 for (entry in map[siteId.toInt().toString() + "_buy"]!!) {
