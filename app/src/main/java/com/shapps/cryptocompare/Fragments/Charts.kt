@@ -9,9 +9,11 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebSettings
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
@@ -117,25 +119,19 @@ class Charts : Fragment(), View.OnClickListener {
         removeCurrentStyle()
         x.background = ContextCompat.getDrawable(context, R.drawable.tag_currency_rounded)
         x.setTextColor(Color.WHITE)
-        x.setTypeface(x.typeface, Typeface.BOLD)
     }
 
     private fun removeCurrentStyle() {
         btn1Hour.background = ContextCompat.getDrawable(context, R.drawable.time_period_rounded)
         btn1Hour.setTextColor(Color.BLACK)
-        btn1Hour.setTypeface(btn1Hour.typeface, Typeface.NORMAL)
         btn1Day.background = ContextCompat.getDrawable(context, R.drawable.time_period_rounded)
         btn1Day.setTextColor(Color.BLACK)
-        btn1Day.setTypeface(btn1Day.typeface, Typeface.NORMAL)
         btn1Week.background = ContextCompat.getDrawable(context, R.drawable.time_period_rounded)
         btn1Week.setTextColor(Color.BLACK)
-        btn1Week.setTypeface(btn1Week.typeface, Typeface.NORMAL)
         btn1Month.background = ContextCompat.getDrawable(context, R.drawable.time_period_rounded)
         btn1Month.setTextColor(Color.BLACK)
-        btn1Month.setTypeface(btn1Month.typeface, Typeface.NORMAL)
         btnAll.background = ContextCompat.getDrawable(context, R.drawable.time_period_rounded)
         btnAll.setTextColor(Color.BLACK)
-        btnAll.setTypeface(btnAll.typeface, Typeface.NORMAL)
     }
 
 //    private fun insertDataList(view_main: View) {
