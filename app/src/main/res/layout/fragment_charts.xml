@@ -25,19 +25,22 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:layout_marginLeft="@dimen/list_item_margin"
+                android:weightSum="4">
 
                 <Button
-                    android:layout_width="0px"
-                    android:layout_height="match_parent"
+                    style="@style/chart_timeperiod_button_selected"
                     android:layout_weight="1"
+                    android:layout_gravity="center"
                     android:text="BTC"
                     android:textAllCaps="false" />
-
+                <LinearLayout
+                    style="@style/dash_time_period"
+                    />
                 <Button
-                    android:layout_width="0px"
-                    android:layout_height="match_parent"
+                    style="@style/chart_timeperiod_button"
                     android:layout_weight="1"
+                    android:layout_gravity="center"
                     android:text="ETH"
                     android:textAllCaps="false" />
             </LinearLayout>
