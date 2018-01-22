@@ -73,6 +73,12 @@ class Charts : Fragment(), View.OnClickListener {
         if (spinner != null) {
             spinner.adapter = adapter
         }
+        val exchangeSpinner = view_main?.findViewById<Spinner>(R.id.exchange_spinner)
+        var adapter2 = ArrayAdapter.createFromResource(activity, R.array.exchange_list, android.R.layout.simple_spinner_item)
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        if (exchangeSpinner != null) {
+            exchangeSpinner.adapter = adapter2
+        }
 
         btn1Hour = view_main.findViewById(R.id.period_1_hour)
         btn1Hour.setOnClickListener(this)

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="exchange_list">
+        <item>Fyb-Sg</item>
+        <item>coinbase</item>
+        <item>coinhako</item>
+        <item>zebpay</item>
+    </string-array>
+</resources>
