@@ -1,42 +1,20 @@
 package com.shapps.cryptocompare.Fragments
 
-import android.app.ProgressDialog
 import android.content.Context
 import android.graphics.Color
-import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.util.Log
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebSettings
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
-import android.widget.Toast
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.VolleyLog
-import com.android.volley.toolbox.StringRequest
+import android.widget.*
+import android.widget.AdapterView.OnItemSelectedListener
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
-import com.shapps.cryptocompare.Model.ExchangeDetailsSchema
-import com.shapps.cryptocompare.Model.ExchangeDetailsSchema.ExchangesDetailsEntry.*
-import com.shapps.cryptocompare.Model.LiveDataContent
-import com.shapps.cryptocompare.Networking.AppController
-import com.shapps.cryptocompare.Networking.DetailURLs
 import com.shapps.cryptocompare.Networking.History
 import com.shapps.cryptocompare.R
-import org.json.JSONArray
-import org.json.JSONObject
 
 /**
  * A fragment with a Google +1 button.
@@ -67,19 +45,37 @@ class Charts : Fragment(), View.OnClickListener {
         lineChart = view_main.findViewById(R.id.price_chart)
         History.draw("1", "Fyb-Sg", "hours=1", context, lineChart, "12345", "12345")
 
+        // Currency
         val spinner = view_main?.findViewById<Spinner>(R.id.currency_spinner)
         var adapter = ArrayAdapter.createFromResource(activity, R.array.currency_list, android.R.layout.simple_spinner_item)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         if (spinner != null) {
             spinner.adapter = adapter
         }
+        spinner.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                Log.d("Changed", position.toString() + " and " + id.toString())
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        }
+        // Exchange
         val exchangeSpinner = view_main?.findViewById<Spinner>(R.id.exchange_spinner)
-        var adapter2 = ArrayAdapter.createFromResource(activity, R.array.exchange_list, android.R.layout.simple_spinner_item)
+        var adapter2 = ArrayAdapter.createFromResource(activity, R.array.exchange_list_sgd, android.R.layout.simple_spinner_item)
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         if (exchangeSpinner != null) {
             exchangeSpinner.adapter = adapter2
         }
-
+        exchangeSpinner.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                var exId: String = resources.getStringArray(R.array.exchange_id_sgd)[position]
+                Log.d("Changed", exId)
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        }
         btn1Hour = view_main.findViewById(R.id.period_1_hour)
         btn1Hour.setOnClickListener(this)
         btn1Day = view_main.findViewById(R.id.period_1_day)

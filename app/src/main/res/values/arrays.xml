@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="exchange_list">
+    <string-array name="exchange_list_sgd">
         <item>Fyb-Sg</item>
         <item>coinbase</item>
         <item>coinhako</item>
         <item>zebpay</item>
+    </string-array>
+    <string-array name="exchange_id_sgd">
+        <item>11</item>
+        <item>25</item>
+        <item>20</item>
+        <item>18</item>
     </string-array>
 </resources>
