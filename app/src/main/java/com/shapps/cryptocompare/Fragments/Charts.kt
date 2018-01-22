@@ -13,6 +13,8 @@ import android.view.ViewGroup
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
 import com.github.mikephil.charting.charts.LineChart
+import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
+import com.shapps.cryptocompare.Model.ExchangeDetailsSchema
 import com.shapps.cryptocompare.Networking.History
 import com.shapps.cryptocompare.R
 
@@ -29,6 +31,10 @@ class Charts : Fragment(), View.OnClickListener {
     private var mListener: OnFragmentInteractionListener? = null
 
     private lateinit var lineChart: LineChart
+
+    private lateinit var currencySpinner: Spinner
+    private lateinit var exchangeSpinner: Spinner
+    private lateinit var listIdsForCurrentSettings: MutableList<String>
 
     private lateinit var btnBtc: Button
     private lateinit var btnEth: Button
@@ -50,13 +56,13 @@ class Charts : Fragment(), View.OnClickListener {
         History.draw("1", "Fyb-Sg", "hours=1", context, lineChart, "12345", "12345")
 
         // Currency
-        val spinner = view_main?.findViewById<Spinner>(R.id.currency_spinner)
+        currencySpinner = view_main?.findViewById<Spinner>(R.id.currency_spinner)
         var adapter = ArrayAdapter.createFromResource(activity, R.array.currency_list, android.R.layout.simple_spinner_item)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        if (spinner != null) {
-            spinner.adapter = adapter
+        if (currencySpinner != null) {
+            currencySpinner.adapter = adapter
         }
-        spinner.onItemSelectedListener = object : OnItemSelectedListener {
+        currencySpinner.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 Log.d("Changed", position.toString() + " and " + id.toString())
             }
@@ -65,7 +71,7 @@ class Charts : Fragment(), View.OnClickListener {
             }
         }
         // Exchange
-        val exchangeSpinner = view_main?.findViewById<Spinner>(R.id.exchange_spinner)
+        exchangeSpinner = view_main?.findViewById<Spinner>(R.id.exchange_spinner)
         var adapter2 = ArrayAdapter.createFromResource(activity, R.array.exchange_list_sgd, android.R.layout.simple_spinner_item)
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         if (exchangeSpinner != null) {
@@ -106,16 +112,17 @@ class Charts : Fragment(), View.OnClickListener {
             R.id.history_btc -> {
                 var x = v as Button
                 updateStyleCryptoButton(x)
+                updateCurrencyAndExchange("Bitcoin")
             }
             R.id.history_eth -> {
                 var x = v as Button
                 updateStyleCryptoButton(x)
-                History.draw("1", "Fyb-Sg", "days=100", context, lineChart, "12345", "12345")
+                updateCurrencyAndExchange("Ethereum")
             }
             R.id.history_ltc -> {
                 var x = v as Button
                 updateStyleCryptoButton(x)
-                History.draw("1", "Fyb-Sg", "days=100", context, lineChart, "12345", "12345")
+                updateCurrencyAndExchange("Litecoin")
             }
 
             R.id.period_1_hour -> {
@@ -147,6 +154,59 @@ class Charts : Fragment(), View.OnClickListener {
 
             }
         }
+    }
+
+    private fun updateCurrencyAndExchange(cryptoCurr: String) {
+        val mDbHelper = ExchangeDetailsDbHelper(activity)
+
+        val db = mDbHelper.readableDatabase
+
+// Define a projection that specifies which columns from the database
+// you will actually use after this query.
+        val projection = arrayOf(
+                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID,
+                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_EX_NAME,
+                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_CURRENCY)
+
+// Filter results WHERE "title" = 'My Title'
+        val selection = ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_CRYPTO_CURRENCY + " = ?"
+        val selectionArgs = arrayOf(cryptoCurr)
+
+// How you want the results sorted in the resulting Cursor
+        val sortOrder = ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID + " ASC"
+
+        val cursor = db.query(
+                ExchangeDetailsSchema.ExchangesDetailsEntry.TABLE_NAME, // The table to query
+                projection, // The columns to return
+                selection, // The columns for the WHERE clause
+                selectionArgs, // don't group the rows
+                null, null, // don't filter by row groups
+                sortOrder                                 // The sort order
+        )
+        var listIds: MutableList<String> = arrayListOf()
+        var listNames: MutableList<String> = arrayListOf()
+        var listCurrencyAll: MutableList<String> = arrayListOf()
+        var listCurrency: List<String> = arrayListOf()
+        var listExchangesForCurrentSettings: MutableList<String> = arrayListOf()
+        listIdsForCurrentSettings = arrayListOf()
+        while (cursor.moveToNext()){
+            listIds.add(cursor.getInt(0).toString())
+            listNames.add(cursor.getString(1))
+            listCurrencyAll.add(cursor.getString(2))
+            listCurrency = listCurrencyAll.distinct()
+        }
+        for (i in 0 until listNames.size){
+            if(listCurrencyAll[i].equals(listCurrencyAll[0])){
+                listExchangesForCurrentSettings.add(listNames[i])
+                listIdsForCurrentSettings.add(listIds[i])
+            }
+        }
+        var currencyAdapter: ArrayAdapter<String> = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, listCurrency)
+        currencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        currencySpinner.adapter = currencyAdapter
+        var exchangeAdapter: ArrayAdapter<String> = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, listExchangesForCurrentSettings)
+        exchangeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        exchangeSpinner.adapter = exchangeAdapter
     }
 
     private fun updateStyleCryptoButton(x: Button) {
