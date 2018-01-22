@@ -30,6 +30,10 @@ class Charts : Fragment(), View.OnClickListener {
 
     private lateinit var lineChart: LineChart
 
+    private lateinit var btnBtc: Button
+    private lateinit var btnEth: Button
+    private lateinit var btnLtc: Button
+
     private lateinit var btn1Hour: Button
     private lateinit var btn1Day: Button
     private lateinit var btn1Week: Button
@@ -76,6 +80,13 @@ class Charts : Fragment(), View.OnClickListener {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
         }
+        btnBtc = view_main.findViewById(R.id.history_btc)
+        btnBtc.setOnClickListener(this)
+        btnEth = view_main.findViewById(R.id.history_eth)
+        btnEth.setOnClickListener(this)
+        btnLtc = view_main.findViewById(R.id.history_ltc)
+        btnLtc.setOnClickListener(this)
+
         btn1Hour = view_main.findViewById(R.id.period_1_hour)
         btn1Hour.setOnClickListener(this)
         btn1Day = view_main.findViewById(R.id.period_1_day)
@@ -92,6 +103,21 @@ class Charts : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when(v?.id) {
+            R.id.history_btc -> {
+                var x = v as Button
+                updateStyleCryptoButton(x)
+            }
+            R.id.history_eth -> {
+                var x = v as Button
+                updateStyleCryptoButton(x)
+                History.draw("1", "Fyb-Sg", "days=100", context, lineChart, "12345", "12345")
+            }
+            R.id.history_ltc -> {
+                var x = v as Button
+                updateStyleCryptoButton(x)
+                History.draw("1", "Fyb-Sg", "days=100", context, lineChart, "12345", "12345")
+            }
+
             R.id.period_1_hour -> {
                 var x = v as Button
                 updateStyle(x)
@@ -123,10 +149,24 @@ class Charts : Fragment(), View.OnClickListener {
         }
     }
 
+    private fun updateStyleCryptoButton(x: Button) {
+        removeCurrentCryptoCurrStyle()
+        x.background = ContextCompat.getDrawable(context, R.drawable.tag_currency_rounded)
+        x.setTextColor(Color.WHITE)
+    }
+
     private fun updateStyle(x: Button) {
         removeCurrentStyle()
         x.background = ContextCompat.getDrawable(context, R.drawable.tag_currency_rounded)
         x.setTextColor(Color.WHITE)
+    }
+    private fun removeCurrentCryptoCurrStyle() {
+        btnBtc.background = ContextCompat.getDrawable(context, R.drawable.time_period_rounded)
+        btnBtc.setTextColor(Color.BLACK)
+        btnEth.background = ContextCompat.getDrawable(context, R.drawable.time_period_rounded)
+        btnEth.setTextColor(Color.BLACK)
+        btnLtc.background = ContextCompat.getDrawable(context, R.drawable.time_period_rounded)
+        btnLtc.setTextColor(Color.BLACK)
     }
 
     private fun removeCurrentStyle() {

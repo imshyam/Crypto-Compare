@@ -22,12 +22,13 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="8">
 
                 <Button
+                    android:id="@+id/history_btc"
                     android:layout_marginLeft="@dimen/list_item_margin"
                     style="@style/chart_timeperiod_button_selected"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:layout_gravity="center"
                     android:text="BTC"
                     android:textAllCaps="false" />
@@ -35,10 +36,21 @@
                     style="@style/dash_time_period"
                     />
                 <Button
+                    android:id="@+id/history_eth"
                     style="@style/chart_timeperiod_button"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:layout_gravity="center"
                     android:text="ETH"
+                    android:textAllCaps="false" />
+                <LinearLayout
+                    style="@style/dash_time_period"
+                    />
+                <Button
+                    android:id="@+id/history_ltc"
+                    style="@style/chart_timeperiod_button"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:text="LTC"
                     android:textAllCaps="false" />
             </LinearLayout>
             <LinearLayout
