@@ -26,7 +26,7 @@ import com.shapps.cryptocompare.R
  * Use the [Charts.newInstance] factory method to
  * create an instance of this fragment.
  */
-class Charts : Fragment(), View.OnClickListener {
+class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
 
     private var mListener: OnFragmentInteractionListener? = null
 
@@ -35,6 +35,8 @@ class Charts : Fragment(), View.OnClickListener {
     private lateinit var currencySpinner: Spinner
     private lateinit var exchangeSpinner: Spinner
     private lateinit var listIdsForCurrentSettings: MutableList<String>
+
+    private var selectedCryptoCurr: String = "Bitcoin"
 
     private lateinit var btnBtc: Button
     private lateinit var btnEth: Button
@@ -55,37 +57,14 @@ class Charts : Fragment(), View.OnClickListener {
         lineChart = view_main.findViewById(R.id.price_chart)
         History.draw("1", "Fyb-Sg", "hours=1", context, lineChart, "12345", "12345")
 
-        // Currency
-        currencySpinner = view_main?.findViewById<Spinner>(R.id.currency_spinner)
-        var adapter = ArrayAdapter.createFromResource(activity, R.array.currency_list, android.R.layout.simple_spinner_item)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        if (currencySpinner != null) {
-            currencySpinner.adapter = adapter
-        }
-        currencySpinner.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                Log.d("Changed", position.toString() + " and " + id.toString())
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-        }
-        // Exchange
-        exchangeSpinner = view_main?.findViewById<Spinner>(R.id.exchange_spinner)
-        var adapter2 = ArrayAdapter.createFromResource(activity, R.array.exchange_list_sgd, android.R.layout.simple_spinner_item)
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        if (exchangeSpinner != null) {
-            exchangeSpinner.adapter = adapter2
-        }
-        exchangeSpinner.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                var exId: String = resources.getStringArray(R.array.exchange_id_sgd)[position]
-                Log.d("Changed", exId)
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-        }
+        currencySpinner = view_main?.findViewById(R.id.currency_spinner)
+        currencySpinner.onItemSelectedListener = this
+        exchangeSpinner = view_main?.findViewById(R.id.exchange_spinner)
+        exchangeSpinner.onItemSelectedListener = this
+
+        updateCurrencyAndExchange("Bitcoin")
+
+
         btnBtc = view_main.findViewById(R.id.history_btc)
         btnBtc.setOnClickListener(this)
         btnEth = view_main.findViewById(R.id.history_eth)
@@ -107,19 +86,37 @@ class Charts : Fragment(), View.OnClickListener {
         return view_main
     }
 
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        Log.d("Nothing", "Selected")
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        when(parent?.id){
+            R.id.currency_spinner -> {
+                updateExchange(selectedCryptoCurr, parent.selectedItem.toString())
+            }
+            R.id.exchange_spinner -> {
+                Log.d("Click", listIdsForCurrentSettings[position])
+            }
+        }
+    }
+
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.history_btc -> {
+                selectedCryptoCurr = "Bitcoin"
                 var x = v as Button
                 updateStyleCryptoButton(x)
                 updateCurrencyAndExchange("Bitcoin")
             }
             R.id.history_eth -> {
+                selectedCryptoCurr = "Ethereum"
                 var x = v as Button
                 updateStyleCryptoButton(x)
                 updateCurrencyAndExchange("Ethereum")
             }
             R.id.history_ltc -> {
+                selectedCryptoCurr = "Litecoin"
                 var x = v as Button
                 updateStyleCryptoButton(x)
                 updateCurrencyAndExchange("Litecoin")
@@ -154,6 +151,51 @@ class Charts : Fragment(), View.OnClickListener {
 
             }
         }
+    }
+
+    private fun updateExchange(cryptoCurr: String, curr: String) {val mDbHelper = ExchangeDetailsDbHelper(activity)
+
+        val db = mDbHelper.readableDatabase
+
+// Define a projection that specifies which columns from the database
+// you will actually use after this query.
+        val projection = arrayOf(
+                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID,
+                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_EX_NAME,
+                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_CURRENCY)
+
+// Filter results WHERE "title" = 'My Title'
+        val selection = ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_CRYPTO_CURRENCY + " = ? AND " +
+                                     ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_CURRENCY + " = ?"
+        val selectionArgs = arrayOf(cryptoCurr, curr)
+
+// How you want the results sorted in the resulting Cursor
+        val sortOrder = ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID + " ASC"
+
+        val cursor = db.query(
+                ExchangeDetailsSchema.ExchangesDetailsEntry.TABLE_NAME, // The table to query
+                projection, // The columns to return
+                selection, // The columns for the WHERE clause
+                selectionArgs, // don't group the rows
+                null, null, // don't filter by row groups
+                sortOrder                                 // The sort order
+        )
+        var listIds: MutableList<String> = arrayListOf()
+        var listNames: MutableList<String> = arrayListOf()
+        var listExchangesForCurrentSettings: MutableList<String> = arrayListOf()
+        listIdsForCurrentSettings = arrayListOf()
+        while (cursor.moveToNext()){
+            listIds.add(cursor.getInt(0).toString())
+            listNames.add(cursor.getString(1))
+        }
+        listIdsForCurrentSettings.clear()
+        for (i in 0 until listNames.size){
+            listExchangesForCurrentSettings.add(listNames[i])
+            listIdsForCurrentSettings.add(listIds[i])
+        }
+        var exchangeAdapter: ArrayAdapter<String> = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, listExchangesForCurrentSettings)
+        exchangeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        exchangeSpinner.adapter = exchangeAdapter
     }
 
     private fun updateCurrencyAndExchange(cryptoCurr: String) {
@@ -195,6 +237,7 @@ class Charts : Fragment(), View.OnClickListener {
             listCurrencyAll.add(cursor.getString(2))
             listCurrency = listCurrencyAll.distinct()
         }
+        listIdsForCurrentSettings.clear()
         for (i in 0 until listNames.size){
             if(listCurrencyAll[i].equals(listCurrencyAll[0])){
                 listExchangesForCurrentSettings.add(listNames[i])
