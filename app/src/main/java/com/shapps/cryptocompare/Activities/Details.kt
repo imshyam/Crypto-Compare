@@ -6,12 +6,14 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.MenuItem
+import android.view.View
+import android.widget.Button
 import com.shapps.cryptocompare.Networking.History
 import com.shapps.cryptocompare.R
 import kotlinx.android.synthetic.main.activity_details.*
+import kotlinx.android.synthetic.main.chart_header.*
 
-class Details : AppCompatActivity() {
-
+class Details : AppCompatActivity(), View.OnClickListener {
 
     private var cryptoCurrency: String? = null
     private var currency: String? = null
@@ -36,8 +38,14 @@ class Details : AppCompatActivity() {
         upArrow.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
         supportActionBar?.setHomeAsUpIndicator(upArrow)
 
-        collapsing_toolbar.setCollapsedTitleTextAppearance(R.style.collapsedappbar);
-        collapsing_toolbar.setExpandedTitleTextAppearance(R.style.expandedappbar);
+        collapsing_toolbar.setCollapsedTitleTextAppearance(R.style.collapsedappbar)
+        collapsing_toolbar.setExpandedTitleTextAppearance(R.style.expandedappbar)
+
+        period_1_hour.setOnClickListener(this)
+        period_1_day.setOnClickListener(this)
+        period_1_week.setOnClickListener(this)
+        period_1_month.setOnClickListener(this)
+        period_all.setOnClickListener(this)
 
 
         cryptoCurrency = intent.getStringExtra("CRYPTO_CURR")
@@ -65,6 +73,54 @@ class Details : AppCompatActivity() {
         History.draw(siteId, siteName, term, this, exchange_chart, buy, sell)
 
     }
+    override fun onClick(v: View?) {
+        when(v?.id) {
+            R.id.period_1_hour -> {
+                var x = v as Button
+                updateStyle(x)
+                History.draw(siteId, siteName, "hours=1", this, exchange_chart, "12345", "12345")
+            }
+            R.id.period_1_day -> {
+                var x = v as Button
+                updateStyle(x)
+                History.draw(siteId, siteName, "days=1", this, exchange_chart, "12345", "12345")
+            }
+            R.id.period_1_week -> {
+                var x = v as Button
+                updateStyle(x)
+                History.draw(siteId, siteName, "days=7", this, exchange_chart, "12345", "12345")
+            }
+            R.id.period_1_month -> {
+                var x = v as Button
+                updateStyle(x)
+                History.draw(siteId, siteName, "days=30", this, exchange_chart, "12345", "12345")
+            }
+            R.id.period_all -> {
+                var x = v as Button
+                updateStyle(x)
+                History.draw(siteId, siteName, "days=100", this, exchange_chart, "12345", "12345")
+            }
+        }
+    }
+
+    private fun updateStyle(x: Button) {
+        removeCurrentStyle()
+        x.background = ContextCompat.getDrawable(this, R.drawable.tag_currency_rounded)
+        x.setTextColor(Color.WHITE)
+    }
+    private fun removeCurrentStyle() {
+        period_1_hour.background = ContextCompat.getDrawable(this, R.drawable.time_period_rounded)
+        period_1_hour.setTextColor(Color.BLACK)
+        period_1_day.background = ContextCompat.getDrawable(this, R.drawable.time_period_rounded)
+        period_1_day.setTextColor(Color.BLACK)
+        period_1_week.background = ContextCompat.getDrawable(this, R.drawable.time_period_rounded)
+        period_1_week.setTextColor(Color.BLACK)
+        period_1_month.background = ContextCompat.getDrawable(this, R.drawable.time_period_rounded)
+        period_1_month.setTextColor(Color.BLACK)
+        period_all.background = ContextCompat.getDrawable(this, R.drawable.time_period_rounded)
+        period_all.setTextColor(Color.BLACK)
+    }
+
 
     /**
      * Set up the [android.app.ActionBar], if the API is available.
