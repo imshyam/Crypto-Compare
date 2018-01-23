@@ -26,6 +26,8 @@ import com.shapps.cryptocompare.R
  * Use the [Charts.newInstance] factory method to
  * create an instance of this fragment.
  */
+
+// FIXME Fix passing current buy sell price
 class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
 
     private var mListener: OnFragmentInteractionListener? = null
@@ -35,6 +37,9 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
     private lateinit var currencySpinner: Spinner
     private lateinit var exchangeSpinner: Spinner
     private lateinit var listIdsForCurrentSettings: MutableList<String>
+
+    private lateinit var siteId: String
+    private lateinit var exchangeName: String
 
     private var selectedCryptoCurr: String = "Bitcoin"
 
@@ -55,7 +60,6 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
         val view_main: View = inflater!!.inflate(R.layout.fragment_charts, container, false)
 
         lineChart = view_main.findViewById(R.id.price_chart)
-        History.draw("1", "Fyb-Sg", "hours=1", context, lineChart, "12345", "12345")
 
         currencySpinner = view_main?.findViewById(R.id.currency_spinner)
         currencySpinner.onItemSelectedListener = this
@@ -63,7 +67,10 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
         exchangeSpinner.onItemSelectedListener = this
 
         updateCurrencyAndExchange("Bitcoin")
+        siteId = "1"
+        exchangeName = "Fyb-SG"
 
+        History.draw(siteId, exchangeName, "hours=1", context, lineChart, "12345", "12345")
 
         btnBtc = view_main.findViewById(R.id.history_btc)
         btnBtc.setOnClickListener(this)
@@ -96,7 +103,10 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
                 updateExchange(selectedCryptoCurr, parent.selectedItem.toString())
             }
             R.id.exchange_spinner -> {
-                Log.d("Click", listIdsForCurrentSettings[position])
+                Log.d("Click spin", listIdsForCurrentSettings[position])
+                siteId = listIdsForCurrentSettings[position]
+                exchangeName = parent.selectedItem.toString()
+                History.draw(siteId, exchangeName, "hours=1",  context, lineChart, "12345", "12345")
             }
         }
     }
@@ -125,27 +135,27 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
             R.id.period_1_hour -> {
                 var x = v as Button
                 updateStyle(x)
-                History.draw("1", "Fyb-Sg", "hours=1", context, lineChart, "12345", "12345")
+                History.draw(siteId, exchangeName, "hours=1", context, lineChart, "12345", "12345")
             }
             R.id.period_1_day -> {
                 var x = v as Button
                 updateStyle(x)
-                History.draw("1", "Fyb-Sg", "days=1", context, lineChart, "12345", "12345")
+                History.draw(siteId, exchangeName, "days=1", context, lineChart, "12345", "12345")
             }
             R.id.period_1_week -> {
                 var x = v as Button
                 updateStyle(x)
-                History.draw("1", "Fyb-Sg", "days=7", context, lineChart, "12345", "12345")
+                History.draw(siteId, exchangeName, "days=7", context, lineChart, "12345", "12345")
             }
             R.id.period_1_month -> {
                 var x = v as Button
                 updateStyle(x)
-                History.draw("1", "Fyb-Sg", "days=30", context, lineChart, "12345", "12345")
+                History.draw(siteId, exchangeName, "days=30", context, lineChart, "12345", "12345")
             }
             R.id.period_all -> {
                 var x = v as Button
                 updateStyle(x)
-                History.draw("1", "Fyb-Sg", "days=100", context, lineChart, "12345", "12345")
+                History.draw(siteId, exchangeName, "days=100", context, lineChart, "12345", "12345")
             }
             else -> {
 
@@ -225,29 +235,17 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
                 null, null, // don't filter by row groups
                 sortOrder                                 // The sort order
         )
-        var listIds: MutableList<String> = arrayListOf()
-        var listNames: MutableList<String> = arrayListOf()
         var listCurrencyAll: MutableList<String> = arrayListOf()
         var listCurrency: List<String> = arrayListOf()
-        var listExchangesForCurrentSettings: MutableList<String> = arrayListOf()
-        listIdsForCurrentSettings = arrayListOf()
         while (cursor.moveToNext()){
-            listIds.add(cursor.getInt(0).toString())
-            listNames.add(cursor.getString(1))
             listCurrencyAll.add(cursor.getString(2))
             listCurrency = listCurrencyAll.distinct()
-        }
-        listIdsForCurrentSettings.clear()
-        for (i in 0 until listNames.size){
-            if(listCurrencyAll[i].equals(listCurrencyAll[0])){
-                listExchangesForCurrentSettings.add(listNames[i])
-                listIdsForCurrentSettings.add(listIds[i])
-            }
         }
         var currencyAdapter: ArrayAdapter<String> = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, listCurrency)
         currencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         currencySpinner.adapter = currencyAdapter
-        var exchangeAdapter: ArrayAdapter<String> = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, listExchangesForCurrentSettings)
+        // Empty Spinner
+        var exchangeAdapter: ArrayAdapter<String> = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, arrayListOf())
         exchangeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         exchangeSpinner.adapter = exchangeAdapter
     }
