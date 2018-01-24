@@ -90,13 +90,6 @@
         <item>4</item>
     </string-array>
 
-    <string-array name="currency_list">
-        <item>@string/text_sgd</item>
-        <item>@string/text_usd</item>
-        <item>@string/text_inr</item>
-        <item>@string/text_eur</item>
-    </string-array>
-
 
     <string-array name="multi_select_list_preference_default_value" />
 
