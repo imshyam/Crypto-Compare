@@ -18,13 +18,6 @@ import android.util.Log
 import com.shapps.cryptocompare.Model.ExchangeDetailsSchema.ExchangesDetailsEntry.*
 import java.util.regex.Pattern
 
-
-
-
-
-
-
-
 /**
  * Created by shyam on 26/8/17.
  */

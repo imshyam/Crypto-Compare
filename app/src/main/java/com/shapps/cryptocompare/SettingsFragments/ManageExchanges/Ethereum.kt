@@ -13,7 +13,7 @@ import android.view.MenuItem
 import com.shapps.cryptocompare.R
 import com.shapps.cryptocompare.Activities.Settings
 import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
-import com.shapps.cryptocompare.Model.ExchangeDetailsSchema
+import com.shapps.cryptocompare.Model.ExchangeDetailsSchema.ExchangesDetailsEntry.*
 import com.shapps.cryptocompare.SettingsFragments.Main
 import java.util.regex.Pattern
 
@@ -39,20 +39,17 @@ class Ethereum : PreferenceFragment() {
 
 // Define a projection that specifies which columns from the database
 // you will actually use after this query.
-        val projection = arrayOf(
-                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID,
-                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_EX_NAME,
-                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_CURRENCY)
+        val projection = arrayOf(COLUMN_NAME_ID, COLUMN_NAME_EX_NAME, COLUMN_NAME_CURRENCY)
 
 // Filter results WHERE "title" = 'My Title'
-        val selection = ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_CRYPTO_CURRENCY + " = ?"
+        val selection = COLUMN_NAME_CRYPTO_CURRENCY + " = ?"
         val selectionArgs = arrayOf("Ethereum")
 
 // How you want the results sorted in the resulting Cursor
-        val sortOrder = ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID + " ASC"
+        val sortOrder = COLUMN_NAME_ID + " ASC"
 
         val cursor = db.query(
-                ExchangeDetailsSchema.ExchangesDetailsEntry.TABLE_NAME, // The table to query
+                TABLE_NAME, // The table to query
                 projection, // The columns to return
                 selection, // The columns for the WHERE clause
                 selectionArgs, // don't group the rows
@@ -73,7 +70,7 @@ class Ethereum : PreferenceFragment() {
 
 
                 val values = ContentValues()
-                values.put(ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ACTIVE, updateTo)
+                values.put(COLUMN_NAME_ACTIVE, updateTo)
 
                 val p = Pattern.compile("\\d+")
                 val m = p.matcher(key)
@@ -84,11 +81,11 @@ class Ethereum : PreferenceFragment() {
 
 
 // Which row to update, based on the title
-                val selection = ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID + " = ?"
+                val selection = COLUMN_NAME_ID + " = ?"
                 val selectionArgs = arrayOf(ex_id)
 
                 val count = db.update(
-                        ExchangeDetailsSchema.ExchangesDetailsEntry.TABLE_NAME,
+                        TABLE_NAME,
                         values,
                         selection,
                         selectionArgs)
