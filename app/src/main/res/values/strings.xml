@@ -127,5 +127,7 @@
     <string name="text_inr">INR</string>
     <string name="text_eur">EUR</string>
     <string name="saved_file_name">saved_file_name</string>
+    <string name="text_add_exchange">Add Exchange</string>
+    <string name="no_selected_exchange_description">To add, click on the button Add Exchanges and under Manage Exchanges select coin and add an exchange.</string>
 
 </resources>

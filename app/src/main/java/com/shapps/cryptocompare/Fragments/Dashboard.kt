@@ -52,6 +52,9 @@ class Dashboard : Fragment() {
 
     private lateinit var notificationManager: NotificationManager
 
+    private lateinit var getCurrentExchanges: String
+    private lateinit var id_name_map: HashMap<Int, String>
+
     private val NOTIFICATION_ID = 0
 
 
@@ -93,7 +96,13 @@ class Dashboard : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_dashboard, container, false)
+        val view: View
+        if(insertAndCheckData()) {
+            view = inflater!!.inflate(R.layout.fragment_dashboard, container, false)
+        } else {
+            view = inflater!!.inflate(R.layout.no_exchange_selected, container, false)
+            return view
+        }
 
         // Set the adapter
         if (view is RecyclerView) {
@@ -110,12 +119,10 @@ class Dashboard : Fragment() {
         return view
     }
 
-    private fun insertDataIntoAdapter() {
+    private fun insertAndCheckData(): Boolean {
+        id_name_map = hashMapOf()
 
-        var id_name_map: HashMap<Int, String> = hashMapOf()
-
-        val prefs = PreferenceManager.getDefaultSharedPreferences(activity)
-        var getCurrentExchanges = ""
+        getCurrentExchanges = ""
 
         val mDbHelper = ExchangeDetailsDbHelper(activity)
 
@@ -146,15 +153,21 @@ class Dashboard : Fragment() {
         }
         cursor.close()
 
-        if(getCurrentExchanges.length > 1)
-            getCurrentExchanges = getCurrentExchanges.substring(0, getCurrentExchanges.length-1)
+        if(getCurrentExchanges.length > 1) {
+            getCurrentExchanges = getCurrentExchanges.substring(0, getCurrentExchanges.length - 1)
+            return true
+        }
 
-        Log.d("Tmp " , getCurrentExchanges)
+        return false
+    }
 
+    private fun insertDataIntoAdapter() {
 
         var pDialog = ProgressDialog(activity)
         pDialog.setMessage("Loading...")
         pDialog.show()
+
+        val prefs = PreferenceManager.getDefaultSharedPreferences(activity)
 
         val url = DetailURLs.URL_GET_CURRENT + getCurrentExchanges
         val strReq = StringRequest(Request.Method.GET,
