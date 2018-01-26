@@ -14,13 +14,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.RemoteViews
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyLog
 import com.android.volley.toolbox.StringRequest
+import com.shapps.cryptocompare.Activities.AddUserNotification
 import com.shapps.cryptocompare.Activities.Main
+import com.shapps.cryptocompare.Activities.Settings
 import com.shapps.cryptocompare.Adapters.ExchangesRecyclerView
 import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
 import com.shapps.cryptocompare.Model.ExchangeDetailsSchema
@@ -101,6 +104,11 @@ class Dashboard : Fragment() {
             view = inflater!!.inflate(R.layout.fragment_dashboard, container, false)
         } else {
             view = inflater!!.inflate(R.layout.no_exchange_selected, container, false)
+            val addNotification = view.findViewById<Button>(R.id.add_exchange)
+            addNotification.setOnClickListener{
+                val settingsAct = Intent(context, Settings::class.java)
+                startActivity(settingsAct)
+            }
             return view
         }
 
