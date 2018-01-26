@@ -104,8 +104,8 @@ class Dashboard : Fragment() {
             view = inflater!!.inflate(R.layout.fragment_dashboard, container, false)
         } else {
             view = inflater!!.inflate(R.layout.no_exchange_selected, container, false)
-            val addNotification = view.findViewById<Button>(R.id.add_exchange)
-            addNotification.setOnClickListener{
+            val addExchange = view.findViewById<Button>(R.id.add_exchange)
+            addExchange.setOnClickListener{
                 val settingsAct = Intent(context, Settings::class.java)
                 startActivity(settingsAct)
             }
