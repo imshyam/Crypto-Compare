@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import com.shapps.cryptocompare.CustomViews.CustomMarkerView
 import com.shapps.cryptocompare.Networking.History
 import com.shapps.cryptocompare.R
 import kotlinx.android.synthetic.main.activity_details.*
@@ -69,6 +70,9 @@ class Details : AppCompatActivity(), View.OnClickListener {
         vol_text_view.text = volume
 
         var term = "period=hour"
+
+        val mv = CustomMarkerView(this, R.layout.custom_marker)
+        exchange_chart.marker = mv
 
         History.draw(siteId, siteName, term, this, exchange_chart, buy, sell)
 
