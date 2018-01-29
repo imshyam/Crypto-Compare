@@ -12,15 +12,13 @@ import com.shapps.cryptocompare.R
  */
 class CustomMarkerView(context: Context?, layoutResource: Int) : MarkerView(context, layoutResource) {
 
-    private lateinit var  textView: TextView
-
-    init {
-        textView = findViewById(R.id.highlighted_val)
-    }
+    private var  time: TextView = findViewById(R.id.highlighted_time_val)
+    private var  price: TextView = findViewById(R.id.highlighted_price_val)
 
     override fun refreshContent(e: Entry?, highlight: Highlight?) {
         super.refreshContent(e, highlight)
-        textView.text = e.toString()
+        time.text = e?.x.toString()
+        price.text = e?.y.toString()
     }
 
     fun getXOffset(pos: Float): Int{
