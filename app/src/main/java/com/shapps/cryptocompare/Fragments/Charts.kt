@@ -40,6 +40,7 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
 
     private lateinit var siteId: String
     private lateinit var exchangeName: String
+    private lateinit var term: String
 
     private var selectedCryptoCurr: String = "Bitcoin"
 
@@ -69,8 +70,9 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
         updateCurrencyAndExchange("Bitcoin")
         siteId = "1"
         exchangeName = "Fyb-SG"
+        term = "period=hour"
 
-        History.draw(siteId, exchangeName, "hours=1", context, lineChart, "12345", "12345")
+        History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345")
 
         btnBtc = view_main.findViewById(R.id.history_btc)
         btnBtc.setOnClickListener(this)
@@ -106,7 +108,7 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
                 Log.d("Click spin", listIdsForCurrentSettings[position])
                 siteId = listIdsForCurrentSettings[position]
                 exchangeName = parent.selectedItem.toString()
-                History.draw(siteId, exchangeName, "hours=1",  context, lineChart, "12345", "12345")
+                History.draw(siteId, exchangeName, term,  context, lineChart, "12345", "12345")
             }
         }
     }
@@ -133,29 +135,34 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
             }
 
             R.id.period_1_hour -> {
+                term = "period=hour"
                 var x = v as Button
                 updateStyle(x)
-                History.draw(siteId, exchangeName, "hours=1", context, lineChart, "12345", "12345")
+                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345")
             }
             R.id.period_1_day -> {
+                term = "period=day"
                 var x = v as Button
                 updateStyle(x)
-                History.draw(siteId, exchangeName, "days=1", context, lineChart, "12345", "12345")
+                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345")
             }
             R.id.period_1_week -> {
+                term = "period=week"
                 var x = v as Button
                 updateStyle(x)
-                History.draw(siteId, exchangeName, "days=7", context, lineChart, "12345", "12345")
+                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345")
             }
             R.id.period_1_month -> {
+                term = "period=month"
                 var x = v as Button
                 updateStyle(x)
-                History.draw(siteId, exchangeName, "days=30", context, lineChart, "12345", "12345")
+                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345")
             }
             R.id.period_all -> {
+                term = "period=all"
                 var x = v as Button
                 updateStyle(x)
-                History.draw(siteId, exchangeName, "days=100", context, lineChart, "12345", "12345")
+                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345")
             }
             else -> {
 

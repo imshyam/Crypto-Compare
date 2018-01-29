@@ -68,7 +68,7 @@ class Details : AppCompatActivity(), View.OnClickListener {
         sell_high.text = sellHigh
         vol_text_view.text = volume
 
-        var term = "hours=1"
+        var term = "period=hour"
 
         History.draw(siteId, siteName, term, this, exchange_chart, buy, sell)
 
@@ -78,27 +78,27 @@ class Details : AppCompatActivity(), View.OnClickListener {
             R.id.period_1_hour -> {
                 var x = v as Button
                 updateStyle(x)
-                History.draw(siteId, siteName, "hours=1", this, exchange_chart, "12345", "12345")
+                History.draw(siteId, siteName, "period=hour", this, exchange_chart, "12345", "12345")
             }
             R.id.period_1_day -> {
                 var x = v as Button
                 updateStyle(x)
-                History.draw(siteId, siteName, "days=1", this, exchange_chart, "12345", "12345")
+                History.draw(siteId, siteName, "period=day", this, exchange_chart, "12345", "12345")
             }
             R.id.period_1_week -> {
                 var x = v as Button
                 updateStyle(x)
-                History.draw(siteId, siteName, "days=7", this, exchange_chart, "12345", "12345")
+                History.draw(siteId, siteName, "period=week", this, exchange_chart, "12345", "12345")
             }
             R.id.period_1_month -> {
                 var x = v as Button
                 updateStyle(x)
-                History.draw(siteId, siteName, "days=30", this, exchange_chart, "12345", "12345")
+                History.draw(siteId, siteName, "period=month", this, exchange_chart, "12345", "12345")
             }
             R.id.period_all -> {
                 var x = v as Button
                 updateStyle(x)
-                History.draw(siteId, siteName, "days=100", this, exchange_chart, "12345", "12345")
+                History.draw(siteId, siteName, "period=all", this, exchange_chart, "12345", "12345")
             }
         }
     }
