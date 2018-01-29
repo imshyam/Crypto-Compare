@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
 import com.github.mikephil.charting.charts.LineChart
+import com.shapps.cryptocompare.CustomViews.CustomMarkerView
 import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
 import com.shapps.cryptocompare.Model.ExchangeDetailsSchema
 import com.shapps.cryptocompare.Networking.History
@@ -61,6 +62,10 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
         val view_main: View = inflater!!.inflate(R.layout.fragment_charts, container, false)
 
         lineChart = view_main.findViewById(R.id.price_chart)
+
+        val mv = CustomMarkerView(context, R.layout.custom_marker)
+
+        lineChart.marker = mv
 
         currencySpinner = view_main?.findViewById(R.id.currency_spinner)
         currencySpinner.onItemSelectedListener = this
