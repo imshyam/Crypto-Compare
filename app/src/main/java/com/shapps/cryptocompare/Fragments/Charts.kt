@@ -3,7 +3,9 @@ package com.shapps.cryptocompare.Fragments
 import android.content.Context
 import android.graphics.Color
 import android.net.Uri
+import android.opengl.Visibility
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.util.Log
@@ -18,6 +20,7 @@ import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
 import com.shapps.cryptocompare.Model.ExchangeDetailsSchema
 import com.shapps.cryptocompare.Networking.History
 import com.shapps.cryptocompare.R
+import kotlinx.android.synthetic.main.fragment_charts.*
 
 /**
  * A fragment with a Google +1 button.
@@ -60,6 +63,16 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
         // Inflate the layout for this fragment
 
         val view_main: View = inflater!!.inflate(R.layout.fragment_charts, container, false)
+
+
+        val prefs = PreferenceManager.getDefaultSharedPreferences(activity)
+        val graphType = prefs.getString("pref_key_storage_graph_type", "1").toInt()
+
+        val compareBar = view_main.findViewById<LinearLayout>(R.id.compare_bar)
+        if(graphType == 2)
+            compareBar.visibility = View.VISIBLE
+         else
+            compareBar.visibility = View.GONE
 
         lineChart = view_main.findViewById(R.id.price_chart)
 

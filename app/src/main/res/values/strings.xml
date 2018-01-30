@@ -69,8 +69,8 @@
     </string-array>
 
     <string-array name="list_graph_types">
-        <item>@string/rate_graph</item>
         <item>@string/currency_graph</item>
+        <item>@string/rate_graph</item>
     </string-array>
     <string-array name="list_graph_types_values">
         <item>1</item>

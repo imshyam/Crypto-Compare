@@ -73,6 +73,71 @@
             </LinearLayout>
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/compare_bar"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"
+            android:weightSum="8"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="horizontal"
+                android:weightSum="8">
+
+                <Button
+                    android:id="@+id/history_btc_curr2"
+                    android:layout_marginLeft="@dimen/list_item_margin"
+                    style="@style/chart_timeperiod_button_selected"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:text="BTC"
+                    android:textAllCaps="false" />
+                <LinearLayout
+                    style="@style/dash_time_period"
+                    />
+                <Button
+                    android:id="@+id/history_eth_curr2"
+                    style="@style/chart_timeperiod_button"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:text="ETH"
+                    android:textAllCaps="false" />
+                <LinearLayout
+                    style="@style/dash_time_period"
+                    />
+                <Button
+                    android:id="@+id/history_ltc_curr2"
+                    style="@style/chart_timeperiod_button"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:text="LTC"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+                <Spinner
+                    android:id="@+id/currency_spinner_curr2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></Spinner>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="3">
+                <Spinner
+                    android:id="@+id/exchange_spinner_curr2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></Spinner>
+            </LinearLayout>
+        </LinearLayout>
+
         <include
             layout="@layout/chart_header"
             android:layout_width="wrap_content"
