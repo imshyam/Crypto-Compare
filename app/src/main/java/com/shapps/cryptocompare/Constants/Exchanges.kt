@@ -7,6 +7,7 @@ import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
 import org.json.JSONArray
 import org.json.JSONObject
 import android.content.ContentValues
+import android.database.sqlite.SQLiteConstraintException
 import com.shapps.cryptocompare.Model.ExchangeDetailsSchema.ExchangesDetailsEntry.*
 
 
@@ -24,6 +25,7 @@ class Exchanges {
                 var jsonArr = JSONArray(json)
                 val mDbHelper = ExchangeDetailsDbHelper(context)
                 val db = mDbHelper.writableDatabase
+                db.execSQL("delete from " + TABLE_NAME)
                 (0 until jsonArr.length())
                         .map { JSONObject(jsonArr.get(it).toString()) }
                         .forEach {
@@ -36,6 +38,7 @@ class Exchanges {
                             values.put(COLUMN_NAME_ACTIVE, 0)
 
                             db.insert(TABLE_NAME, null, values)
+
                         }
                 return true
 

@@ -22,8 +22,6 @@ import com.shapps.cryptocompare.Fragments.Notifications
 import com.shapps.cryptocompare.R
 import java.io.IOException
 import java.nio.charset.Charset
-import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
-import com.shapps.cryptocompare.Model.ExchangeDetailsSchema.ExchangesDetailsEntry.*
 
 
 class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
@@ -63,7 +61,7 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
         val myToolbar = findViewById<View>(R.id.my_toolbar) as Toolbar
         setSupportActionBar(myToolbar)
 
-        var filename = "exchanges.json"
+        var filename = "exchanges_v2.json"
 
         val sharedPref = this.getPreferences(Context.MODE_PRIVATE)
 
