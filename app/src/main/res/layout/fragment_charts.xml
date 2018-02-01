@@ -80,6 +80,8 @@
             android:layout_height="0px"
             android:layout_weight="1"
             android:weightSum="8"
+            android:layout_marginTop="@dimen/list_item_margin"
+            android:layout_marginBottom="@dimen/list_item_margin"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -87,23 +89,18 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:orientation="horizontal"
-                android:weightSum="2">
-                <EditText
-                    android:id="@+id/buy_fee_compare"
+                android:weightSum="5">
+                <View
                     android:layout_width="0px"
-                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="10dp"
-                    android:inputType="numberDecimal"
-                    android:hint="Fees Fyb-Sg"/>
-                <EditText
-                    android:id="@+id/sell_fee_compare"
+                    android:layout_height="match_parent"/>
+                <Button
+                    android:text="View \u2022 Edit Fees"
                     android:layout_width="0px"
+                    android:layout_weight="3"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:textSize="10dp"
-                    android:inputType="numberDecimal"
-                    android:hint="Fees ZebPay"/>
+                    style="@style/fees_style"
+                    android:textAllCaps="false"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0px"

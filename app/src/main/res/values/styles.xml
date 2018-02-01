@@ -120,4 +120,16 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
+    <style name="fees_style">
+        <item name="android:layout_width">0px</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:textSize">10dp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">@dimen/list_item_margin</item>
+        <item name="android:layout_marginTop">@dimen/list_item_margin</item>
+        <item name="android:background">@drawable/fees_button</item>
+    </style>
+
 </resources>
