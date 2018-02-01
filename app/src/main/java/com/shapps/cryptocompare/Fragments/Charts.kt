@@ -20,7 +20,6 @@ import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
 import com.shapps.cryptocompare.Model.ExchangeDetailsSchema
 import com.shapps.cryptocompare.Networking.History
 import com.shapps.cryptocompare.R
-import kotlinx.android.synthetic.main.fragment_charts.*
 
 /**
  * A fragment with a Google +1 button.
@@ -58,6 +57,8 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
     private lateinit var btn1Month: Button
     private lateinit var btnAll: Button
 
+    private var graphType: Int = 1
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -66,7 +67,7 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
 
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(activity)
-        val graphType = prefs.getString("pref_key_storage_graph_type", "1").toInt()
+        graphType = prefs.getString("pref_key_storage_graph_type", "1").toInt()
 
         val compareBar = view_main.findViewById<LinearLayout>(R.id.compare_bar)
         if(graphType == 2)
@@ -111,6 +112,10 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
         btnAll.setOnClickListener(this)
 
         return view_main
+    }
+
+    private fun disableOthers(btnEthCompare: Button?, btnLtcCompare: Button?) {
+
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
