@@ -5,3 +5,4 @@ ToDo
 - Fix notification
 - Add different currency compare
 - Add notification
+- fix active exchanges bug, settings page and data inseration(from json)
