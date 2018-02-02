@@ -36,9 +36,12 @@ import java.util.concurrent.TimeUnit
 class History {
 
     companion object {
-        fun draw(siteId: String, siteName: String, term: String, activity: Context, exchange_chart: LineChart, buy: String, sell: String) {
-            val url = DetailURLs.URL_GET_HISTORY + siteId + "&" + term
+        fun draw(siteId: String, siteName: String, term: String, activity: Context, exchange_chart: LineChart, buy: String, sell: String, siteId2: String) {
+            var url = DetailURLs.URL_GET_HISTORY + siteId + "&" + term
 
+            if(siteId2.isNotEmpty() && siteId != siteId2){
+                url = DetailURLs.URL_GET_HISTORY + siteId + "," + siteId2 + "&" + term
+            }
 
             var pDialog = ProgressDialog(activity)
             pDialog.setMessage("Loading...")

@@ -107,7 +107,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2">
                 <Spinner
-                    android:id="@+id/currency_spinner_curr2"
+                    android:id="@+id/currency_spinner_compare"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"></Spinner>
             </LinearLayout>
@@ -116,7 +116,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3">
                 <Spinner
-                    android:id="@+id/exchange_spinner_curr2"
+                    android:id="@+id/exchange_spinner_compare"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"></Spinner>
             </LinearLayout>

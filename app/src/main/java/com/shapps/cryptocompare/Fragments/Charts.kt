@@ -3,7 +3,6 @@ package com.shapps.cryptocompare.Fragments
 import android.content.Context
 import android.graphics.Color
 import android.net.Uri
-import android.opengl.Visibility
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
@@ -40,6 +39,11 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
     private lateinit var currencySpinner: Spinner
     private lateinit var exchangeSpinner: Spinner
     private lateinit var listIdsForCurrentSettings: MutableList<String>
+
+
+    private lateinit var currencySpinnerCompare: Spinner
+    private lateinit var exchangeSpinnerCompare: Spinner
+    private var siteId2: String = ""
 
     private lateinit var siteId: String
     private lateinit var exchangeName: String
@@ -86,12 +90,19 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
         exchangeSpinner = view_main?.findViewById(R.id.exchange_spinner)
         exchangeSpinner.onItemSelectedListener = this
 
+        if (graphType == 2) {
+            currencySpinnerCompare = view_main?.findViewById(R.id.currency_spinner_compare)
+            currencySpinnerCompare.onItemSelectedListener = this
+            exchangeSpinnerCompare = view_main?.findViewById(R.id.exchange_spinner_compare)
+            exchangeSpinnerCompare.onItemSelectedListener = this
+        }
+
         updateCurrencyAndExchange("Bitcoin")
         siteId = "1"
         exchangeName = "Fyb-SG"
         term = "period=hour"
 
-        History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345")
+        History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", "")
 
         btnBtc = view_main.findViewById(R.id.history_btc)
         btnBtc.setOnClickListener(this)
@@ -127,11 +138,21 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
             R.id.currency_spinner -> {
                 updateExchange(selectedCryptoCurr, parent.selectedItem.toString())
             }
+            R.id.currency_spinner_compare -> {
+                updateExchangeCompare(selectedCryptoCurr, parent.selectedItem.toString())
+            }
             R.id.exchange_spinner -> {
                 Log.d("Click spin", listIdsForCurrentSettings[position])
                 siteId = listIdsForCurrentSettings[position]
                 exchangeName = parent.selectedItem.toString()
-                History.draw(siteId, exchangeName, term,  context, lineChart, "12345", "12345")
+                if (graphType == 1)
+                    History.draw(siteId, exchangeName, term,  context, lineChart, "12345", "12345", "")
+            }
+            R.id.exchange_spinner_compare -> {
+                Log.d("Click compare spin", listIdsForCurrentSettings[position])
+                siteId2 = listIdsForCurrentSettings[position]
+                exchangeName = parent.selectedItem.toString()
+                History.draw(siteId, exchangeName, term,  context, lineChart, "12345", "12345", siteId2)
             }
         }
     }
@@ -161,36 +182,83 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
                 term = "period=hour"
                 var x = v as Button
                 updateStyle(x)
-                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345")
+                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", siteId2)
             }
             R.id.period_1_day -> {
                 term = "period=day"
                 var x = v as Button
                 updateStyle(x)
-                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345")
+                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", siteId2)
             }
             R.id.period_1_week -> {
                 term = "period=week"
                 var x = v as Button
                 updateStyle(x)
-                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345")
+                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", siteId2)
             }
             R.id.period_1_month -> {
                 term = "period=month"
                 var x = v as Button
                 updateStyle(x)
-                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345")
+                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", siteId2)
             }
             R.id.period_all -> {
                 term = "period=all"
                 var x = v as Button
                 updateStyle(x)
-                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345")
+                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", siteId2)
             }
             else -> {
 
             }
         }
+    }
+
+    private fun updateExchangeCompare(cryptoCurr: String, curr: String) {
+        val mDbHelper = ExchangeDetailsDbHelper(activity)
+
+        val db = mDbHelper.readableDatabase
+
+// Define a projection that specifies which columns from the database
+// you will actually use after this query.
+        val projection = arrayOf(
+                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID,
+                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_EX_NAME,
+                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_CURRENCY)
+
+// Filter results WHERE "title" = 'My Title'
+        val selection = ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_CRYPTO_CURRENCY + " = ? AND " +
+                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_CURRENCY + " = ?"
+        val selectionArgs = arrayOf(cryptoCurr, curr)
+
+// How you want the results sorted in the resulting Cursor
+        val sortOrder = ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID + " ASC"
+
+        val cursor = db.query(
+                ExchangeDetailsSchema.ExchangesDetailsEntry.TABLE_NAME, // The table to query
+                projection, // The columns to return
+                selection, // The columns for the WHERE clause
+                selectionArgs, // don't group the rows
+                null, null, // don't filter by row groups
+                sortOrder                                 // The sort order
+        )
+        var listIds: MutableList<String> = arrayListOf()
+        var listNames: MutableList<String> = arrayListOf()
+        var listExchangesForCurrentSettings: MutableList<String> = arrayListOf()
+        listIdsForCurrentSettings = arrayListOf()
+        while (cursor.moveToNext()){
+            listIds.add(cursor.getInt(0).toString())
+            listNames.add(cursor.getString(1))
+        }
+        listIdsForCurrentSettings.clear()
+        for (i in 0 until listNames.size){
+            listExchangesForCurrentSettings.add(listNames[i])
+            listIdsForCurrentSettings.add(listIds[i])
+        }
+
+        var exchangeAdapterComp: ArrayAdapter<String> = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, listExchangesForCurrentSettings)
+        exchangeAdapterComp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        exchangeSpinnerCompare.adapter = exchangeAdapterComp
     }
 
     private fun updateExchange(cryptoCurr: String, curr: String) {val mDbHelper = ExchangeDetailsDbHelper(activity)
@@ -274,10 +342,14 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
         var currencyAdapter: ArrayAdapter<String> = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, listCurrency)
         currencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         currencySpinner.adapter = currencyAdapter
+        if(graphType == 2)
+            currencySpinnerCompare.adapter = currencyAdapter
         // Empty Spinner
         var exchangeAdapter: ArrayAdapter<String> = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, arrayListOf())
         exchangeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         exchangeSpinner.adapter = exchangeAdapter
+
+
     }
 
     private fun updateStyleCryptoButton(x: Button) {
