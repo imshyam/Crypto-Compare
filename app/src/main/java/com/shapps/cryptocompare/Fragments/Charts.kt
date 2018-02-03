@@ -179,35 +179,45 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
                 term = "period=hour"
                 var x = v as Button
                 updateStyle(x)
-                var isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+                var isDiffCurr = false
+                if (graphType == 2)
+                    isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
                 History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", siteId2, isDiffCurr)
             }
             R.id.period_1_day -> {
                 term = "period=day"
                 var x = v as Button
                 updateStyle(x)
-                var isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+                var isDiffCurr = false
+                if (graphType == 2)
+                    isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
                 History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", siteId2, isDiffCurr)
             }
             R.id.period_1_week -> {
                 term = "period=week"
                 var x = v as Button
                 updateStyle(x)
-                var isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+                var isDiffCurr = false
+                if (graphType == 2)
+                    isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
                 History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", siteId2, isDiffCurr)
             }
             R.id.period_1_month -> {
                 term = "period=month"
                 var x = v as Button
                 updateStyle(x)
-                var isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+                var isDiffCurr = false
+                if (graphType == 2)
+                    isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
                 History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", siteId2, isDiffCurr)
             }
             R.id.period_all -> {
                 term = "period=all"
                 var x = v as Button
                 updateStyle(x)
-                var isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+                var isDiffCurr = false
+                if (graphType == 2)
+                    isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
                 History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", siteId2, isDiffCurr)
             }
             else -> {
