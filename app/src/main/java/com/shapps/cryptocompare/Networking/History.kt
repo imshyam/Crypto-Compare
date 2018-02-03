@@ -36,7 +36,7 @@ import java.util.concurrent.TimeUnit
 class History {
 
     companion object {
-        fun draw(siteId: String, siteName: String, term: String, activity: Context, exchange_chart: LineChart, buy: String, sell: String, siteId2: String, isDifferentCurrency: Boolean) {
+        fun draw(siteId: String, siteName: String, term: String, activity: Context, exchange_chart: LineChart, buy: String, sell: String, siteId2: String, siteName2: String, isDifferentCurrency: Boolean, fee1: Float, fee2: Float) {
             var url = DetailURLs.URL_GET_HISTORY + siteId + "&" + term
 
             if(siteId2.isNotEmpty() && siteId != siteId2){
@@ -129,20 +129,29 @@ class History {
 
                 // If comparing Two
                 else {
-                    var entries = ArrayList<Entry>()
-                    for (i in 0 until map[siteId.toInt().toString() + "_buy"]!!.size){
-                        var entryBuy = map[siteId.toInt().toString() + "_buy"]!![i]
-                        var entrySell = map[siteId2.toInt().toString() + "_sell"]!![i]
-                        var valueInsert: Float
-                        valueInsert = if(isDifferentCurrency)
-                            entrySell.values.toFloatArray()[0] / entryBuy.values.toFloatArray()[0]
-                        else
-                            entrySell.values.toFloatArray()[0] - entryBuy.values.toFloatArray()[0]
-                        var timestamp = Timestamp(entryBuy.keys.elementAt(0).time).time
+                    val entries = ArrayList<Entry>()
+                    val totalItems = if (map[siteId.toInt().toString() + "_buy"]!!.size < map[siteId2.toInt().toString() + "_buy"]!!.size)
+                        map[siteId.toInt().toString() + "_buy"]!!.size
+                    else
+                        map[siteId2.toInt().toString() + "_buy"]!!.size
+                    for (i in 0 until totalItems){
+                        val entryBuy = map[siteId.toInt().toString() + "_buy"]!![i]
+                        val entrySell = map[siteId2.toInt().toString() + "_sell"]!![i]
+                        val buyWithFee = entryBuy.values.toFloatArray()[0] * (1 + fee1/100)
+                        val sellWithFee = entrySell.values.toFloatArray()[0] * (1 - fee1/100)
+                        val valueInsert: Float = if(isDifferentCurrency)
+                            sellWithFee / buyWithFee
+                        else {
+                            sellWithFee - buyWithFee
+                        }
+                        val timestamp = Timestamp(entryBuy.keys.elementAt(0).time).time
                         entries.add(Entry(timestamp.toFloat(), valueInsert))
                     }
 
-                    lds = LineDataSet(entries, siteName + " Sell")
+                    lds = if(isDifferentCurrency)
+                        LineDataSet(entries, "Currency rate Graph for Buy at $siteName and sell at $siteName2")
+                    else
+                        LineDataSet(entries, "Margin Graph for Buy at $siteName and sell at $siteName2")
                     lds.color = Color.parseColor("#01B6AD")
                     lds.valueTextColor = Color.parseColor("#0A4958")
 

@@ -2,6 +2,7 @@ package com.shapps.cryptocompare.Activities
 
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -35,7 +36,7 @@ class Details : AppCompatActivity(), View.OnClickListener {
         setSupportActionBar(toolbar)
         setupActionBar()
 
-        var upArrow = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_material)
+        val upArrow: Drawable = ContextCompat.getDrawable(this, R.drawable.abc_ic_ab_back_material)
         upArrow.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
         supportActionBar?.setHomeAsUpIndicator(upArrow)
 
@@ -69,40 +70,40 @@ class Details : AppCompatActivity(), View.OnClickListener {
         sell_high.text = sellHigh
         vol_text_view.text = volume
 
-        var term = "period=hour"
+        val term = "period=hour"
 
         val mv = CustomMarkerView(this, R.layout.custom_marker)
         exchange_chart.marker = mv
 
-        History.draw(siteId, siteName, term, this, exchange_chart, buy, sell, "", false)
+        History.draw(siteId, siteName, term, this, exchange_chart, buy, sell, "", "", false, 0f, 0f)
 
     }
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.period_1_hour -> {
-                var x = v as Button
+                val x = v as Button
                 updateStyle(x)
-                History.draw(siteId, siteName, "period=hour", this, exchange_chart, "12345", "12345", "", false)
+                History.draw(siteId, siteName, "period=hour", this, exchange_chart, "12345", "12345", "", "", false, 0f, 0f)
             }
             R.id.period_1_day -> {
-                var x = v as Button
+                val x = v as Button
                 updateStyle(x)
-                History.draw(siteId, siteName, "period=day", this, exchange_chart, "12345", "12345", "", false)
+                History.draw(siteId, siteName, "period=day", this, exchange_chart, "12345", "12345", "", "", false, 0f, 0f)
             }
             R.id.period_1_week -> {
-                var x = v as Button
+                val x = v as Button
                 updateStyle(x)
-                History.draw(siteId, siteName, "period=week", this, exchange_chart, "12345", "12345", "", false)
+                History.draw(siteId, siteName, "period=week", this, exchange_chart, "12345", "12345", "", "", false, 0f, 0f)
             }
             R.id.period_1_month -> {
-                var x = v as Button
+                val x = v as Button
                 updateStyle(x)
-                History.draw(siteId, siteName, "period=month", this, exchange_chart, "12345", "12345", "", false)
+                History.draw(siteId, siteName, "period=month", this, exchange_chart, "12345", "12345", "", "", false, 0f, 0f)
             }
             R.id.period_all -> {
-                var x = v as Button
+                val x = v as Button
                 updateStyle(x)
-                History.draw(siteId, siteName, "period=all", this, exchange_chart, "12345", "12345", "", false)
+                History.draw(siteId, siteName, "period=all", this, exchange_chart, "12345", "12345", "", "", false, 0f, 0f)
             }
         }
     }
