@@ -76,7 +76,6 @@ class History {
                         map.put(exchangeId.toInt().toString() + "_buy", arrayListOf(dateBuyVal))
                         var dateSellVal = hashMapOf(formattedDate to sellPrice)
                         map.put(exchangeId.toInt().toString() + "_sell", arrayListOf(dateSellVal))
-
                     }
                 }
 
@@ -99,29 +98,52 @@ class History {
                 }
 
                 // Add to entries
-                var entries = ArrayList<Entry>()
-                var i = 0f
-                for (entry in map[siteId.toInt().toString() + "_buy"]!!) {
-                    var timestamp = Timestamp(entry.keys.elementAt(0).time).time
-                    entries.add(Entry(timestamp.toFloat(), entry.values.toFloatArray()[0]))
-                    i++
-                }
-                var lds = LineDataSet(entries, siteName + " Buy")
-                lds.color = Color.parseColor("#003838")
-                lds.valueTextColor = Color.parseColor("#bbbbbb")
+                var lds = LineDataSet(listOf(), "")
+                var lds1 = LineDataSet(listOf(), "")
+                var list = listOf<ILineDataSet>()
+                if(!siteId2.isNotEmpty() || siteId == siteId2) {
+                    var entries = ArrayList<Entry>()
+                    var i = 0f
+                    for (entry in map[siteId.toInt().toString() + "_buy"]!!) {
+                        var timestamp = Timestamp(entry.keys.elementAt(0).time).time
+                        entries.add(Entry(timestamp.toFloat(), entry.values.toFloatArray()[0]))
+                        i++
+                    }
+                    lds = LineDataSet(entries, siteName + " Buy")
+                    lds.color = Color.parseColor("#003838")
+                    lds.valueTextColor = Color.parseColor("#bbbbbb")
 
-                var entries1 = ArrayList<Entry>()
-                i = 0f
-                for (entry in map[siteId.toInt().toString() + "_sell"]!!) {
-                    var timestamp = Timestamp(entry.keys.elementAt(0).time).time
-                    entries1.add(Entry(timestamp.toFloat(), entry.values.toFloatArray()[0]))
-                    i++
-                }
-                var lds1 = LineDataSet(entries1, siteName + " Sell")
-                lds1.color = Color.parseColor("#01B6AD")
-                lds1.valueTextColor = Color.parseColor("#0A4958")
+                    var entries1 = ArrayList<Entry>()
+                    i = 0f
+                    for (entry in map[siteId.toInt().toString() + "_sell"]!!) {
+                        var timestamp = Timestamp(entry.keys.elementAt(0).time).time
+                        entries1.add(Entry(timestamp.toFloat(), entry.values.toFloatArray()[0]))
+                        i++
+                    }
+                    lds1 = LineDataSet(entries1, siteName + " Sell")
+                    lds1.color = Color.parseColor("#01B6AD")
+                    lds1.valueTextColor = Color.parseColor("#0A4958")
 
-                var list: List<ILineDataSet> = listOf(lds, lds1)
+                    list = listOf(lds, lds1)
+                }
+
+                // If comparing Two
+                else {
+                    var entries = ArrayList<Entry>()
+                    for (i in 0 until map[siteId.toInt().toString() + "_buy"]!!.size){
+                        var entryBuy = map[siteId.toInt().toString() + "_buy"]!![i]
+                        var entrySell = map[siteId2.toInt().toString() + "_sell"]!![i]
+                        var diff = entrySell.values.toFloatArray()[0] - entryBuy.values.toFloatArray()[0]
+                        var timestamp = Timestamp(entryBuy.keys.elementAt(0).time).time
+                        entries.add(Entry(timestamp.toFloat(), diff))
+                    }
+
+                    lds = LineDataSet(entries, siteName + " Sell")
+                    lds.color = Color.parseColor("#01B6AD")
+                    lds.valueTextColor = Color.parseColor("#0A4958")
+
+                    list = listOf(lds)
+                }
 
                 exchange_chart.data = LineData(list)
 

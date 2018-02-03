@@ -125,10 +125,6 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
         return view_main
     }
 
-    private fun disableOthers(btnEthCompare: Button?, btnLtcCompare: Button?) {
-
-    }
-
     override fun onNothingSelected(parent: AdapterView<*>?) {
         Log.d("Nothing", "Selected")
     }
