@@ -102,7 +102,7 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
         exchangeName = "Fyb-SG"
         term = "period=hour"
 
-        History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", "")
+        History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", "", false)
 
         btnBtc = view_main.findViewById(R.id.history_btc)
         btnBtc.setOnClickListener(this)
@@ -142,13 +142,14 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
                 siteId = listIdsForCurrentSettings[position]
                 exchangeName = parent.selectedItem.toString()
                 if (graphType == 1)
-                    History.draw(siteId, exchangeName, term,  context, lineChart, "12345", "12345", "")
+                    History.draw(siteId, exchangeName, term,  context, lineChart, "12345", "12345", "", false)
             }
             R.id.exchange_spinner_compare -> {
                 Log.d("Click compare spin", listIdsForCurrentSettings[position])
                 siteId2 = listIdsForCurrentSettings[position]
                 exchangeName = parent.selectedItem.toString()
-                History.draw(siteId, exchangeName, term,  context, lineChart, "12345", "12345", siteId2)
+                var isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+                History.draw(siteId, exchangeName, term,  context, lineChart, "12345", "12345", siteId2, isDiffCurr)
             }
         }
     }
@@ -178,31 +179,36 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
                 term = "period=hour"
                 var x = v as Button
                 updateStyle(x)
-                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", siteId2)
+                var isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", siteId2, isDiffCurr)
             }
             R.id.period_1_day -> {
                 term = "period=day"
                 var x = v as Button
                 updateStyle(x)
-                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", siteId2)
+                var isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", siteId2, isDiffCurr)
             }
             R.id.period_1_week -> {
                 term = "period=week"
                 var x = v as Button
                 updateStyle(x)
-                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", siteId2)
+                var isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", siteId2, isDiffCurr)
             }
             R.id.period_1_month -> {
                 term = "period=month"
                 var x = v as Button
                 updateStyle(x)
-                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", siteId2)
+                var isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", siteId2, isDiffCurr)
             }
             R.id.period_all -> {
                 term = "period=all"
                 var x = v as Button
                 updateStyle(x)
-                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", siteId2)
+                var isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+                History.draw(siteId, exchangeName, term, context, lineChart, "12345", "12345", siteId2, isDiffCurr)
             }
             else -> {
 

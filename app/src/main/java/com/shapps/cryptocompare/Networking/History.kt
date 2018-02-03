@@ -36,7 +36,7 @@ import java.util.concurrent.TimeUnit
 class History {
 
     companion object {
-        fun draw(siteId: String, siteName: String, term: String, activity: Context, exchange_chart: LineChart, buy: String, sell: String, siteId2: String) {
+        fun draw(siteId: String, siteName: String, term: String, activity: Context, exchange_chart: LineChart, buy: String, sell: String, siteId2: String, isDifferentCurrency: Boolean) {
             var url = DetailURLs.URL_GET_HISTORY + siteId + "&" + term
 
             if(siteId2.isNotEmpty() && siteId != siteId2){
@@ -98,9 +98,9 @@ class History {
                 }
 
                 // Add to entries
-                var lds = LineDataSet(listOf(), "")
-                var lds1 = LineDataSet(listOf(), "")
-                var list = listOf<ILineDataSet>()
+                var lds: LineDataSet
+                var lds1: LineDataSet
+                var list: List<ILineDataSet>
                 if(!siteId2.isNotEmpty() || siteId == siteId2) {
                     var entries = ArrayList<Entry>()
                     var i = 0f
@@ -133,9 +133,13 @@ class History {
                     for (i in 0 until map[siteId.toInt().toString() + "_buy"]!!.size){
                         var entryBuy = map[siteId.toInt().toString() + "_buy"]!![i]
                         var entrySell = map[siteId2.toInt().toString() + "_sell"]!![i]
-                        var diff = entrySell.values.toFloatArray()[0] - entryBuy.values.toFloatArray()[0]
+                        var valueInsert: Float
+                        valueInsert = if(isDifferentCurrency)
+                            entrySell.values.toFloatArray()[0] / entryBuy.values.toFloatArray()[0]
+                        else
+                            entrySell.values.toFloatArray()[0] - entryBuy.values.toFloatArray()[0]
                         var timestamp = Timestamp(entryBuy.keys.elementAt(0).time).time
-                        entries.add(Entry(timestamp.toFloat(), diff))
+                        entries.add(Entry(timestamp.toFloat(), valueInsert))
                     }
 
                     lds = LineDataSet(entries, siteName + " Sell")
