@@ -150,7 +150,10 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
                 Log.d("Click spin", listIdsForCurrentSettings[position])
                 siteId = listIdsForCurrentSettings[position]
                 exchangeName = parent.selectedItem.toString()
-                var isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+                var isDiffCurr = if(graphType == 2)
+                    currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+                else
+                    false
                 if (graphType == 1 || !isRefreshBcozCryptoCurrency)
                     History.draw(siteId, exchangeName, term,  context, lineChart, "12345", "12345", siteId2,exchangeName2, isDiffCurr, feeBuy,feeSell)
                 isRefreshBcozCryptoCurrency = false
