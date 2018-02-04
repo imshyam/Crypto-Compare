@@ -43,6 +43,8 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
     private var feeBuy: Float = 0.0f
     private var feeSell: Float = 0.0f
 
+    private var isRefreshBcozCryptoCurrency: Boolean = true
+
 
     private lateinit var siteId: String
     private lateinit var exchangeName: String
@@ -139,6 +141,7 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
         when(parent?.id){
             R.id.currency_spinner -> {
                 updateExchange(selectedCryptoCurr, parent.selectedItem.toString())
+                isRefreshBcozCryptoCurrency = false
             }
             R.id.currency_spinner_compare -> {
                 updateExchangeCompare(selectedCryptoCurr, parent.selectedItem.toString())
@@ -147,8 +150,10 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
                 Log.d("Click spin", listIdsForCurrentSettings[position])
                 siteId = listIdsForCurrentSettings[position]
                 exchangeName = parent.selectedItem.toString()
-                if (graphType == 1)
-                    History.draw(siteId, exchangeName, term,  context, lineChart, "12345", "12345", "","", false, 0f,0f)
+                var isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+                if (graphType == 1 || !isRefreshBcozCryptoCurrency)
+                    History.draw(siteId, exchangeName, term,  context, lineChart, "12345", "12345", siteId2,exchangeName2, isDiffCurr, feeBuy,feeSell)
+                isRefreshBcozCryptoCurrency = false
             }
             R.id.exchange_spinner_compare -> {
                 Log.d("Click compare spin", listIdsForCurrentSettings[position])
