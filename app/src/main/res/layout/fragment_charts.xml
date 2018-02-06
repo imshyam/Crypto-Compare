@@ -94,13 +94,15 @@
                     android:layout_width="0px"
                     android:layout_weight="1"
                     android:layout_height="match_parent"/>
+
                 <Button
-                    android:text="View \u2022 Edit Fees"
-                    android:layout_width="0px"
-                    android:layout_weight="3"
-                    android:layout_height="match_parent"
+                    android:id="@+id/view_edit_fee"
                     style="@style/fees_style"
-                    android:textAllCaps="false"/>
+                    android:layout_width="0px"
+                    android:layout_height="21dp"
+                    android:layout_weight="3"
+                    android:text="View \u2022 Edit Fees"
+                    android:textAllCaps="false" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0px"

@@ -1,6 +1,9 @@
 package com.shapps.cryptocompare.Fragments
 
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -19,6 +22,7 @@ import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
 import com.shapps.cryptocompare.Model.ExchangeDetailsSchema
 import com.shapps.cryptocompare.Networking.History
 import com.shapps.cryptocompare.R
+import kotlinx.android.synthetic.main.fragment_charts.*
 
 /**
  * A fragment with a Google +1 button.
@@ -102,6 +106,9 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
             currencySpinnerCompare.onItemSelectedListener = this
             exchangeSpinnerCompare = view_main?.findViewById(R.id.exchange_spinner_compare)
             exchangeSpinnerCompare.onItemSelectedListener = this
+
+            var viewEditFee = view_main?.findViewById<Button>(R.id.view_edit_fee)
+            viewEditFee.setOnClickListener(this)
         }
 
         updateCurrencyAndExchange("Bitcoin")
@@ -170,6 +177,14 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
 
     override fun onClick(v: View?) {
         when(v?.id) {
+            R.id.view_edit_fee -> {
+                var feeDialog: AlertDialog.Builder = AlertDialog.Builder(context)
+                feeDialog.setView(R.layout.dialog_fee)
+                feeDialog.setPositiveButton("Apply", { dialog, _ -> dialog.dismiss() })
+                feeDialog.setNegativeButton("Cancel", {dialog, _ -> dialog.dismiss() })
+                var dialog: AlertDialog = feeDialog.create()
+                dialog.show()
+            }
             R.id.history_btc -> {
                 selectedCryptoCurr = "Bitcoin"
                 var x = v as Button
