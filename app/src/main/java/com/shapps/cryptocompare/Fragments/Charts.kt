@@ -23,6 +23,7 @@ import com.shapps.cryptocompare.Model.ExchangeDetailsSchema
 import com.shapps.cryptocompare.Networking.History
 import com.shapps.cryptocompare.R
 import kotlinx.android.synthetic.main.fragment_charts.*
+import kotlinx.android.synthetic.main.fragment_no_internet.*
 
 /**
  * A fragment with a Google +1 button.
@@ -178,11 +179,22 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.view_edit_fee -> {
-                var feeDialog: AlertDialog.Builder = AlertDialog.Builder(context)
-                feeDialog.setView(R.layout.dialog_fee)
-                feeDialog.setPositiveButton("Apply", { dialog, _ -> dialog.dismiss() })
+                val feeDialog: AlertDialog.Builder = AlertDialog.Builder(context)
+                val li : LayoutInflater = LayoutInflater.from(context)
+                val view = li.inflate(R.layout.dialog_fee, null)
+                val buyFee = view.findViewById<EditText>(R.id.buy_fee_dialog)
+                val sellFee = view.findViewById<EditText>(R.id.sell_fee_dialog)
+                buyFee.setText(feeBuy.toString())
+                sellFee.setText(feeSell.toString())
+                feeDialog.setView(view)
+                feeDialog.setPositiveButton("Apply", { dialog, _ ->
+                    feeBuy = buyFee.text.toString().toFloat()
+                    feeSell = sellFee.text.toString().toFloat()
+                    dialog.dismiss()
+                    val isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+                    History.draw(siteId, exchangeName, term,  context, lineChart, "12345", "12345", siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell) })
                 feeDialog.setNegativeButton("Cancel", {dialog, _ -> dialog.dismiss() })
-                var dialog: AlertDialog = feeDialog.create()
+                val dialog: AlertDialog = feeDialog.create()
                 dialog.show()
             }
             R.id.history_btc -> {
