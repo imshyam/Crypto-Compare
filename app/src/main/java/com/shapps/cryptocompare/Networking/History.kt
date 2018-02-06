@@ -138,7 +138,7 @@ class History {
                         val entryBuy = map[siteId.toInt().toString() + "_buy"]!![i]
                         val entrySell = map[siteId2.toInt().toString() + "_sell"]!![i]
                         val buyWithFee = entryBuy.values.toFloatArray()[0] * (1 + fee1/100)
-                        val sellWithFee = entrySell.values.toFloatArray()[0] * (1 - fee1/100)
+                        val sellWithFee = entrySell.values.toFloatArray()[0] * (1 - fee2/100)
                         val valueInsert: Float = if(isDifferentCurrency)
                             sellWithFee / buyWithFee
                         else {
