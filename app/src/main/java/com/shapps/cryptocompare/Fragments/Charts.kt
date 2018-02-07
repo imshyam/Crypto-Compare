@@ -17,13 +17,14 @@ import android.view.ViewGroup
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.shapps.cryptocompare.CustomViews.CustomMarkerView
 import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
 import com.shapps.cryptocompare.Model.ExchangeDetailsSchema
 import com.shapps.cryptocompare.Networking.History
 import com.shapps.cryptocompare.R
-import kotlinx.android.synthetic.main.fragment_charts.*
-import kotlinx.android.synthetic.main.fragment_no_internet.*
 
 /**
  * A fragment with a Google +1 button.
@@ -93,9 +94,21 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
 
         lineChart = view_main.findViewById(R.id.price_chart)
 
-        val mv = CustomMarkerView(context, R.layout.custom_marker)
+        var priceSelected = view_main.findViewById<TextView>(R.id.price_selected)
+        var timeSelected = view_main.findViewById<TextView>(R.id.time_selected)
 
-        lineChart.marker = mv
+        lineChart.setDrawMarkers(false)
+
+        lineChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener{
+            override fun onNothingSelected() {
+                // TODO Show current
+            }
+
+            override fun onValueSelected(e: Entry?, h: Highlight?) {
+                timeSelected.text = lineChart.xAxis.valueFormatter.getFormattedValue(e!!.x, lineChart.xAxis)
+                priceSelected.text = h!!.y.toString()
+            }
+        })
 
         currencySpinner = view_main?.findViewById(R.id.currency_spinner)
         currencySpinner.onItemSelectedListener = this
