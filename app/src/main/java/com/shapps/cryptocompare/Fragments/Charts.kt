@@ -1,9 +1,7 @@
 package com.shapps.cryptocompare.Fragments
 
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -20,7 +18,6 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
-import com.shapps.cryptocompare.CustomViews.CustomMarkerView
 import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
 import com.shapps.cryptocompare.Model.ExchangeDetailsSchema
 import com.shapps.cryptocompare.Networking.History
