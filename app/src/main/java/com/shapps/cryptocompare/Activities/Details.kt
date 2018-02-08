@@ -9,11 +9,15 @@ import android.support.v4.content.ContextCompat
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
-import com.shapps.cryptocompare.CustomViews.CustomMarkerView
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.shapps.cryptocompare.Networking.History
 import com.shapps.cryptocompare.R
 import kotlinx.android.synthetic.main.activity_details.*
 import kotlinx.android.synthetic.main.chart_header.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class Details : AppCompatActivity(), View.OnClickListener {
 
@@ -70,10 +74,30 @@ class Details : AppCompatActivity(), View.OnClickListener {
         sell_high.text = sellHigh
         vol_text_view.text = volume
 
+        // set value
+        val dateFormatGmt = SimpleDateFormat("yyyy-MMM-dd HH:mm:ss")
+        dateFormatGmt.timeZone = TimeZone.getTimeZone("UTC")
+        val dateFormatLocal = SimpleDateFormat("yyyy-MMM-dd HH:mm:ss")
+        var currDateTime = dateFormatLocal.parse(dateFormatGmt.format(Date()))
+        time_selected.text = currDateTime.toString()
+        price_selected.text = buy
+
         val term = "period=hour"
 
-        val mv = CustomMarkerView(this, R.layout.custom_marker)
-        exchange_chart.marker = mv
+        exchange_chart.setDrawMarkers(false)
+
+        exchange_chart.setOnChartValueSelectedListener(object: OnChartValueSelectedListener{
+            override fun onNothingSelected() {
+                time_selected.text = currDateTime.toString()
+                price_selected.text = buy
+            }
+
+            override fun onValueSelected(e: Entry?, h: Highlight?) {
+                time_selected.text = exchange_chart.xAxis.valueFormatter.getFormattedValue(e!!.x, exchange_chart.xAxis)
+                price_selected.text = h!!.y.toString()
+            }
+
+        })
 
         History.draw(siteId, siteName, term, this, exchange_chart, buy, sell, "", "", false, 0f, 0f)
 
