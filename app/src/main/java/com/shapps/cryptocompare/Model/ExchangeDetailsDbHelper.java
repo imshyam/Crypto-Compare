@@ -30,9 +30,6 @@ public class ExchangeDetailsDbHelper extends SQLiteOpenHelper {
                         COLUMN_NAME_EX_NAME + " TEXT," +
                         COLUMN_NAME_BUY_FEE + " TEXT," +
                         COLUMN_NAME_SELL_FEE + " TEXT," +
-                        COLUMN_NAME_BUY + " TEXT," +
-                        COLUMN_NAME_SELL + " TEXT," +
-                        COLUMN_NAME_DATE_N_TIME + " TEXT," +
                         COLUMN_NAME_APP_ADDRESS + " TEXT," +
                         COLUMN_NAME_WEB_ADDRESS + " TEXT," +
                         COLUMN_NAME_ACTIVE + " INTEGER)";
