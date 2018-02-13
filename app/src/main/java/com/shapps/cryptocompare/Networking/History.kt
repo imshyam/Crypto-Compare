@@ -36,7 +36,7 @@ import java.util.concurrent.TimeUnit
 class History {
 
     companion object {
-        fun draw(siteId: String, siteName: String, term: String, activity: Context, exchange_chart: LineChart, buy: String, sell: String, siteId2: String, siteName2: String, isDifferentCurrency: Boolean, fee1: Float, fee2: Float) {
+        fun draw(siteId: String, siteName: String, term: String, activity: Context, exchange_chart: LineChart, siteId2: String, siteName2: String, isDifferentCurrency: Boolean, fee1: Float, fee2: Float) {
             var url = DetailURLs.URL_GET_HISTORY + siteId + "&" + term
 
             if(siteId2.isNotEmpty() && siteId != siteId2){
@@ -50,12 +50,14 @@ class History {
             val map: HashMap<String, MutableList<HashMap<Date, Float>>> = hashMapOf()
             val strReq = StringRequest(Request.Method.GET,
                     url, Response.Listener { response ->
-                var historyData = JSONArray(response)
+                var allData = JSONObject(response)
+                val currentData = allData.get("current")
+                var historyData = allData.getJSONArray("history")
                 LiveDataContent.dumpData()
+                var buy = 100f
+                var sell = 200f
                 for(i in 0 until historyData.length()){
                     var exchangeCurrent = JSONObject(historyData.get(i).toString())
-                    var cryptoCurr = exchangeCurrent.getString("crypto_curr")
-                    var currency = exchangeCurrent.getString("curr")
                     var exchangeId = exchangeCurrent.getString("exchange_id")
                     var priceBuy = exchangeCurrent.getString("buy")
                     var priceSell = exchangeCurrent.getString("sell")
@@ -89,11 +91,11 @@ class History {
                 var currDateTime = dateFormatLocal.parse(dateFormatGmt.format(Date()))
 
                 if(!map.containsKey(siteId.toInt().toString() + "_buy")) {
-                    var dateBuyVal = hashMapOf(currDateTime to buy.toFloat())
+                    var dateBuyVal = hashMapOf(currDateTime to buy)
                     map.put(siteId.toInt().toString() + "_buy", mutableListOf(dateBuyVal))
                 }
                 if(!map.containsKey(siteId.toInt().toString() + "_sell")) {
-                    var dateSellVal = hashMapOf(currDateTime to sell.toFloat())
+                    var dateSellVal = hashMapOf(currDateTime to sell)
                     map.put(siteId.toInt().toString() + "_sell", mutableListOf(dateSellVal))
                 }
 

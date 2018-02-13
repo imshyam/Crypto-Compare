@@ -99,7 +99,7 @@ class Details : AppCompatActivity(), View.OnClickListener {
 
         })
 
-        History.draw(siteId, siteName, term, this, exchange_chart, buy, sell, "", "", false, 0f, 0f)
+        History.draw(siteId, siteName, term, this, exchange_chart, "", "", false, 0f, 0f)
 
     }
     override fun onClick(v: View?) {
@@ -107,27 +107,27 @@ class Details : AppCompatActivity(), View.OnClickListener {
             R.id.period_1_hour -> {
                 val x = v as Button
                 updateStyle(x)
-                History.draw(siteId, siteName, "period=hour", this, exchange_chart, "12345", "12345", "", "", false, 0f, 0f)
+                History.draw(siteId, siteName, "period=hour", this, exchange_chart, "", "", false, 0f, 0f)
             }
             R.id.period_1_day -> {
                 val x = v as Button
                 updateStyle(x)
-                History.draw(siteId, siteName, "period=day", this, exchange_chart, "12345", "12345", "", "", false, 0f, 0f)
+                History.draw(siteId, siteName, "period=day", this, exchange_chart, "", "", false, 0f, 0f)
             }
             R.id.period_1_week -> {
                 val x = v as Button
                 updateStyle(x)
-                History.draw(siteId, siteName, "period=week", this, exchange_chart, "12345", "12345", "", "", false, 0f, 0f)
+                History.draw(siteId, siteName, "period=week", this, exchange_chart, "", "", false, 0f, 0f)
             }
             R.id.period_1_month -> {
                 val x = v as Button
                 updateStyle(x)
-                History.draw(siteId, siteName, "period=month", this, exchange_chart, "12345", "12345", "", "", false, 0f, 0f)
+                History.draw(siteId, siteName, "period=month", this, exchange_chart, "", "", false, 0f, 0f)
             }
             R.id.period_all -> {
                 val x = v as Button
                 updateStyle(x)
-                History.draw(siteId, siteName, "period=all", this, exchange_chart, "12345", "12345", "", "", false, 0f, 0f)
+                History.draw(siteId, siteName, "period=all", this, exchange_chart, "", "", false, 0f, 0f)
             }
         }
     }
