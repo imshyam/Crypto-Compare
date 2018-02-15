@@ -4,6 +4,8 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.graphics.Color
 import android.util.Log
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
@@ -27,6 +29,8 @@ import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.shapps.cryptocompare.Model.XAxisValuesArray
+import com.shapps.cryptocompare.R
+import kotlinx.android.synthetic.main.activity_details.view.*
 import java.util.concurrent.TimeUnit
 
 
@@ -36,7 +40,14 @@ import java.util.concurrent.TimeUnit
 class History {
 
     companion object {
-        fun draw(siteId: String, siteName: String, term: String, activity: Context, exchange_chart: LineChart, siteId2: String, siteName2: String, isDifferentCurrency: Boolean, fee1: Float, fee2: Float) {
+        fun draw(siteId: String, siteName: String, term: String, activity: Context, view: View, siteId2: String, siteName2: String, isDifferentCurrency: Boolean, fee1: Float, fee2: Float) {
+
+            val exchange_chart = view.findViewById<LineChart>(R.id.exchange_chart)
+
+            val priceText = view.findViewById<TextView>(R.id.price_selected)
+            val currencyText = view.findViewById<TextView>(R.id.currency_selected)
+            val timeText = view.findViewById<TextView>(R.id.time_selected)
+
             var url = DetailURLs.URL_GET_HISTORY + siteId + "&" + term
 
             if(siteId2.isNotEmpty() && siteId != siteId2){
@@ -47,11 +58,45 @@ class History {
             pDialog.setMessage("Loading...")
             pDialog.show()
 
+            var currentData: JSONArray
+
             val map: HashMap<String, MutableList<HashMap<Date, Float>>> = hashMapOf()
             val strReq = StringRequest(Request.Method.GET,
                     url, Response.Listener { response ->
                 var allData = JSONObject(response)
-                val currentData = allData.get("current")
+                currentData = allData.getJSONArray("current")
+                if (currentData.length() == 1 || currentData[0] == currentData[1]){
+                    val currentDt = currentData.getJSONObject(0)
+                    val currentBuyWithFee = currentDt.getString("buy").toFloat() * (1 + fee1/100)
+                    val curr = currentDt.getString("curr")
+                    val currentTime = currentDt.getString("date_time")
+                    priceText.text = currentBuyWithFee.toString()
+                    currencyText.text = curr
+                    timeText.text = currentTime
+                }
+                else {
+                    val currentDt = currentData.getJSONObject(0)
+                    val currentBuy1WithFee = currentDt.getString("buy").toFloat() * (1 + fee1/100)
+                    val currentTime = currentDt.getString("date_time")
+
+                    val currentDt2 = currentData.getJSONObject(1)
+                    val currentSell2WithFee = currentDt2.getString("sell").toFloat() * (1 + fee2/100)
+
+                    if(!isDifferentCurrency){
+                        val diffB = currentSell2WithFee - currentBuy1WithFee
+                        priceText.text = diffB.toString()
+                        currencyText.text = "Difference"
+                        timeText.text = currentTime
+                    }
+                    else{
+                        val rate = currentSell2WithFee / currentBuy1WithFee
+                        priceText.text = rate.toString()
+                        currencyText.text = "Rate"
+                        timeText.text = currentTime
+                    }
+
+                }
+
                 var historyData = allData.getJSONArray("history")
                 LiveDataContent.dumpData()
                 var buy = 100f
@@ -175,7 +220,6 @@ class History {
                         return mFormat.format(Date(x))
                     }
                 }
-
                 exchange_chart.invalidate()
             }, Response.ErrorListener { error ->
                 VolleyLog.d("TAG ", "Error: " + error.message)

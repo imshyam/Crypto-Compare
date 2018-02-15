@@ -37,7 +37,7 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
 
     private var mListener: OnFragmentInteractionListener? = null
 
-    private lateinit var lineChart: LineChart
+    private lateinit var view_main: View
 
     private lateinit var currencySpinner: Spinner
     private lateinit var exchangeSpinner: Spinner
@@ -77,7 +77,7 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
 
-        val view_main: View = inflater!!.inflate(R.layout.fragment_charts, container, false)
+        view_main = inflater!!.inflate(R.layout.fragment_charts, container, false)
 
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(activity)
@@ -89,7 +89,7 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
          else
             compareBar.visibility = View.GONE
 
-        lineChart = view_main.findViewById(R.id.price_chart)
+        var lineChart = view_main.findViewById<LineChart>(R.id.exchange_chart)
 
         var priceSelected = view_main.findViewById<TextView>(R.id.price_selected)
         var timeSelected = view_main.findViewById<TextView>(R.id.time_selected)
@@ -128,7 +128,7 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
         exchangeName2 = "Fyb-SG"
         term = "period=hour"
 
-        History.draw(siteId, exchangeName, term, context, lineChart, "", exchangeName2,false, feeBuy, feeSell)
+        History.draw(siteId, exchangeName, term, context, view_main, "", exchangeName2,false, feeBuy, feeSell)
 
         btnBtc = view_main.findViewById(R.id.history_btc)
         btnBtc.setOnClickListener(this)
@@ -173,7 +173,7 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
                 else
                     false
                 if (graphType == 1 || !isRefreshBcozCryptoCurrency)
-                    History.draw(siteId, exchangeName, term,  context, lineChart, siteId2,exchangeName2, isDiffCurr, feeBuy,feeSell)
+                    History.draw(siteId, exchangeName, term,  context, view_main, siteId2,exchangeName2, isDiffCurr, feeBuy,feeSell)
                 isRefreshBcozCryptoCurrency = false
             }
             R.id.exchange_spinner_compare -> {
@@ -181,7 +181,7 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
                 siteId2 = listIdsForCurrentSettings[position]
                 exchangeName2 = parent.selectedItem.toString()
                 var isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
-                History.draw(siteId, exchangeName, term,  context, lineChart, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
+                History.draw(siteId, exchangeName, term,  context, view_main, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
             }
         }
     }
@@ -202,7 +202,7 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
                     feeSell = sellFee.text.toString().toFloat()
                     dialog.dismiss()
                     val isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
-                    History.draw(siteId, exchangeName, term,  context, lineChart, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell) })
+                    History.draw(siteId, exchangeName, term,  context, view_main, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell) })
                 feeDialog.setNegativeButton("Cancel", {dialog, _ -> dialog.dismiss() })
                 val dialog: AlertDialog = feeDialog.create()
                 dialog.show()
@@ -233,7 +233,7 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
                 var isDiffCurr = false
                 if (graphType == 2)
                     isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
-                History.draw(siteId, exchangeName, term, context, lineChart, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
+                History.draw(siteId, exchangeName, term, context, view_main, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
             }
             R.id.period_1_day -> {
                 term = "period=day"
@@ -242,7 +242,7 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
                 var isDiffCurr = false
                 if (graphType == 2)
                     isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
-                History.draw(siteId, exchangeName, term, context, lineChart, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
+                History.draw(siteId, exchangeName, term, context, view_main, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
             }
             R.id.period_1_week -> {
                 term = "period=week"
@@ -251,7 +251,7 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
                 var isDiffCurr = false
                 if (graphType == 2)
                     isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
-                History.draw(siteId, exchangeName, term, context, lineChart, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
+                History.draw(siteId, exchangeName, term, context, view_main, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
             }
             R.id.period_1_month -> {
                 term = "period=month"
@@ -260,7 +260,7 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
                 var isDiffCurr = false
                 if (graphType == 2)
                     isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
-                History.draw(siteId, exchangeName, term, context, lineChart, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
+                History.draw(siteId, exchangeName, term, context, view_main, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
             }
             R.id.period_all -> {
                 term = "period=all"
@@ -269,7 +269,7 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
                 var isDiffCurr = false
                 if (graphType == 2)
                     isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
-                History.draw(siteId, exchangeName, term, context, lineChart, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
+                History.draw(siteId, exchangeName, term, context, view_main, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
             }
             else -> {
 

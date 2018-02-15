@@ -33,9 +33,13 @@ class Details : AppCompatActivity(), View.OnClickListener {
     private var sellHigh: String = ""
     private var volume: String = ""
 
+    private lateinit var view_main: View
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
+
+        view_main = findViewById(android.R.id.content)
 
         setSupportActionBar(toolbar)
         setupActionBar()
@@ -99,7 +103,7 @@ class Details : AppCompatActivity(), View.OnClickListener {
 
         })
 
-        History.draw(siteId, siteName, term, this, exchange_chart, "", "", false, 0f, 0f)
+        History.draw(siteId, siteName, term, this, view_main, "", "", false, 0f, 0f)
 
     }
     override fun onClick(v: View?) {
@@ -107,27 +111,27 @@ class Details : AppCompatActivity(), View.OnClickListener {
             R.id.period_1_hour -> {
                 val x = v as Button
                 updateStyle(x)
-                History.draw(siteId, siteName, "period=hour", this, exchange_chart, "", "", false, 0f, 0f)
+                History.draw(siteId, siteName, "period=hour", this, view_main, "", "", false, 0f, 0f)
             }
             R.id.period_1_day -> {
                 val x = v as Button
                 updateStyle(x)
-                History.draw(siteId, siteName, "period=day", this, exchange_chart, "", "", false, 0f, 0f)
+                History.draw(siteId, siteName, "period=day", this, view_main, "", "", false, 0f, 0f)
             }
             R.id.period_1_week -> {
                 val x = v as Button
                 updateStyle(x)
-                History.draw(siteId, siteName, "period=week", this, exchange_chart, "", "", false, 0f, 0f)
+                History.draw(siteId, siteName, "period=week", this, view_main, "", "", false, 0f, 0f)
             }
             R.id.period_1_month -> {
                 val x = v as Button
                 updateStyle(x)
-                History.draw(siteId, siteName, "period=month", this, exchange_chart, "", "", false, 0f, 0f)
+                History.draw(siteId, siteName, "period=month", this, view_main, "", "", false, 0f, 0f)
             }
             R.id.period_all -> {
                 val x = v as Button
                 updateStyle(x)
-                History.draw(siteId, siteName, "period=all", this, exchange_chart, "", "", false, 0f, 0f)
+                History.draw(siteId, siteName, "period=all", this, view_main, "", "", false, 0f, 0f)
             }
         }
     }
