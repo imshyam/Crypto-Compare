@@ -193,7 +193,7 @@ class History {
                     var i = 0f
                     for (entry in map[siteId.toInt().toString() + "_buy"]!!) {
                         var timestamp = Timestamp(entry.keys.elementAt(0).time).time
-                        entries.add(Entry(timestamp.toFloat(), entry.values.toFloatArray()[0]))
+                        entries.add(Entry(timestamp.toFloat(), (entry.values.toFloatArray()[0]*(1 + fee1/100))))
                         i++
                     }
                     lds = LineDataSet(entries, siteName + " Buy")
@@ -204,7 +204,7 @@ class History {
                     i = 0f
                     for (entry in map[siteId.toInt().toString() + "_sell"]!!) {
                         var timestamp = Timestamp(entry.keys.elementAt(0).time).time
-                        entries1.add(Entry(timestamp.toFloat(), entry.values.toFloatArray()[0]))
+                        entries1.add(Entry(timestamp.toFloat(), (entry.values.toFloatArray()[0]*(1 - fee2/100))))
                         i++
                     }
                     lds1 = LineDataSet(entries1, siteName + " Sell")
