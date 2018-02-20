@@ -101,11 +101,23 @@ class History {
                 }
                 else {
                     val currentDt = currentData.getJSONObject(0)
-                    val currentBuy1WithFee = currentDt.getString("buy").toFloat() * (1 + fee1/100)
-                    val currentTime = currentDt.getString("date_time")
+                    var currentBuy1WithFee = 0f
+                    var currentTime = ""
+                    var currentSell2WithFee = 0f
+                    if(currentDt.getInt("exchange_id") == siteId.toInt()){
+                        currentBuy1WithFee = currentDt.getString("buy").toFloat() * (1 + fee1/100)
+                        currentTime = currentDt.getString("date_time")
 
-                    val currentDt2 = currentData.getJSONObject(1)
-                    val currentSell2WithFee = currentDt2.getString("sell").toFloat() * (1 + fee2/100)
+                        val currentDt2 = currentData.getJSONObject(1)
+                        currentSell2WithFee = currentDt2.getString("sell").toFloat() * (1 + fee2/100)
+                    }
+                    else {
+                        currentSell2WithFee = currentDt.getString("sell").toFloat() * (1 + fee1/100)
+                        currentTime = currentDt.getString("date_time")
+
+                        val currentDt2 = currentData.getJSONObject(1)
+                        currentBuy1WithFee= currentDt2.getString("buy").toFloat() * (1 + fee2/100)
+                    }
 
                     timeText.text = currentTime
                     currentTimeTag = currentTime
