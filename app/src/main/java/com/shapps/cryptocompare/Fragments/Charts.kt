@@ -89,24 +89,6 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
          else
             compareBar.visibility = View.GONE
 
-        var lineChart = view_main.findViewById<LineChart>(R.id.exchange_chart)
-
-        var priceSelected = view_main.findViewById<TextView>(R.id.price_selected)
-        var timeSelected = view_main.findViewById<TextView>(R.id.time_selected)
-
-        lineChart.setDrawMarkers(false)
-
-        lineChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener{
-            override fun onNothingSelected() {
-                // TODO Show current
-            }
-
-            override fun onValueSelected(e: Entry?, h: Highlight?) {
-                timeSelected.text = lineChart.xAxis.valueFormatter.getFormattedValue(e!!.x, lineChart.xAxis)
-                priceSelected.text = h!!.y.toString()
-            }
-        })
-
         currencySpinner = view_main?.findViewById(R.id.currency_spinner)
         currencySpinner.onItemSelectedListener = this
         exchangeSpinner = view_main?.findViewById(R.id.exchange_spinner)

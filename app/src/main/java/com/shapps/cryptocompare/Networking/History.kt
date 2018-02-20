@@ -28,6 +28,7 @@ import kotlin.collections.HashMap
 import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.shapps.cryptocompare.Model.XAxisValuesArray
 import com.shapps.cryptocompare.R
 import kotlinx.android.synthetic.main.activity_details.view.*
@@ -42,7 +43,28 @@ class History {
     companion object {
         fun draw(siteId: String, siteName: String, term: String, activity: Context, view: View, siteId2: String, siteName2: String, isDifferentCurrency: Boolean, fee1: Float, fee2: Float) {
 
-            val exchange_chart = view.findViewById<LineChart>(R.id.exchange_chart)
+            var currentTimeTag = ""
+            var currentPriceTag = ""
+
+            val exchangeChart = view.findViewById<LineChart>(R.id.exchange_chart)
+
+
+            var priceSelected = view.findViewById<TextView>(R.id.price_selected)
+            var timeSelected = view.findViewById<TextView>(R.id.time_selected)
+
+            exchangeChart.setDrawMarkers(false)
+
+            exchangeChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+                override fun onNothingSelected() {
+                    timeSelected.text = currentTimeTag
+                    priceSelected.text = currentPriceTag
+                }
+
+                override fun onValueSelected(e: Entry?, h: Highlight?) {
+                    timeSelected.text = exchangeChart.xAxis.valueFormatter.getFormattedValue(e!!.x, exchangeChart.xAxis)
+                    priceSelected.text = h!!.y.toString()
+                }
+            })
 
             val priceText = view.findViewById<TextView>(R.id.price_selected)
             val currencyText = view.findViewById<TextView>(R.id.currency_selected)
@@ -73,6 +95,9 @@ class History {
                     priceText.text = currentBuyWithFee.toString()
                     currencyText.text = curr
                     timeText.text = currentTime
+
+                    currentPriceTag = currentBuyWithFee.toString()
+                    currentTimeTag = currentTime
                 }
                 else {
                     val currentDt = currentData.getJSONObject(0)
@@ -82,17 +107,20 @@ class History {
                     val currentDt2 = currentData.getJSONObject(1)
                     val currentSell2WithFee = currentDt2.getString("sell").toFloat() * (1 + fee2/100)
 
+                    timeText.text = currentTime
+                    currentTimeTag = currentTime
+
                     if(!isDifferentCurrency){
                         val diffB = currentSell2WithFee - currentBuy1WithFee
                         priceText.text = diffB.toString()
                         currencyText.text = "Difference"
-                        timeText.text = currentTime
+                        currentPriceTag = diffB.toString()
                     }
                     else{
                         val rate = currentSell2WithFee / currentBuy1WithFee
                         priceText.text = rate.toString()
                         currencyText.text = "Rate"
-                        timeText.text = currentTime
+                        currentPriceTag = rate.toString()
                     }
 
                 }
@@ -205,9 +233,9 @@ class History {
                     list = listOf(lds)
                 }
 
-                exchange_chart.data = LineData(list)
+                exchangeChart.data = LineData(list)
 
-                var xAxis = exchange_chart.xAxis
+                var xAxis = exchangeChart.xAxis
 
                 xAxis.valueFormatter = object : IAxisValueFormatter {
 
@@ -220,7 +248,7 @@ class History {
                         return mFormat.format(Date(x))
                     }
                 }
-                exchange_chart.invalidate()
+                exchangeChart.invalidate()
             }, Response.ErrorListener { error ->
                 VolleyLog.d("TAG ", "Error: " + error.message)
                 pDialog.hide()

@@ -88,21 +88,6 @@ class Details : AppCompatActivity(), View.OnClickListener {
 
         val term = "period=hour"
 
-        exchange_chart.setDrawMarkers(false)
-
-        exchange_chart.setOnChartValueSelectedListener(object: OnChartValueSelectedListener{
-            override fun onNothingSelected() {
-                time_selected.text = currDateTime.toString()
-                price_selected.text = buy
-            }
-
-            override fun onValueSelected(e: Entry?, h: Highlight?) {
-                time_selected.text = exchange_chart.xAxis.valueFormatter.getFormattedValue(e!!.x, exchange_chart.xAxis)
-                price_selected.text = h!!.y.toString()
-            }
-
-        })
-
         History.draw(siteId, siteName, term, this, view_main, "", "", false, 0f, 0f)
 
     }
