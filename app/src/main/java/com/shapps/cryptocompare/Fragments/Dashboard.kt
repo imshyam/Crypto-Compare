@@ -34,6 +34,7 @@ import com.shapps.cryptocompare.Networking.DetailURLs
 import com.shapps.cryptocompare.R
 import org.json.JSONArray
 import org.json.JSONObject
+import java.math.BigDecimal
 
 /**
  * A fragment representing a list of Items.
@@ -188,9 +189,9 @@ class Dashboard : Fragment() {
                 var cryptoCurr = exchangeCurrent.getString("crypto_curr")
                 var currency = exchangeCurrent.getString("curr")
                 var exchangeId = exchangeCurrent.getString("exchange_id")
-                var priceBuy = exchangeCurrent.getString("buy")
-                var priceSell = exchangeCurrent.getString("sell")
-                var volume = exchangeCurrent.getString("volume")
+                var priceBuy = exchangeCurrent.getString("buy").roundTo2DecimalPlaces()
+                var priceSell = exchangeCurrent.getString("sell").roundTo2DecimalPlaces()
+                var volume = exchangeCurrent.getString("volume").roundTo2DecimalPlaces()
                 var timeInt = prefs.getString("pref_key_storage_min_max_period", "1").toInt()
                 var lowBuy = ""
                 var highBuy = ""
@@ -198,28 +199,28 @@ class Dashboard : Fragment() {
                 var highSell = ""
                 when (timeInt) {
                     1 -> {
-                        lowBuy = exchangeCurrent.getString("last_hour_min_buy")
-                        highBuy = exchangeCurrent.getString("last_hour_max_buy")
-                        lowSell = exchangeCurrent.getString("last_hour_min_sell")
-                        highSell = exchangeCurrent.getString("last_hour_max_sell")
+                        lowBuy = exchangeCurrent.getString("last_hour_min_buy").roundTo2DecimalPlaces()
+                        highBuy = exchangeCurrent.getString("last_hour_max_buy").roundTo2DecimalPlaces()
+                        lowSell = exchangeCurrent.getString("last_hour_min_sell").roundTo2DecimalPlaces()
+                        highSell = exchangeCurrent.getString("last_hour_max_sell").roundTo2DecimalPlaces()
                     }
                     2 -> {
-                        lowBuy = exchangeCurrent.getString("last_day_min_buy")
-                        highBuy = exchangeCurrent.getString("last_day_max_buy")
-                        lowSell = exchangeCurrent.getString("last_day_min_sell")
-                        highSell = exchangeCurrent.getString("last_day_max_sell")
+                        lowBuy = exchangeCurrent.getString("last_day_min_buy").roundTo2DecimalPlaces()
+                        highBuy = exchangeCurrent.getString("last_day_max_buy").roundTo2DecimalPlaces()
+                        lowSell = exchangeCurrent.getString("last_day_min_sell").roundTo2DecimalPlaces()
+                        highSell = exchangeCurrent.getString("last_day_max_sell").roundTo2DecimalPlaces()
                     }
                     3 -> {
-                        lowBuy = exchangeCurrent.getString("last_week_min_buy")
-                        highBuy = exchangeCurrent.getString("last_week_max_buy")
-                        lowSell = exchangeCurrent.getString("last_week_min_sell")
-                        highSell = exchangeCurrent.getString("last_week_max_sell")
+                        lowBuy = exchangeCurrent.getString("last_week_min_buy").roundTo2DecimalPlaces()
+                        highBuy = exchangeCurrent.getString("last_week_max_buy").roundTo2DecimalPlaces()
+                        lowSell = exchangeCurrent.getString("last_week_min_sell").roundTo2DecimalPlaces()
+                        highSell = exchangeCurrent.getString("last_week_max_sell").roundTo2DecimalPlaces()
                     }
                     4 -> {
-                        lowBuy = exchangeCurrent.getString("last_month_min_buy")
-                        highBuy = exchangeCurrent.getString("last_month_max_buy")
-                        lowSell = exchangeCurrent.getString("last_month_min_sell")
-                        highSell = exchangeCurrent.getString("last_month_max_sell")
+                        lowBuy = exchangeCurrent.getString("last_month_min_buy").roundTo2DecimalPlaces()
+                        highBuy = exchangeCurrent.getString("last_month_max_buy").roundTo2DecimalPlaces()
+                        lowSell = exchangeCurrent.getString("last_month_min_sell").roundTo2DecimalPlaces()
+                        highSell = exchangeCurrent.getString("last_month_max_sell").roundTo2DecimalPlaces()
                     }
                 }
 
@@ -283,4 +284,7 @@ class Dashboard : Fragment() {
             return Dashboard()
         }
     }
+
+    private fun String.roundTo2DecimalPlaces() =
+            BigDecimal(this).setScale(2, BigDecimal.ROUND_HALF_UP).toDouble().toString()
 }
