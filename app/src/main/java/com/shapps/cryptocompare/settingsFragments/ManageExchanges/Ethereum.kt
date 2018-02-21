@@ -1,4 +1,4 @@
-package com.shapps.cryptocompare.SettingsFragments.ManageExchanges
+package com.shapps.cryptocompare.settingsFragments.ManageExchanges
 
 import android.content.ContentValues
 import android.content.SharedPreferences
@@ -11,10 +11,10 @@ import android.util.TypedValue
 import android.view.ContextThemeWrapper
 import android.view.MenuItem
 import com.shapps.cryptocompare.R
-import com.shapps.cryptocompare.Activities.Settings
-import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
-import com.shapps.cryptocompare.Model.ExchangeDetailsSchema.ExchangesDetailsEntry.*
-import com.shapps.cryptocompare.SettingsFragments.Main
+import com.shapps.cryptocompare.activities.Settings
+import com.shapps.cryptocompare.model.ExchangeDetailsDbHelper
+import com.shapps.cryptocompare.model.ExchangeDetailsSchema.ExchangesDetailsEntry.*
+import com.shapps.cryptocompare.settingsFragments.Main
 import java.util.regex.Pattern
 
 /**

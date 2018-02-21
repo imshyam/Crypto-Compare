@@ -1,4 +1,4 @@
-package com.shapps.cryptocompare.Model
+package com.shapps.cryptocompare.model
 
 import java.util.ArrayList
 import java.util.HashMap

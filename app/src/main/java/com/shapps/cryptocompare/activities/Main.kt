@@ -1,4 +1,4 @@
-package com.shapps.cryptocompare.Activities
+package com.shapps.cryptocompare.activities
 
 import android.content.Context
 import android.content.Intent
@@ -12,13 +12,13 @@ import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.view.MenuItem
-import com.shapps.cryptocompare.Model.NotificationContent
+import com.shapps.cryptocompare.model.NotificationContent
 import kotlinx.android.synthetic.main.activity_main.*
 import com.github.mikephil.charting.charts.Chart.LOG_TAG
-import com.shapps.cryptocompare.Constants.Exchanges
-import com.shapps.cryptocompare.Fragments.Charts
-import com.shapps.cryptocompare.Fragments.Dashboard
-import com.shapps.cryptocompare.Fragments.Notifications
+import com.shapps.cryptocompare.constants.Exchanges
+import com.shapps.cryptocompare.fragments.Charts
+import com.shapps.cryptocompare.fragments.Dashboard
+import com.shapps.cryptocompare.fragments.Notifications
 import com.shapps.cryptocompare.R
 import java.io.IOException
 import java.nio.charset.Charset

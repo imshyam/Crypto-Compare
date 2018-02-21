@@ -1,4 +1,4 @@
-package com.shapps.cryptocompare.Fragments
+package com.shapps.cryptocompare.fragments
 
 import android.app.AlertDialog
 import android.content.Context
@@ -14,13 +14,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
-import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.highlight.Highlight
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener
-import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
-import com.shapps.cryptocompare.Model.ExchangeDetailsSchema
-import com.shapps.cryptocompare.Networking.History
+import com.shapps.cryptocompare.model.ExchangeDetailsDbHelper
+import com.shapps.cryptocompare.model.ExchangeDetailsSchema
+import com.shapps.cryptocompare.networking.History
 import com.shapps.cryptocompare.R
 
 /**

@@ -1,14 +1,12 @@
-package com.shapps.cryptocompare.Constants
+package com.shapps.cryptocompare.constants
 
-import android.util.Log
-import com.shapps.cryptocompare.Activities.Main
-import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
+import com.shapps.cryptocompare.activities.Main
+import com.shapps.cryptocompare.model.ExchangeDetailsDbHelper
 
 import org.json.JSONArray
 import org.json.JSONObject
 import android.content.ContentValues
-import android.database.sqlite.SQLiteConstraintException
-import com.shapps.cryptocompare.Model.ExchangeDetailsSchema.ExchangesDetailsEntry.*
+import com.shapps.cryptocompare.model.ExchangeDetailsSchema.ExchangesDetailsEntry.*
 
 
 /**

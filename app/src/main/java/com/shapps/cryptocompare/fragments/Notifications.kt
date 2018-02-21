@@ -1,4 +1,4 @@
-package com.shapps.cryptocompare.Fragments
+package com.shapps.cryptocompare.fragments
 
 import android.content.Context
 import android.content.Intent
@@ -10,11 +10,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import com.shapps.cryptocompare.Activities.AddUserNotification
+import com.shapps.cryptocompare.activities.AddUserNotification
 
-import com.shapps.cryptocompare.Model.NotificationContent
-import com.shapps.cryptocompare.Model.NotificationContent.NotificationItem
-import com.shapps.cryptocompare.Adapters.NotificationsRecyclerView
+import com.shapps.cryptocompare.model.NotificationContent
+import com.shapps.cryptocompare.model.NotificationContent.NotificationItem
+import com.shapps.cryptocompare.adapters.NotificationsRecyclerView
 import com.shapps.cryptocompare.R
 
 /**

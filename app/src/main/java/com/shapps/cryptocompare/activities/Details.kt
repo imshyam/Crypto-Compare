@@ -1,4 +1,4 @@
-package com.shapps.cryptocompare.Activities
+package com.shapps.cryptocompare.activities
 
 import android.graphics.Color
 import android.graphics.PorterDuff
@@ -9,10 +9,7 @@ import android.support.v4.content.ContextCompat
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.highlight.Highlight
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener
-import com.shapps.cryptocompare.Networking.History
+import com.shapps.cryptocompare.networking.History
 import com.shapps.cryptocompare.R
 import kotlinx.android.synthetic.main.activity_details.*
 import kotlinx.android.synthetic.main.chart_header.*

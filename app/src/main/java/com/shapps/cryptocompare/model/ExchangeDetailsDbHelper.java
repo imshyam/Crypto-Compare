@@ -1,10 +1,10 @@
-package com.shapps.cryptocompare.Model;
+package com.shapps.cryptocompare.model;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import static com.shapps.cryptocompare.Model.ExchangeDetailsSchema.ExchangesDetailsEntry.*;
+import static com.shapps.cryptocompare.model.ExchangeDetailsSchema.ExchangesDetailsEntry.*;
 
 /**
  * Created by shyam on 14/11/17.

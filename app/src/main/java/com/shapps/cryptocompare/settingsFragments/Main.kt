@@ -1,12 +1,12 @@
-package com.shapps.cryptocompare.SettingsFragments
+package com.shapps.cryptocompare.settingsFragments
 
 import android.os.Bundle
 import android.preference.Preference
 import android.preference.PreferenceFragment
-import com.shapps.cryptocompare.SettingsFragments.ManageExchanges.Bitcoin
-import com.shapps.cryptocompare.SettingsFragments.ManageExchanges.Ethereum
+import com.shapps.cryptocompare.settingsFragments.ManageExchanges.Bitcoin
+import com.shapps.cryptocompare.settingsFragments.ManageExchanges.Ethereum
 import com.shapps.cryptocompare.R
-import com.shapps.cryptocompare.Activities.Settings
+import com.shapps.cryptocompare.activities.Settings
 
 /**
  * Created by shyam on 26/8/17.

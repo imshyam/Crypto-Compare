@@ -9,5 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.shapps.cryptocompare.Fragments.Notifications"
+    tools:context="com.shapps.cryptocompare.fragments.Notifications"
     tools:listitem="@layout/notification_item" />

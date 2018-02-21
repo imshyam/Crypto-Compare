@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activities.Main"
+            android:name=".activities.Main"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -24,32 +24,32 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.Settings"
+            android:name=".activities.Settings"
             android:label="@string/title_activity_settings"
             android:noHistory="true"
-            android:parentActivityName=".Activities.Main"
+            android:parentActivityName=".activities.Main"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.shapps.cryptocompare.Activities.Main" />
+                android:value="com.shapps.cryptocompare.activities.Main" />
         </activity>
         <activity
-            android:name=".Activities.AddUserNotification"
+            android:name=".activities.AddUserNotification"
             android:label="@string/title_add_notification_activity"
             android:noHistory="true"
-            android:parentActivityName=".Activities.Main"
+            android:parentActivityName=".activities.Main"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.shapps.cryptocompare.Activities.Main" />
+                android:value="com.shapps.cryptocompare.activities.Main" />
         </activity>
-        <activity android:name=".Activities.Details"
+        <activity android:name=".activities.Details"
             android:noHistory="true"
-            android:parentActivityName=".Activities.Main"
+            android:parentActivityName=".activities.Main"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.shapps.cryptocompare.Activities.Main" />
+                android:value="com.shapps.cryptocompare.activities.Main" />
         </activity>
     </application>
 

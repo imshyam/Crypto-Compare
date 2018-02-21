@@ -1,4 +1,4 @@
-package com.shapps.cryptocompare.Networking
+package com.shapps.cryptocompare.networking
 
 import android.app.Application
 import android.content.Context

@@ -1,4 +1,4 @@
-package com.shapps.cryptocompare.Adapters
+package com.shapps.cryptocompare.adapters
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 
-import com.shapps.cryptocompare.Fragments.Dashboard.OnListFragmentInteractionListener
-import com.shapps.cryptocompare.Model.LiveDataContent.LiveData
+import com.shapps.cryptocompare.fragments.Dashboard.OnListFragmentInteractionListener
+import com.shapps.cryptocompare.model.LiveDataContent.LiveData
 import com.shapps.cryptocompare.R
 import kotlinx.android.synthetic.main.card_exchanges.view.*
 

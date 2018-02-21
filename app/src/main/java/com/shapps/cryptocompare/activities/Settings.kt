@@ -1,4 +1,4 @@
-package com.shapps.cryptocompare.Activities
+package com.shapps.cryptocompare.activities
 
 import android.content.Context
 import android.content.res.Configuration
@@ -13,7 +13,7 @@ import android.preference.RingtonePreference
 import android.text.TextUtils
 import android.view.MenuItem
 import com.shapps.cryptocompare.R
-import com.shapps.cryptocompare.SettingsFragments.Main
+import com.shapps.cryptocompare.settingsFragments.Main
 
 
 /**

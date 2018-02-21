@@ -1,4 +1,4 @@
-package com.shapps.cryptocompare.Activities
+package com.shapps.cryptocompare.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

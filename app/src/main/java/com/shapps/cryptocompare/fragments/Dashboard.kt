@@ -1,4 +1,4 @@
-package com.shapps.cryptocompare.Fragments
+package com.shapps.cryptocompare.fragments
 
 import android.app.*
 import android.content.Context
@@ -10,27 +10,24 @@ import android.support.v4.app.NotificationCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RemoteViews
-import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyLog
 import com.android.volley.toolbox.StringRequest
-import com.shapps.cryptocompare.Activities.AddUserNotification
-import com.shapps.cryptocompare.Activities.Main
-import com.shapps.cryptocompare.Activities.Settings
-import com.shapps.cryptocompare.Adapters.ExchangesRecyclerView
-import com.shapps.cryptocompare.Model.ExchangeDetailsDbHelper
-import com.shapps.cryptocompare.Model.ExchangeDetailsSchema
+import com.shapps.cryptocompare.activities.Main
+import com.shapps.cryptocompare.activities.Settings
+import com.shapps.cryptocompare.adapters.ExchangesRecyclerView
+import com.shapps.cryptocompare.model.ExchangeDetailsDbHelper
+import com.shapps.cryptocompare.model.ExchangeDetailsSchema
 
-import com.shapps.cryptocompare.Model.LiveDataContent
-import com.shapps.cryptocompare.Networking.AppController
-import com.shapps.cryptocompare.Networking.DetailURLs
+import com.shapps.cryptocompare.model.LiveDataContent
+import com.shapps.cryptocompare.networking.AppController
+import com.shapps.cryptocompare.networking.DetailURLs
 import com.shapps.cryptocompare.R
 import org.json.JSONArray
 import org.json.JSONObject

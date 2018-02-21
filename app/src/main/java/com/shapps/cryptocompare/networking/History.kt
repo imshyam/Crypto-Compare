@@ -1,9 +1,8 @@
-package com.shapps.cryptocompare.Networking
+package com.shapps.cryptocompare.networking
 
 import android.app.ProgressDialog
 import android.content.Context
 import android.graphics.Color
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -17,22 +16,17 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import com.shapps.cryptocompare.Model.LiveDataContent
+import com.shapps.cryptocompare.model.LiveDataContent
 import org.json.JSONArray
 import org.json.JSONObject
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
-import java.time.Instant
 import java.util.*
 import kotlin.collections.HashMap
-import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
-import com.shapps.cryptocompare.Model.XAxisValuesArray
 import com.shapps.cryptocompare.R
-import kotlinx.android.synthetic.main.activity_details.view.*
-import java.util.concurrent.TimeUnit
 
 
 /**
