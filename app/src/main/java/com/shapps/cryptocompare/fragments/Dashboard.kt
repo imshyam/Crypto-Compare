@@ -48,13 +48,15 @@ class Dashboard : Fragment() {
     // TODO: Customize parameters
     private var mColumnCount = 1
     private var mListener: OnListFragmentInteractionListener? = null
-    private var mListenerPriceNotification: OnListFragmentInteractionListener? = null
     private var viewAdap: RecyclerView.Adapter<RecyclerView.ViewHolder>? = null
 
     private lateinit var notificationManager: NotificationManager
 
     private lateinit var getCurrentExchanges: String
     private lateinit var id_name_map: HashMap<Int, String>
+
+    private lateinit var viewNotification: RemoteViews
+    private lateinit var notifyBuilder: NotificationCompat.Builder
 
     private val NOTIFICATION_ID = 0
 
@@ -70,7 +72,7 @@ class Dashboard : Fragment() {
         notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         //notification view
-        var viewNoti = RemoteViews(
+        viewNotification = RemoteViews(
                 context.packageName,
                 R.layout.price_notification_item
         )
@@ -79,20 +81,13 @@ class Dashboard : Fragment() {
         //notification intent
         var notificationIntent = Intent(context, Main::class.java)
         var pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0)
-        var notifyBuilder = NotificationCompat.Builder(context)
+        notifyBuilder = NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_refresh_black_24dp)
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
-//                .setContent(smallViewNoti)
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText("Price List")
                 .setContentIntent(pendingIntent)
-                .setCustomBigContentView(viewNoti)
                 .setAutoCancel(false)
-
-        var notification = notifyBuilder.build()
-
-        notificationManager.notify(NOTIFICATION_ID, notification)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -136,6 +131,8 @@ class Dashboard : Fragment() {
 
         val projection = arrayOf(
                 ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_ID,
+                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_CRYPTO_CURRENCY,
+                ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_CURRENCY,
                 ExchangeDetailsSchema.ExchangesDetailsEntry.COLUMN_NAME_EX_NAME)
 
 // Filter results WHERE "title" = 'My Title'
@@ -154,7 +151,7 @@ class Dashboard : Fragment() {
                 sortOrder                                 // The sort order
         )
         while (cursor.moveToNext()) {
-            id_name_map.put(cursor.getInt(0), cursor.getString(1))
+            id_name_map.put(cursor.getInt(0), cursor.getString(3))
             getCurrentExchanges += cursor.getInt(0).toString() + ","
         }
         cursor.close()
@@ -180,6 +177,10 @@ class Dashboard : Fragment() {
                 url, Response.Listener { response ->
             var currentData = JSONArray(response)
             LiveDataContent.dumpData()
+
+            var exchangeWithNewLine = ""
+            var buyWithNewLine = ""
+            var sellWithNewLine = ""
 
             for(i in 0 until currentData.length()){
                 var exchangeCurrent = JSONObject(currentData.get(i).toString())
@@ -223,12 +224,33 @@ class Dashboard : Fragment() {
 
                 var ex_name = id_name_map[exchangeId.toInt()]
 
+                exchangeWithNewLine += cryptoCurr + " - " + currency + " - " +
+                        ex_name +  "\n"
+                buyWithNewLine += priceBuy + "\n"
+                sellWithNewLine += priceSell + "\n"
+
                 LiveDataContent.addItem(LiveDataContent.LiveData(i.toString(), cryptoCurr, currency , exchangeId,
                         ex_name!!, priceBuy, priceSell, volume, lowBuy, highBuy, lowSell, highSell))
             }
             pDialog.hide()
             pDialog.dismiss()
             viewAdap!!.notifyDataSetChanged()
+
+
+            if(exchangeWithNewLine.length > 0) {
+                exchangeWithNewLine = exchangeWithNewLine.substring(0, exchangeWithNewLine.length - 1)
+                buyWithNewLine = buyWithNewLine.substring(0, buyWithNewLine.length - 1)
+                sellWithNewLine = sellWithNewLine.substring(0, sellWithNewLine.length - 1)
+            }
+
+            viewNotification.setTextViewText(R.id.exchange_name_ni, exchangeWithNewLine)
+            viewNotification.setTextViewText(R.id.buy_price_ni, buyWithNewLine)
+            viewNotification.setTextViewText(R.id.sell_price_ni, sellWithNewLine)
+
+            notifyBuilder.setCustomBigContentView(viewNotification)
+
+            notificationManager.notify(NOTIFICATION_ID, notifyBuilder.build())
+
         }, Response.ErrorListener { error ->
             VolleyLog.d("TAG ", "Error: " + error.message)
             pDialog.hide()
