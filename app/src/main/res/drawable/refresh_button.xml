@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/currencyTagColor"/>
+    <corners android:radius="5dip"/>
+    <gradient
+        android:startColor="#30E5CA"
+        android:endColor="#5EC8F1"/>
+</shape>

@@ -3,109 +3,82 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
+    android:layout_height="wrap_content"
     android:weightSum="9"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
-    <FrameLayout
-        android:layout_width="0px"
-        android:layout_weight="3"
-        android:gravity="center"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/list_item_margin"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/currency_icon_ni"
+            android:layout_width="16dp"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_launcher"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/dot_center"/>
+        <TextView
+            android:id="@+id/time_ni"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="5:10 PM"/>
+    </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_marginLeft="@dimen/list_item_margin"
-            android:layout_height="30dp"
-            android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/currency_icon_ni"
-                android:layout_width="16dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_bitcoin"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/dot_center"/>
-            <TextView
-                android:id="@+id/currency_name_ni"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="SGD"/>
-        </LinearLayout>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="7"
+        android:orientation="horizontal">
         <TextView
             android:id="@+id/exchange_name_ni"
-            android:layout_width="match_parent"
+            android:layout_width="0px"
+            android:layout_weight="2"
             android:layout_height="match_parent"
-            android:text="Fyb-SG"
+            android:text="Fyb-SG\nCoinbase\nZebpay"
+            android:gravity="center|center_vertical"
             android:textColor="@color/colorPrimary"
-            android:textSize="25dp"
-            android:layout_marginLeft="@dimen/list_item_margin"
-            android:gravity="center_vertical"
-            android:textStyle="bold" />
-    </FrameLayout>
-
-    <LinearLayout
-        android:layout_width="0px"
-        android:layout_weight="3"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/buy_price_ni"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="246465.466"
-                android:gravity="center|center_vertical"
-                android:textColor="@color/buyLabel" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginEnd="13dp"
-                android:gravity="bottom"
-                android:text="Buy"
-                android:textColor="@color/buyLabel"/>
-        </RelativeLayout>
+            android:lineSpacingExtra="10dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/buy_price_ni"
+            android:layout_width="0px"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:text="246465.466\n2727632.22\n13122.32"
+            android:lineSpacingExtra="5dp"
+            android:gravity="center|center_vertical"
+            android:textColor="@color/buyLabel" />
+        <TextView
+            android:id="@+id/sell_price_ni"
+            android:layout_width="0px"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:text="123123.466\n264261.2\n21222.32"
+            android:lineSpacingExtra="5dp"
+            android:gravity="center|center_vertical"
+            android:textColor="@color/sellLabel"/>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="0px"
-        android:layout_weight="3"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/sell_price_ni"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="123123.466"
-                android:gravity="center|center_vertical"
-                android:textColor="@color/sellLabel"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginEnd="13dp"
-                android:gravity="bottom"
-                android:text="Sell"
-                android:textColor="@color/sellLabel"/>
-        </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:layout_marginTop="@dimen/list_item_margin">
+        <Button
+            android:layout_marginRight="@dimen/card_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/refresh_button"
+            android:text="Refresh"
+            android:textColor="#FFF"
+            android:textAllCaps="false"
+            android:layout_marginBottom="@dimen/card_margin"/>
     </LinearLayout>
 
 </LinearLayout>
