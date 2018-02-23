@@ -38,6 +38,7 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
     private lateinit var currencySpinner: Spinner
     private lateinit var exchangeSpinner: Spinner
     private lateinit var listIdsForCurrentSettings: MutableList<String>
+    private lateinit var listIdsForCurrentSettings2: MutableList<String>
 
     private var feeBuy: Float = 0.0f
     private var feeSell: Float = 0.0f
@@ -45,15 +46,15 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
     private var isRefreshBcozCryptoCurrency: Boolean = true
 
 
-    private lateinit var siteId: String
-    private lateinit var exchangeName: String
-    private lateinit var term: String
+    private var siteId = ""
+    private var exchangeName = ""
+    private var term = "period=hour"
+    private var siteId2: String = ""
+    private var exchangeName2 = ""
 
 
     private lateinit var currencySpinnerCompare: Spinner
     private lateinit var exchangeSpinnerCompare: Spinner
-    private var siteId2: String = ""
-    private lateinit var exchangeName2: String
 
     private var selectedCryptoCurr: String = "Bitcoin"
 
@@ -101,12 +102,6 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
         }
 
         updateCurrencyAndExchange("Bitcoin")
-        siteId = "1"
-        exchangeName = "Fyb-SG"
-        exchangeName2 = "Fyb-SG"
-        term = "period=hour"
-
-        History.draw(siteId, exchangeName, term, context, view_main, "", exchangeName2,false, feeBuy, feeSell)
 
         btnBtc = view_main.findViewById(R.id.history_btc)
         btnBtc.setOnClickListener(this)
@@ -155,8 +150,8 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
                 isRefreshBcozCryptoCurrency = false
             }
             R.id.exchange_spinner_compare -> {
-                Log.d("Click compare spin", listIdsForCurrentSettings[position])
-                siteId2 = listIdsForCurrentSettings[position]
+                Log.d("Click compare spin", listIdsForCurrentSettings2[position])
+                siteId2 = listIdsForCurrentSettings2[position]
                 exchangeName2 = parent.selectedItem.toString()
                 var isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
                 History.draw(siteId, exchangeName, term,  context, view_main, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
@@ -286,15 +281,15 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
         var listIds: MutableList<String> = arrayListOf()
         var listNames: MutableList<String> = arrayListOf()
         var listExchangesForCurrentSettings: MutableList<String> = arrayListOf()
-        listIdsForCurrentSettings = arrayListOf()
+        listIdsForCurrentSettings2 = arrayListOf()
         while (cursor.moveToNext()){
             listIds.add(cursor.getInt(0).toString())
             listNames.add(cursor.getString(1))
         }
-        listIdsForCurrentSettings.clear()
+        listIdsForCurrentSettings2.clear()
         for (i in 0 until listNames.size){
             listExchangesForCurrentSettings.add(listNames[i])
-            listIdsForCurrentSettings.add(listIds[i])
+            listIdsForCurrentSettings2.add(listIds[i])
         }
 
         var exchangeAdapterComp: ArrayAdapter<String> = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, listExchangesForCurrentSettings)
