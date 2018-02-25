@@ -27,10 +27,17 @@ import java.nio.charset.Charset
 class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
         Notifications.OnListFragmentInteractionListener, Charts.OnFragmentInteractionListener {
 
+    /** 0 = Charts Fragment
+     *  1 = Dashboard
+     *  2 = notification
+     */
+    private var position = 1
+
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         val selectedFragment: Fragment
         when (item.itemId) {
             R.id.navigation_charts -> {
+                position = 0
                 selectedFragment = Charts.newInstance("Apple", "Book")
                 val transaction = supportFragmentManager.beginTransaction()
                 transaction.replace(R.id.main_content_fragment, selectedFragment)
@@ -38,6 +45,7 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
+                position = 1
                 selectedFragment = Dashboard.newInstance()
                 val transaction = supportFragmentManager.beginTransaction()
                 transaction.replace(R.id.main_content_fragment, selectedFragment)
@@ -45,6 +53,7 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
+                position = 2
                 selectedFragment = Notifications.newInstance(10)
                 val transaction = supportFragmentManager.beginTransaction()
                 transaction.replace(R.id.main_content_fragment, selectedFragment)
@@ -55,11 +64,24 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
         false
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        //Save the fragment's instance
+        outState.putInt("curChoice", position);
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val myToolbar = findViewById<View>(R.id.my_toolbar) as Toolbar
         setSupportActionBar(myToolbar)
+
+        // Save Instance
+        if (savedInstanceState != null) {
+            //Restore the fragment's instance
+            position = savedInstanceState.getInt("curChoice", 1)
+        }
 
         var filename = "exchanges_v2.json"
 
@@ -87,17 +109,19 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
             updateOperation()
         })
 
-
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.main_content_fragment, Dashboard.newInstance())
-        transaction.commit()
+        when (position) {
+            0 -> navigation.selectedItemId = R.id.navigation_charts
+            1 -> navigation.selectedItemId = R.id.navigation_dashboard
+            else -> navigation.selectedItemId = R.id.navigation_notifications
+        }
     }
 
     private fun updateOperation() {
-        var refreshFragment = Dashboard.newInstance()
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.main_content_fragment, refreshFragment)
-        transaction.commit()
+        when (position) {
+            0 -> navigation.selectedItemId = R.id.navigation_charts
+            1 -> navigation.selectedItemId = R.id.navigation_dashboard
+            // Don't refresh notification
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -126,6 +150,11 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
     override fun onResume() {
         updateOperation()
         super.onResume()
+        when (position) {
+            0 -> navigation.selectedItemId = R.id.navigation_charts
+            1 -> navigation.selectedItemId = R.id.navigation_dashboard
+            else -> navigation.selectedItemId = R.id.navigation_notifications
+        }
     }
 
     override fun onListFragmentInteraction(cryptoCurrency: String, currency: String, exchangeId: String, exchangeName: String, buy: String, sell: String,
