@@ -30,8 +30,8 @@ import com.shapps.cryptocompare.R
 
 
 /**
- * Created by shyam on 22/11/17.
- */
+* Created by shyam on 22/11/17.
+*/
 class History {
 
     companion object {
@@ -43,8 +43,8 @@ class History {
             val exchangeChart = view.findViewById<LineChart>(R.id.exchange_chart)
 
 
-            var priceSelected = view.findViewById<TextView>(R.id.price_selected)
-            var timeSelected = view.findViewById<TextView>(R.id.time_selected)
+            val priceSelected = view.findViewById<TextView>(R.id.price_selected)
+            val timeSelected = view.findViewById<TextView>(R.id.time_selected)
 
             exchangeChart.setDrawMarkers(false)
 
@@ -70,7 +70,7 @@ class History {
                 url = DetailURLs.URL_GET_HISTORY + siteId + "," + siteId2 + "&" + term
             }
 
-            var pDialog = ProgressDialog(activity)
+            val pDialog = ProgressDialog(activity)
             pDialog.setMessage("Loading...")
             pDialog.show()
 
