@@ -32,6 +32,8 @@ import com.shapps.cryptocompare.R
 import org.json.JSONArray
 import org.json.JSONObject
 import java.math.BigDecimal
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * A fragment representing a list of Items.
@@ -222,11 +224,11 @@ class Dashboard : Fragment() {
                     }
                 }
 
-                var ex_name = id_name_map[exchangeId.toInt()]
+                val ex_name = id_name_map[exchangeId.toInt()]
 
-                exchangeWithNewLine += cryptoCurr + " - " + currency + " - " +
+                exchangeWithNewLine += cryptoCurr + " - " +
                         ex_name +  "\n"
-                buyWithNewLine += priceBuy + "\n"
+                buyWithNewLine += currency + " " + priceBuy + "\n"
                 sellWithNewLine += priceSell + "\n"
 
                 LiveDataContent.addItem(LiveDataContent.LiveData(i.toString(), cryptoCurr, currency , exchangeId,
@@ -243,6 +245,8 @@ class Dashboard : Fragment() {
                 sellWithNewLine = sellWithNewLine.substring(0, sellWithNewLine.length - 1)
             }
 
+            val sdf = SimpleDateFormat("HH:mm a")
+            viewNotification.setTextViewText(R.id.time_ni, sdf.format(Calendar.getInstance().time))
             viewNotification.setTextViewText(R.id.exchange_name_ni, exchangeWithNewLine)
             viewNotification.setTextViewText(R.id.buy_price_ni, buyWithNewLine)
             viewNotification.setTextViewText(R.id.sell_price_ni, sellWithNewLine)
