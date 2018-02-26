@@ -191,8 +191,8 @@ class History {
                         i++
                     }
                     lds = LineDataSet(entries, siteName + " Buy")
-                    lds.color = Color.parseColor("#003838")
-                    lds.valueTextColor = Color.parseColor("#bbbbbb")
+                    lds.color = Color.parseColor("#002F53")
+                    lds.setDrawValues(false)
 
                     var entries1 = ArrayList<Entry>()
                     i = 0f
@@ -202,8 +202,8 @@ class History {
                         i++
                     }
                     lds1 = LineDataSet(entries1, siteName + " Sell")
-                    lds1.color = Color.parseColor("#01B6AD")
-                    lds1.valueTextColor = Color.parseColor("#0A4958")
+                    lds1.color = Color.parseColor("#2CDE80")
+                    lds1.setDrawValues(false)
 
                     list = listOf(lds, lds1)
                 }
@@ -233,8 +233,8 @@ class History {
                         LineDataSet(entries, "Currency rate Graph for Buy at $siteName and sell at $siteName2")
                     else
                         LineDataSet(entries, "Margin Graph for Buy at $siteName and sell at $siteName2")
-                    lds.color = Color.parseColor("#01B6AD")
-                    lds.valueTextColor = Color.parseColor("#0A4958")
+                    lds.color = Color.parseColor("#2CDE80")
+                    lds.setDrawValues(false)
 
                     list = listOf(lds)
                 }
