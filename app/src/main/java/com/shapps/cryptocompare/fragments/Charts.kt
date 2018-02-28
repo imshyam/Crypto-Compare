@@ -86,18 +86,18 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
          else
             compareBar.visibility = View.GONE
 
-        currencySpinner = view_main?.findViewById(R.id.currency_spinner)
+        currencySpinner = view_main.findViewById(R.id.currency_spinner)
         currencySpinner.onItemSelectedListener = this
-        exchangeSpinner = view_main?.findViewById(R.id.exchange_spinner)
+        exchangeSpinner = view_main.findViewById(R.id.exchange_spinner)
         exchangeSpinner.onItemSelectedListener = this
 
         if (graphType == 2) {
-            currencySpinnerCompare = view_main?.findViewById(R.id.currency_spinner_compare)
+            currencySpinnerCompare = view_main.findViewById(R.id.currency_spinner_compare)
             currencySpinnerCompare.onItemSelectedListener = this
-            exchangeSpinnerCompare = view_main?.findViewById(R.id.exchange_spinner_compare)
+            exchangeSpinnerCompare = view_main.findViewById(R.id.exchange_spinner_compare)
             exchangeSpinnerCompare.onItemSelectedListener = this
 
-            var viewEditFee = view_main?.findViewById<Button>(R.id.view_edit_fee)
+            var viewEditFee = view_main.findViewById<Button>(R.id.view_edit_fee)
             viewEditFee.setOnClickListener(this)
         }
 
@@ -132,7 +132,6 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
         when(parent?.id){
             R.id.currency_spinner -> {
                 updateExchange(selectedCryptoCurr, parent.selectedItem.toString())
-                isRefreshBcozCryptoCurrency = false
             }
             R.id.currency_spinner_compare -> {
                 updateExchangeCompare(selectedCryptoCurr, parent.selectedItem.toString())
@@ -147,14 +146,14 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
                     false
                 if (graphType == 1 || !isRefreshBcozCryptoCurrency)
                     History.draw(siteId, exchangeName, term,  context, view_main, siteId2,exchangeName2, isDiffCurr, feeBuy,feeSell)
-                isRefreshBcozCryptoCurrency = false
             }
             R.id.exchange_spinner_compare -> {
                 Log.d("Click compare spin", listIdsForCurrentSettings2[position])
                 siteId2 = listIdsForCurrentSettings2[position]
                 exchangeName2 = parent.selectedItem.toString()
-                var isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+                val isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
                 History.draw(siteId, exchangeName, term,  context, view_main, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
+                isRefreshBcozCryptoCurrency = false
             }
         }
     }
@@ -181,18 +180,21 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
                 dialog.show()
             }
             R.id.history_btc -> {
+                isRefreshBcozCryptoCurrency = true
                 selectedCryptoCurr = "Bitcoin"
                 var x = v as Button
                 updateStyleCryptoButton(x)
                 updateCurrencyAndExchange("Bitcoin")
             }
             R.id.history_eth -> {
+                isRefreshBcozCryptoCurrency = true
                 selectedCryptoCurr = "Ethereum"
                 var x = v as Button
                 updateStyleCryptoButton(x)
                 updateCurrencyAndExchange("Ethereum")
             }
             R.id.history_ltc -> {
+                isRefreshBcozCryptoCurrency = true
                 selectedCryptoCurr = "Litecoin"
                 var x = v as Button
                 updateStyleCryptoButton(x)
@@ -384,8 +386,6 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
         var exchangeAdapter: ArrayAdapter<String> = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, arrayListOf())
         exchangeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         exchangeSpinner.adapter = exchangeAdapter
-
-
     }
 
     private fun updateStyleCryptoButton(x: Button) {
