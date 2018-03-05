@@ -19,7 +19,6 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyLog
 import com.android.volley.toolbox.StringRequest
-import com.shapps.cryptocompare.activities.Main
 import com.shapps.cryptocompare.activities.Settings
 import com.shapps.cryptocompare.adapters.ExchangesRecyclerView
 import com.shapps.cryptocompare.model.ExchangeDetailsDbHelper
@@ -29,6 +28,8 @@ import com.shapps.cryptocompare.model.LiveDataContent
 import com.shapps.cryptocompare.networking.AppController
 import com.shapps.cryptocompare.networking.DetailURLs
 import com.shapps.cryptocompare.R
+import com.shapps.cryptocompare.UpdateService
+import com.shapps.cryptocompare.activities.Main
 import org.json.JSONArray
 import org.json.JSONObject
 import java.math.BigDecimal
@@ -62,7 +63,6 @@ class Dashboard : Fragment() {
 
     private val NOTIFICATION_ID = 0
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -79,10 +79,15 @@ class Dashboard : Fragment() {
                 R.layout.price_notification_item
         )
 
-        // TODO
         //notification intent
-        var notificationIntent = Intent(context, Main::class.java)
-        var pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0)
+        val notificationIntent = Intent(context, UpdateService::class.java)
+        val pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0)
+        viewNotification.setOnClickPendingIntent(R.id.refresh_notification,
+                PendingIntent.getService(context, 0, notificationIntent.setAction(ACTION_REFRESH), 0))
+        viewNotification.setOnClickPendingIntent(R.id.notification_content,
+                PendingIntent.getService(context, 0, notificationIntent.setAction(ACTION_OPEN_APP), 0))
+
+        // TODO
         notifyBuilder = NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_refresh_black_24dp)
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
@@ -306,6 +311,9 @@ class Dashboard : Fragment() {
 //            fragment.arguments = args
             return Dashboard()
         }
+
+        const val ACTION_REFRESH = "REFRESH"
+        const val ACTION_OPEN_APP = "OPEN_APP"
     }
 
     private fun String.roundTo2DecimalPlaces() =

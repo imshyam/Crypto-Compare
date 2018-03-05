@@ -51,6 +51,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.shapps.cryptocompare.activities.Main" />
         </activity>
+        <service
+            android:name=".UpdateService"
+            android:exported="true" />
     </application>
 
 </manifest>
