@@ -158,97 +158,99 @@ class Charts : Fragment(), View.OnClickListener, OnItemSelectedListener {
         }
     }
 
-    override fun onClick(v: View?) {
-        when(v?.id) {
-            R.id.view_edit_fee -> {
-                val feeDialog: AlertDialog.Builder = AlertDialog.Builder(context)
-                val li : LayoutInflater = LayoutInflater.from(context)
-                val view = li.inflate(R.layout.dialog_fee, null)
-                val buyFee = view.findViewById<EditText>(R.id.buy_fee_dialog)
-                val sellFee = view.findViewById<EditText>(R.id.sell_fee_dialog)
-                buyFee.setText(feeBuy.toString())
-                sellFee.setText(feeSell.toString())
-                feeDialog.setView(view)
-                feeDialog.setPositiveButton("Apply", { dialog, _ ->
-                    feeBuy = buyFee.text.toString().toFloat()
-                    feeSell = sellFee.text.toString().toFloat()
-                    dialog.dismiss()
-                    val isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
-                    History.draw(siteId, exchangeName, term,  context, view_main, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell) })
-                feeDialog.setNegativeButton("Cancel", {dialog, _ -> dialog.dismiss() })
-                val dialog: AlertDialog = feeDialog.create()
-                dialog.show()
-            }
-            R.id.history_btc -> {
-                isRefreshBcozCryptoCurrency = true
-                selectedCryptoCurr = "Bitcoin"
-                var x = v as Button
-                updateStyleCryptoButton(x)
-                updateCurrencyAndExchange("Bitcoin")
-            }
-            R.id.history_eth -> {
-                isRefreshBcozCryptoCurrency = true
-                selectedCryptoCurr = "Ethereum"
-                var x = v as Button
-                updateStyleCryptoButton(x)
-                updateCurrencyAndExchange("Ethereum")
-            }
-            R.id.history_ltc -> {
-                isRefreshBcozCryptoCurrency = true
-                selectedCryptoCurr = "Litecoin"
-                var x = v as Button
-                updateStyleCryptoButton(x)
-                updateCurrencyAndExchange("Litecoin")
-            }
+    override fun onClick(v: View?) = when(v?.id) {
+        R.id.view_edit_fee -> {
+            val feeDialog: AlertDialog.Builder = AlertDialog.Builder(context)
+            val li : LayoutInflater = LayoutInflater.from(context)
+            val view = li.inflate(R.layout.dialog_fee, null)
+            val buyFee = view.findViewById<EditText>(R.id.buy_fee_dialog)
+            val sellFee = view.findViewById<EditText>(R.id.sell_fee_dialog)
+            buyFee.setText(feeBuy.toString())
+            sellFee.setText(feeSell.toString())
+            feeDialog.setView(view)
+            feeDialog.setPositiveButton("Apply", { dialog, _ ->
+                feeBuy = if(buyFee.text.toString() == "") 0f else {
+                    buyFee.text.toString().toFloat()
+                }
+                feeSell = if (sellFee.text.toString() == "") 0f else {
+                    sellFee.text.toString().toFloat()
+                }
+                dialog.dismiss()
+                val isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+                History.draw(siteId, exchangeName, term,  context, view_main, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell) })
+            feeDialog.setNegativeButton("Cancel", {dialog, _ -> dialog.dismiss() })
+            val dialog: AlertDialog = feeDialog.create()
+            dialog.show()
+        }
+        R.id.history_btc -> {
+            isRefreshBcozCryptoCurrency = true
+            selectedCryptoCurr = "Bitcoin"
+            var x = v as Button
+            updateStyleCryptoButton(x)
+            updateCurrencyAndExchange("Bitcoin")
+        }
+        R.id.history_eth -> {
+            isRefreshBcozCryptoCurrency = true
+            selectedCryptoCurr = "Ethereum"
+            var x = v as Button
+            updateStyleCryptoButton(x)
+            updateCurrencyAndExchange("Ethereum")
+        }
+        R.id.history_ltc -> {
+            isRefreshBcozCryptoCurrency = true
+            selectedCryptoCurr = "Litecoin"
+            var x = v as Button
+            updateStyleCryptoButton(x)
+            updateCurrencyAndExchange("Litecoin")
+        }
 
-            R.id.period_1_hour -> {
-                term = "period=hour"
-                var x = v as Button
-                updateStyle(x)
-                var isDiffCurr = false
-                if (graphType == 2)
-                    isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
-                History.draw(siteId, exchangeName, term, context, view_main, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
-            }
-            R.id.period_1_day -> {
-                term = "period=day"
-                var x = v as Button
-                updateStyle(x)
-                var isDiffCurr = false
-                if (graphType == 2)
-                    isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
-                History.draw(siteId, exchangeName, term, context, view_main, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
-            }
-            R.id.period_1_week -> {
-                term = "period=week"
-                var x = v as Button
-                updateStyle(x)
-                var isDiffCurr = false
-                if (graphType == 2)
-                    isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
-                History.draw(siteId, exchangeName, term, context, view_main, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
-            }
-            R.id.period_1_month -> {
-                term = "period=month"
-                var x = v as Button
-                updateStyle(x)
-                var isDiffCurr = false
-                if (graphType == 2)
-                    isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
-                History.draw(siteId, exchangeName, term, context, view_main, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
-            }
-            R.id.period_all -> {
-                term = "period=all"
-                var x = v as Button
-                updateStyle(x)
-                var isDiffCurr = false
-                if (graphType == 2)
-                    isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
-                History.draw(siteId, exchangeName, term, context, view_main, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
-            }
-            else -> {
+        R.id.period_1_hour -> {
+            term = "period=hour"
+            var x = v as Button
+            updateStyle(x)
+            var isDiffCurr = false
+            if (graphType == 2)
+                isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+            History.draw(siteId, exchangeName, term, context, view_main, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
+        }
+        R.id.period_1_day -> {
+            term = "period=day"
+            var x = v as Button
+            updateStyle(x)
+            var isDiffCurr = false
+            if (graphType == 2)
+                isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+            History.draw(siteId, exchangeName, term, context, view_main, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
+        }
+        R.id.period_1_week -> {
+            term = "period=week"
+            var x = v as Button
+            updateStyle(x)
+            var isDiffCurr = false
+            if (graphType == 2)
+                isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+            History.draw(siteId, exchangeName, term, context, view_main, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
+        }
+        R.id.period_1_month -> {
+            term = "period=month"
+            var x = v as Button
+            updateStyle(x)
+            var isDiffCurr = false
+            if (graphType == 2)
+                isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+            History.draw(siteId, exchangeName, term, context, view_main, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
+        }
+        R.id.period_all -> {
+            term = "period=all"
+            var x = v as Button
+            updateStyle(x)
+            var isDiffCurr = false
+            if (graphType == 2)
+                isDiffCurr = currencySpinner.selectedItem.toString() != currencySpinnerCompare.selectedItem.toString()
+            History.draw(siteId, exchangeName, term, context, view_main, siteId2, exchangeName2, isDiffCurr, feeBuy, feeSell)
+        }
+        else -> {
 
-            }
         }
     }
 
