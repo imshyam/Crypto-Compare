@@ -29,7 +29,6 @@ import com.shapps.cryptocompare.networking.AppController
 import com.shapps.cryptocompare.networking.DetailURLs
 import com.shapps.cryptocompare.R
 import com.shapps.cryptocompare.UpdateService
-import com.shapps.cryptocompare.activities.Main
 import org.json.JSONArray
 import org.json.JSONObject
 import java.math.BigDecimal
@@ -60,8 +59,6 @@ class Dashboard : Fragment() {
 
     private lateinit var viewNotification: RemoteViews
     private lateinit var notifyBuilder: NotificationCompat.Builder
-
-    private val NOTIFICATION_ID = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -244,7 +241,7 @@ class Dashboard : Fragment() {
             viewAdap!!.notifyDataSetChanged()
 
 
-            if(exchangeWithNewLine.length > 0) {
+            if(exchangeWithNewLine.isNotEmpty()) {
                 exchangeWithNewLine = exchangeWithNewLine.substring(0, exchangeWithNewLine.length - 1)
                 buyWithNewLine = buyWithNewLine.substring(0, buyWithNewLine.length - 1)
                 sellWithNewLine = sellWithNewLine.substring(0, sellWithNewLine.length - 1)
@@ -314,6 +311,7 @@ class Dashboard : Fragment() {
 
         const val ACTION_REFRESH = "REFRESH"
         const val ACTION_OPEN_APP = "OPEN_APP"
+        const val NOTIFICATION_ID = 0
     }
 
     private fun String.roundTo2DecimalPlaces() =
