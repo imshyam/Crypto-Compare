@@ -15,6 +15,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyLog
 import com.android.volley.toolbox.StringRequest
+import com.shapps.cryptocompare.activities.Main
 import com.shapps.cryptocompare.fragments.Dashboard
 import com.shapps.cryptocompare.fragments.Dashboard.Companion.NOTIFICATION_ID
 import com.shapps.cryptocompare.model.ExchangeDetailsDbHelper
@@ -136,8 +137,8 @@ class UpdateService: Service() {
         }
         else if(intent?.action.equals(Dashboard.ACTION_OPEN_APP)) {
             // Cancel Notification
-            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.cancel(NOTIFICATION_ID)
+            var mainIntent = Intent(context, Main::class.java)
+            startActivity(mainIntent)
         }
         return super.onStartCommand(intent, flags, startId)
     }
