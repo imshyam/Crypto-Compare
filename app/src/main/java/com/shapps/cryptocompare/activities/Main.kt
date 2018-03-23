@@ -72,6 +72,8 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val myToolbar = findViewById<View>(R.id.my_toolbar) as Toolbar

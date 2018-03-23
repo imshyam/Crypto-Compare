@@ -28,7 +28,8 @@ import com.shapps.cryptocompare.model.LiveDataContent
 import com.shapps.cryptocompare.networking.AppController
 import com.shapps.cryptocompare.networking.DetailURLs
 import com.shapps.cryptocompare.R
-import com.shapps.cryptocompare.UpdateService
+import com.shapps.cryptocompare.UpdateBroadcast
+import com.shapps.cryptocompare.activities.Main
 import org.json.JSONArray
 import org.json.JSONObject
 import java.math.BigDecimal
@@ -77,12 +78,13 @@ class Dashboard : Fragment() {
         )
 
         //notification intent
-        val notificationIntent = Intent(context, UpdateService::class.java)
-        val pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0)
-        viewNotification.setOnClickPendingIntent(R.id.refresh_notification,
-                PendingIntent.getService(context, 0, notificationIntent.setAction(ACTION_REFRESH), 0))
-        viewNotification.setOnClickPendingIntent(R.id.notification_content,
-                PendingIntent.getService(context, 0, notificationIntent.setAction(ACTION_OPEN_APP), 0))
+        var intent = Intent(context, Main::class.java)
+        val contentIntent = TaskStackBuilder.create(context)
+                .addNextIntentWithParentStack(intent)
+                .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        val brodcastIntent = Intent(context, UpdateBroadcast::class.java)
+        viewNotification.setOnClickPendingIntent(R.id.refresh_notification, PendingIntent.getBroadcast(context, 0, brodcastIntent, 0))
 
         // TODO
         notifyBuilder = NotificationCompat.Builder(context)
@@ -90,7 +92,7 @@ class Dashboard : Fragment() {
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText("Price List")
-                .setContentIntent(pendingIntent)
+                .setContentIntent(contentIntent)
                 .setAutoCancel(false)
     }
 
@@ -309,7 +311,7 @@ class Dashboard : Fragment() {
             return Dashboard()
         }
 
-        const val ACTION_REFRESH = "REFRESH"
+        const val ACTION_REFRESH = "REFRESH_NOTIFICATION"
         const val ACTION_OPEN_APP = "OPEN_APP"
         const val NOTIFICATION_ID = 0
     }
