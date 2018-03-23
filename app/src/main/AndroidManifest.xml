@@ -3,7 +3,7 @@
     package="com.shapps.cryptocompare">
 
     <!-- To access APIs: -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -43,7 +43,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.shapps.cryptocompare.activities.Main" />
         </activity>
-        <activity android:name=".activities.Details"
+        <activity
+            android:name=".activities.Details"
             android:noHistory="true"
             android:parentActivityName=".activities.Main"
             android:theme="@style/AppTheme.NoActionBar">
@@ -51,9 +52,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.shapps.cryptocompare.activities.Main" />
         </activity>
-        <service
-            android:name=".UpdateService"
-            android:exported="true" />
+
+        <receiver
+            android:name=".UpdateBroadcast"
+            android:enabled="true"
+            android:exported="true"></receiver>
     </application>
 
 </manifest>
