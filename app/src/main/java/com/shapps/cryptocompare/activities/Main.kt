@@ -76,8 +76,8 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val myToolbar = findViewById<View>(R.id.my_toolbar) as Toolbar
-        setSupportActionBar(myToolbar)
+//        val myToolbar = findViewById<View>(R.id.my_toolbar) as Toolbar
+//        setSupportActionBar(myToolbar)
 
         // Save Instance
         if (savedInstanceState != null) {
@@ -126,28 +126,29 @@ class Main : AppCompatActivity(), Dashboard.OnListFragmentInteractionListener,
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.toolbar_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle item selection
-        return when (item.itemId) {
-            R.id.action_settings -> {
-                val settingsAct = Intent(applicationContext, Settings::class.java)
-                startActivity(settingsAct)
-                true
-            }
-            R.id.menu_refresh -> {
-                Log.i(LOG_TAG, "Refresh menu item selected");
-                updateOperation();
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
+    // ToDo Create Refresh and settings
+//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+//        val inflater = menuInflater
+//        inflater.inflate(R.menu.toolbar_menu, menu)
+//        return true
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        // Handle item selection
+//        return when (item.itemId) {
+//            R.id.action_settings -> {
+//                val settingsAct = Intent(applicationContext, Settings::class.java)
+//                startActivity(settingsAct)
+//                true
+//            }
+//            R.id.menu_refresh -> {
+//                Log.i(LOG_TAG, "Refresh menu item selected");
+//                updateOperation();
+//                true
+//            }
+//            else -> super.onOptionsItemSelected(item)
+//        }
+//    }
 
     override fun onResume() {
         updateOperation()
