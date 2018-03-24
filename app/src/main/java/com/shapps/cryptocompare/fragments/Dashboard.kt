@@ -3,10 +3,14 @@ package com.shapps.cryptocompare.fragments
 import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.os.Build
+import android.os.Build.VERSION_CODES.O
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
 import android.support.v4.app.NotificationCompat
+import android.support.v4.app.NotificationManagerCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -87,11 +91,23 @@ class Dashboard : Fragment() {
         viewNotification.setOnClickPendingIntent(R.id.refresh_notification, PendingIntent.getBroadcast(context, 0, brodcastIntent, 0))
 
         // TODO
+        @RequiresApi(O)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channelName = "Price Notification"
+            val description = "Selected Exchanges' price notification will be shown"
+            val importance = NotificationManagerCompat.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, channelName, importance)
+            channel.description = description
+
+
+            // Register the channel with the system
+            notificationManager.createNotificationChannel(channel)
+        }
         notifyBuilder = NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_refresh_black_24dp)
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
                 .setContentTitle(getString(R.string.app_name))
-                .setContentText("Price List")
+                .setContentText("Expand for list")
                 .setContentIntent(contentIntent)
                 .setAutoCancel(false)
     }
@@ -314,6 +330,7 @@ class Dashboard : Fragment() {
         const val ACTION_REFRESH = "REFRESH_NOTIFICATION"
         const val ACTION_OPEN_APP = "OPEN_APP"
         const val NOTIFICATION_ID = 0
+        const val CHANNEL_ID = "PRICE"
     }
 
     private fun String.roundTo2DecimalPlaces() =
