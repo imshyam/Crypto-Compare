@@ -20,10 +20,10 @@ public class ExchangeDetailsSchema {
         public static final String COLUMN_NAME_EX_NAME = "name";
         public static final String COLUMN_NAME_CRYPTO_CURRENCY = "crypto";
         public static final String COLUMN_NAME_CURRENCY = "curr";
-        public static final String COLUMN_NAME_BUY_FEE = "0";
-        public static final String COLUMN_NAME_SELL_FEE = "0";
-        public static final String COLUMN_NAME_APP_ADDRESS = "google.com";
-        public static final String COLUMN_NAME_WEB_ADDRESS = "google.com";
+        public static final String COLUMN_NAME_BUY_FEE = "buy_fee";
+        public static final String COLUMN_NAME_SELL_FEE = "sell_fee";
+        public static final String COLUMN_NAME_APP_ADDRESS = "app_address";
+        public static final String COLUMN_NAME_WEB_ADDRESS = "web_address";
         public static final String COLUMN_NAME_ACTIVE = "active";
     }
 
